@@ -1,0 +1,10 @@
+{% extends "flashcards/base.html" %}
+{% block content %}
+    <h1>Set name</h1>
+    <p>created on {{ set.created|date:"F d, Y" }}, last modified {{ set.last_modified|date:"F d, Y" }}</p>
+    <ol>
+        {% for flashcard in flashcards %}
+            <li>{{ flashcard.front }}{{ flashcard.back }}</li>
+        {% endfor %}
+    </ol>
+{% endblock content %}

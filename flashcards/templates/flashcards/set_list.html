@@ -1,0 +1,9 @@
+{% extends "flashcards/base.html" %}
+{% block content %}
+    <h1>Your Flashcards</h1>
+    <ol>
+        {% for set in sets %}
+            <li><a href="#"><b>{{ set.name }}</b>, <small>created on {{ set.created|date:"F d, Y" }}</small></a></li>
+        {% endfor %}
+    </ol>
+{% endblock content %}
