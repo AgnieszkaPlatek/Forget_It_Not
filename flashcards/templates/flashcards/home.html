@@ -3,11 +3,11 @@
   <div class="content-section">
     {% if user.is_authenticated %}
       <h2>Welcome {{ user.username }}!</h2>
-      <p>Begin learning!</p>
+      <p>Happy learning!</p>
 
     {% else %}
       <h2>Welcome!</h2>
-      <p>Begin creating your own sets of flashcards, so you you will<br>
+      <p>Begin creating your own sets of flashcards, so you will<br>
         <b>NOT FORGET</b> what you choose to remember!</p>
       <p><a href="{% url 'flashcards-about' %}">Here</a> you can learn how to use it!<p>
       <p>Already have an account?<br>

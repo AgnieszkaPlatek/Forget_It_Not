@@ -1,9 +1,16 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <h1>Your Flashcards</h1>
-    <ol>
-        {% for set in sets %}
-            <li><a href="#"><b>{{ set.name }}</b>, <small>created on {{ set.created|date:"F d, Y" }}</small></a></li>
-        {% endfor %}
-    </ol>
+    <div class="content section">
+        <h1>Your Flashcard Sets</h1>
+        <ol>
+            {% for set in sets %}
+                {% if set.owner == user %}
+                        <li><a href="#"><b>{{ set.name }}</b>, <small>created on {{ set.created|date:"F d, Y" }}</small></a></li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+        <form>
+          <button class="btn btn-outline-info" type="submit" formaction="#">New Set</button>
+        </form>
+    </div>
 {% endblock content %}

@@ -1,0 +1,12 @@
+{% extends "flashcards/base.html" %}
+{% block content %}
+    <h1>{{ set.name }}</h1>
+    <small>Created on {{ set.created|date:"F d, Y" }}</small>
+    <ol>
+        {% for flashcard in flashcards %}
+            {% if flashcard.set == set %}
+                <li><a href="#">{{ flashcard.front }} - {{ flashcard.back }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+{% endblock content %}
