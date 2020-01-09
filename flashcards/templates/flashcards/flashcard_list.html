@@ -1,6 +1,6 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <h1>{{ set.name }}</h1>
+    <h1>{{ flashcard.set }}</h1>
     <small>Created on {{ set.created|date:"F d, Y" }}</small>
     <ol>
         {% for flashcard in flashcards %}

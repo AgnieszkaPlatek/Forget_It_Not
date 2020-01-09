@@ -25,17 +25,18 @@ class SetListView(ListView):
     context_object_name = 'sets'
     ordering = ['-created']
 
-''''@login_required
+'''@login_required
 def flashcard_list(request):
     context = {
         'flashcards': Flashcard.objects.all()
     }
     return render(request, 'flashcards/<str:name>.html', context)'''
 
-'''class FlashcardListView(ListView):
+class FlashcardListView(ListView):
     model = Flashcard
+    template_name = 'flashcards/<str:set>.html'
     context_object_name = 'flashcards'
-    ordering = ['added']'''
+    ordering = ['added']
 
 
 @login_required
