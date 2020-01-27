@@ -1,16 +1,19 @@
 from django.urls import path
-from .views import SetListView, FlashcardListView
+from .views import (
+    SetListView,
+    FlashcardDetailView
+)
 from . import views
+
 
 urlpatterns = [
     path('', views.home, name="flashcards-home"),
     path('about/', views.about, name="flashcards-about"),
-    #path('set_list/', views.set_list, name='set-list'),
-    path('flashcards/set_list/', SetListView.as_view(), name='set-list'),
-    path('flashcards/<str:flashcard.set.name>', FlashcardListView.as_view(), name='flashcard-list'),
-    #path('flashcards/<str:name>/', views.flashcard_list, name='flashcard-list'),
-    path('learn/', views.learn, name='learn'),
-    path('test/', views.test, name='test'),
+    path('set/list/', SetListView.as_view(), name="set-list"),
+    path('set/<int:pk>/', views.flashcard_list, name="flashcard-list"),
+    path('set/flashcard/<int:pk>/', FlashcardDetailView.as_view(), name="flashcard-detail"),
+    path('set/learn/', views.learn, name="learn"),
+    path('set/test/', views.test, name="test")
 ]
 
 # <app>/<model>_<viewtype>.html - default path for class views

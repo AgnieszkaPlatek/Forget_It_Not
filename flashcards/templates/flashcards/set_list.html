@@ -1,11 +1,12 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <h1>Your Flashcard Sets</h1>
+        <h3>Flashcard Sets</h3>
+        <h6>by {{ user }}</h6>
         <ol>
             {% for set in sets %}
                 {% if set.owner == user %}
-                        <li><a href="#"><b>{{ set.name }}</b>, <small>created on {{ set.created|date:"F d, Y" }}</small></a></li>
+                        <li><a href="{% url 'flashcard-list' set.id %}"><b>{{ set.name }}</b>, <small>created on {{ set.created|date:"F d, Y" }}</small></a></li>
                 {% endif %}
             {% endfor %}
         </ol>

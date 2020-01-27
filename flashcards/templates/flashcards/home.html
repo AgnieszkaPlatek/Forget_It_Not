@@ -2,16 +2,39 @@
 {% block content %}
   <div class="content-section">
     {% if user.is_authenticated %}
-      <h2>Welcome {{ user.username }}!</h2>
-      <p>Happy learning!</p>
+      <h3>Welcome {{ user.username }}!</h3>
+      <i>Repetition is the mother of all learning.</i>
+      <hr/>
+      <strong>Happy learning!</strong>
+      <hr/>
+      <form>
+        <button class="btn btn-outline-info" type="submit" formaction="#">Your Sets</button>
+      </form>
+      <hr/>
+      <form>
+        <button class="btn btn-outline-info" type="submit" formaction="#">New Set</button>
+      </form>
+      <hr/>
+      <form>
+        <button class="btn btn-outline-info" type="submit" formaction="#">Learn</button>
+      </form>
+      <hr/>
+      <form>
+        <button class="btn btn-outline-info" type="submit" formaction="#">Test</button>
+      </form>
+      <hr/>
 
     {% else %}
       <h2>Welcome!</h2>
-      <p>Begin creating your own sets of flashcards, so you will <b>NOT FORGET</b>
-        <br>what you choose to remember!</p>
-      <p><a href="{% url 'flashcards-about' %}">Here</a> you can learn how to use it!<p>
-      <p>Already have an account?<br>
-      Please <a href="{% url 'login' %}">log in</a> to begin.</p>
+      <h5><q>Repetition is the mother of all learning</q></h5>
+      <p>This site makes repeating easy - just create your own sets of flashcards!</p>
+      <hr/>
+        <p>Begin creating your own sets of flashcards, so you will <br>
+          <b>NOT FORGET</b> what you choose to remember!</p>
+        Please <a href="{% url 'register' %}">sign up</a> to begin learning.</p>
+        <hr/>
+        <p>Already have an account?<br>
+        Please <a href="{% url 'login' %}">log in</a>.</p>
 
     {% endif %}
   </div>
