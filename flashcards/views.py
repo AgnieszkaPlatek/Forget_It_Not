@@ -16,14 +16,32 @@ def home(request):
     return render(request, 'flashcards/home.html')
 
 
-def about(request):
-    return render(request, 'flashcards/about.html')
-
-
 class SetListView(ListView):
     model = Set
     context_object_name = 'sets'
     ordering = ['-created']
+
+
+class SetCreateView(CreateView):
+    model = Set
+    fields = ['name']
+    template_name = "flashcards/set_create.html"
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class FlashcardAddView(CreateView):
+    model = Flashcard
+    fields = ['front', 'back']
+    template_name = "flashcards/flashcard_add.html"
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.set.id = self.request.set_id
+        return super().form_valid(form)
+
 
 
 @login_required
@@ -40,6 +58,11 @@ def flashcard_list(request, pk):
 class FlashcardDetailView(DetailView):
     model = Flashcard
     context_object_name = 'flashcard'
+
+
+@login_required
+def flashcard_delete(request, pk):
+    return render(request, 'flashcards/flashcard_delete.html')
 
 
 @login_required

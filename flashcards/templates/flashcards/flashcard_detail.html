@@ -1,6 +1,14 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <p>{{ flashcard.front }}  -  {{ flashcard.back }}</p>
+        <h4 class="mb-4 mt-2">{{ flashcard.front }} - {{ flashcard.back }}</h4>
+        <div class="row mb-3 ">
+            <form class="ml-2">
+              <button class="btn btn-outline-info" type="submit" formaction="#">Edit</button>
+            </form>
+            <form class="ml-2">
+              <button class="btn btn-outline-dark" type="submit" formaction="{% url 'flashcard-delete' flashcard.id %}">Delete</button>
+            </form>
+        </div>
     </div>
 {% endblock content %}
