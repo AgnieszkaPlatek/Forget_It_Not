@@ -5,12 +5,12 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group mt-2">
-                <legend class="border-bottom mb-2">Add flashcard</legend>
+                <legend class="border-bottom mb-2">Update Set</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="row mb-4">
-                <button class="btn btn-info ml-3" type="submit">Add</button>
-                <a href="#" class="btn btn-outline-dark ml-3" role="button" aria-pressed="true">Back</a>
+                <button class="btn btn-primary ml-3" type="submit">Submit</button>
+                <a href="{% url 'set-list' %}" class="btn btn-outline-dark ml-3" role="button" aria-pressed="true">Back</a>
             </div>
         </form>
     </div>

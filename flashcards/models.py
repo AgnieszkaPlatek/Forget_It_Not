@@ -28,6 +28,6 @@ class Flashcard(models.Model):
         return f'{self.front} - {self.back}'
 
     def get_absolute_url(self):
-        return reverse('flashcard-list', kwargs={'pk': self.pk})
+        return reverse('flashcard-detail', kwargs={'pk': self.pk})
 
 
