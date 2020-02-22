@@ -29,5 +29,3 @@ class Flashcard(models.Model):
 
     def get_absolute_url(self):
         return reverse('flashcard-detail', kwargs={'pk': self.pk})
-
-

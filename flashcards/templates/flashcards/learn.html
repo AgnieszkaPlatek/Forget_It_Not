@@ -1,6 +1,21 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <h3>Learn</h3>
+        <div class="mt-2 mb-4 ml-3">
+            <h2>Learn</h2>
+        </div>
+        <div class="mb-4">
+            <form class="ml-3 mb-3">
+              <button class="btn btn-primary" type="submit" formaction="#">Learn everything</button>
+            </form>
+        </div>
+        <div class="row ml-1">
+            {% for set in sets %}
+                <form class="mb-3 ml-2">
+                  <button class="btn btn-outline-primary" type="submit" formaction="#">{{set.name}}</button>
+                </form>
+            {% endfor %}
+        </div>
+
     </div>
 {% endblock content %}

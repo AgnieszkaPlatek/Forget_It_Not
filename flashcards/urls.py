@@ -6,6 +6,7 @@ from .views import (
     SetDeleteView,
     FlashcardAddView,
     FlashcardDetailView,
+    FlashcardUpdateView,
     FlashcardDeleteView
 )
 from . import views
@@ -20,9 +21,9 @@ urlpatterns = [
     path('set/<int:pk>/delete/', SetDeleteView.as_view(), name="set-delete"),
     path('set/<int:pk>/add/', FlashcardAddView.as_view(), name="flashcard-add"),
     path('set/flashcard/<int:pk>/', FlashcardDetailView.as_view(), name="flashcard-detail"),
+    path('set/flashcard/<int:pk>/update/', FlashcardUpdateView.as_view(), name="flashcard-update"),
     path('set/flashcard/<int:pk>/delete/', FlashcardDeleteView.as_view(), name="flashcard-delete"),
     path('set/learn/', views.learn, name="learn"),
-    path('set/test/', views.test, name="test"),
     path('play/', views.play, name="play")
 ]
 

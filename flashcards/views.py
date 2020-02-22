@@ -9,7 +9,7 @@ from django.views.generic import (
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from .models import Set, Flashcard
 
@@ -83,14 +83,16 @@ class FlashcardDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         return False
 
 
-#TODO Fix Foreign Key Issue
 class FlashcardAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Flashcard
+    context_object_name = 'flashcard'
     fields = ['front', 'back']
     template_name = "flashcards/flashcard_add.html"
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
+        pk = self.kwargs.get("pk", None)
+        form.instance.set = get_object_or_404(Set, pk=pk)
         return super().form_valid(form)
 
     def test_func(self):
@@ -100,10 +102,18 @@ class FlashcardAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return False
 
 
-#TODO Fix success url
-class FlashcardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class FlashcardUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Flashcard
-    #success_url = '/'
+    context_object_name = 'flashcard'
+    fields = ['front', 'back']
+    template_name = "flashcards/flashcard_update.html"
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        pk = self.kwargs.get("pk", None)
+        flashcard = get_object_or_404(Flashcard, pk=pk)
+        form.instance.set = flashcard.set
+        return super().form_valid(form)
 
     def test_func(self):
         flashcard = self.get_object()
@@ -111,18 +121,30 @@ class FlashcardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-    # def get_success_url(self):
-    #     return reverse('flashcard-list', kwargs={'pk': self.set__pk})
+
+class FlashcardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Flashcard
+
+    def test_func(self):
+        flashcard = self.get_object()
+        if self.request.user == flashcard.owner:
+            return True
+        return False
+
+    def get_success_url(self):
+        flashcard = self.get_object()
+        pk = flashcard.set.pk
+        return reverse_lazy('flashcard-list', kwargs={'pk': pk})
 
 
 @login_required
 def learn(request):
-    return render(request, 'flashcards/learn.html')
+    sets = Set.objects.filter(owner=request.user)
+    context = {
+        "sets": sets
+    }
+    return render(request, 'flashcards/learn.html', context)
 
-
-@login_required
-def test(request):
-    return render(request, 'flashcards/test.html')
 
 @login_required
 def play(request):

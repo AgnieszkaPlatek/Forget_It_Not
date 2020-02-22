@@ -2,24 +2,26 @@
 {% block content %}
     {% if set.owner == user %}
         <div class="content-section">
-            <h3 class="mb-1">{{ set.name }}</h3>
-            <h6>by {{ user }}</h6>
-            <small class="text-muted">created on {{ set.created|date:"F d, Y" }}</small>
-            <ol class="mb-4 mt-3">
+            <div class="mt-2">
+                <h3 class="mb-1">{{ set.name }}</h3>
+                <h6>by {{ user }}</h6>
+                <small class="text-muted">created on {{ set.created|date:"F d, Y" }}</small>
+            </div>
+            <div class="mb-4 mt-3">
+                <ol>
                 {% for flashcard in flashcards %}
                     <li><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.front }} - {{ flashcard.back }}</a></li>
                 {% endfor %}
-            </ol>
+                </ol>
+            </div>
             <div class="row">
-                <a href="#" class="btn btn-primary ml-3 mb-3" role="button" aria-pressed="true">Add Flashcard</a>
+                <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-primary ml-3" role="button" aria-pressed="true">Add Flashcard</a>
+                <a href="#" class="btn btn-primary ml-2" role="button" aria-pressed="true">Learn</a>
             </div>
             <div class="float-right">
+                <a href="{% url 'set-update' set.pk %}" class="btn btn-outline-primary btn-sm" role="button" aria-pressed="true">Update Set</a>
                 <a href="{% url 'set-delete' set.pk %}" class="btn btn-outline-dark btn-sm" role="button" aria-pressed="true">Delete Set</a>
             </div>
-            <div class="float-left">
-                <a href="{% url 'set-update' set.pk %}" class="btn btn-outline-primary btn-sm" role="button" aria-pressed="true">Update Set</a>
-            </div>
-
             <hr>
         </div>
     {% endif %}
