@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'flashcards.apps.FlashcardsConfig',
+    'learn.apps.LearnConfig',
     'users.apps.UsersConfig',
 ]
 
@@ -130,3 +131,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'flashcards-home'
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('MAIL_LOGIN')
+EMAIL_HOST_PASSWORD = os.environ.get('MAIL_PASSWORD')
