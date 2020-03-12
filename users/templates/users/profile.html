@@ -7,7 +7,7 @@
         <div class="media-body">
           <h2 class="account-heading">{{ user.username }}</h2>
           <p class="text-secondary">{{ user.email }}</p>
-          <a href="{% url 'set-list' %}">{{ user.username.total_sets }} sets</a>
+          <a href="{% url 'set-list' %}">{{ user.set_set.count()an }} sets</a>
         </div>
       </div>
       <form method="POST" enctype="multipart/form-data">

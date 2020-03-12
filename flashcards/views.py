@@ -15,13 +15,29 @@ from .models import Set, Flashcard
 
 
 def home(request):
-    return render(request, 'flashcards/home.html')
+    if request.user.is_authenticated:
+        return render(request, 'flashcards/home.html')
+    else:
+        return render(request, 'flashcards/welcome.html')
 
 
 class SetListView(LoginRequiredMixin, ListView):
     model = Set
     context_object_name = 'sets'
     ordering = ['-created']
+
+    def get_queryset(self):
+        return Set.objects.filter(owner=self.request.user)
+
+
+@login_required
+def set_list(request):
+    sets = Set.objects.filter(owner=request.user)
+    context = {
+        "sets": sets
+    }
+    return render(request, 'flashcards/set_list.html', context)
+
 
 
 class SetCreateView(LoginRequiredMixin, CreateView):
@@ -63,11 +79,13 @@ class SetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 @login_required
 def flashcard_list(request, pk):
-    set = get_object_or_404(Set, pk=pk)
-    flashcards = Flashcard.objects.filter(set=set)
+    set = get_object_or_404(Set, pk=pk, owner=request.user)
+    flashcards = Flashcard.objects.flashcards_for_set(set.pk)
+    count = set.flashcard_set.count()
     context = {
         "set": set,
-        "flashcards": flashcards
+        "flashcards": flashcards,
+        "count": count
     }
     return render(request, 'flashcards/flashcard_list.html', context)
 
@@ -96,8 +114,9 @@ class FlashcardAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return super().form_valid(form)
 
     def test_func(self):
-        flashcard = self.get_object()
-        if self.request.user == flashcard.owner:
+        pk = self.kwargs.get("pk", None)
+        set = get_object_or_404(Set, pk=pk)
+        if self.request.user == set.owner:
             return True
         return False
 
@@ -135,17 +154,3 @@ class FlashcardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         flashcard = self.get_object()
         pk = flashcard.set.pk
         return reverse_lazy('flashcard-list', kwargs={'pk': pk})
-
-
-@login_required
-def learn(request):
-    sets = Set.objects.filter(owner=request.user)
-    context = {
-        "sets": sets
-    }
-    return render(request, 'flashcards/learn.html', context)
-
-
-@login_required
-def play(request):
-    return render(request, 'flashcards/play.html')

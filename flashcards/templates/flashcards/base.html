@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'flashcards/main.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     {% if title %}
       <title>Flashcards - {{ title }}</title>
     {% else %}
@@ -19,7 +20,7 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="logo-link" href="{% url 'flashcards-home' %}">
+          <a class="logo-link mr-2 my-2" href="{% url 'flashcards-home' %}">
             <img src="{% static 'flashcards/logo.png' %}" alt="Logo" height="60px">
           </a>
           <div class="collapse navbar-collapse" id="navbarToggle">
@@ -30,7 +31,6 @@
                 <a class="nav-item nav-link" href="{% url 'learn' %}">Learn</a>
               -->
                 <a class="nav-item nav-link" href="{% url 'learn' %}">Learn</a>
-                <a class="nav-item nav-link" href="{% url 'play' %}">Play</a>
               {% endif %}
             </div>
             <!-- Navbar Right Side -->

@@ -1,0 +1,22 @@
+{% extends "flashcards/base.html" %}
+{% block content %}
+    <div class="content-section">
+        <div class="ml-3 mb-3 mt-3">
+            <h3>Learning set {{ set.name }}</h3>
+        </div>
+        <hr>
+        <div class="card mt-4 mb-4">
+            <h3 class="card-body mb-5 mt-4 ml-4 p-1">{{ flashcard.back }} - {{ flashcard.front }}</h3>
+        </div>
+        <div class="ml-4 mb-3">
+            <h5>Did you know?</h5>
+        </div>
+        <div class="mb-3 ml-3">
+            <form method="POST">
+            {% csrf_token %}
+            <button class="btn btn-success ml-3" type="submit" name="learned" value="ok">YES</button>
+            <button class="btn btn-danger ml-1" type="submit" name="not learned" value="no">NO</button>
+        </form>
+        </div>
+    </div>
+{% endblock content %}

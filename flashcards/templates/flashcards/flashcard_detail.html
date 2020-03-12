@@ -1,14 +1,14 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <div class="mr-3 mt-3 row float-right">
+        <div class="mr-3 mt-5 row float-right ml-3">
             <a href="{% url 'flashcard-update' flashcard.id %}" class="btn btn-outline-primary btn-sm" role="button" aria-pressed="true">Edit</a>
             <a href="{% url 'flashcard-delete' flashcard.id %}" class="btn btn-outline-dark btn-sm ml-2" role="button" aria-pressed="true">Delete</a>
         </div>
-        <div class="row">
-            <h3 class="mb-4 mt-2 ml-3">{{ flashcard.front }} - {{ flashcard.back }}</h3>
+        <div class="card mt-4">
+            <h3 class="card-body mb-5 mt-4 ml-4 p-1">{{ flashcard.back }} - {{ flashcard.front }}</h3>
         </div>
-        <div class="row mb-3 ml-3">
+        <div class="row mb-4 ml-3 mt-5">
             <a href="{% url 'flashcard-add' flashcard.set.pk %}" class="btn btn-primary" role="button" aria-pressed="true">Add Flashcard</a>
             <a href="{% url 'flashcard-list' flashcard.set.pk %}" class="btn btn-outline-dark ml-2" role="button" aria-pressed="true">Back</a>
         </div>
