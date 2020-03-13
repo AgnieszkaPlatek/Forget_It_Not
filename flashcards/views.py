@@ -6,10 +6,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse, reverse_lazy
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.urls import reverse_lazy
 
 from .models import Set, Flashcard
 
@@ -27,17 +27,8 @@ class SetListView(LoginRequiredMixin, ListView):
     ordering = ['-created']
 
     def get_queryset(self):
-        return Set.objects.filter(owner=self.request.user)
-
-
-@login_required
-def set_list(request):
-    sets = Set.objects.filter(owner=request.user)
-    context = {
-        "sets": sets
-    }
-    return render(request, 'flashcards/set_list.html', context)
-
+        qs = super().get_queryset()
+        return qs.filter(owner=self.request.user)
 
 
 class SetCreateView(LoginRequiredMixin, CreateView):
@@ -81,6 +72,14 @@ class SetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def flashcard_list(request, pk):
     set = get_object_or_404(Set, pk=pk, owner=request.user)
     flashcards = Flashcard.objects.flashcards_for_set(set.pk)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(flashcards, 30)
+    try:
+        flashcards = paginator.page(page)
+    except PageNotAnInteger:
+        flashcards = paginator.page(1)
+    except EmptyPage:
+        flashcards = paginator.page(paginator.num_pages)
     count = set.flashcard_set.count()
     context = {
         "set": set,

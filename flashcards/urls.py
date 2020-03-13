@@ -14,7 +14,8 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="flashcards-home"),
-    path('set/list/', views.set_list, name="set-list"),
+    # path('set/list/', views.set_list, name="set-list"),
+    path('set/list/', SetListView.as_view(), name="set-list"),
     path('set/create/', SetCreateView.as_view(), name="set-create"),
     path('set/<int:pk>/', views.flashcard_list, name="flashcard-list"),
     path('set/<int:pk>/update/', SetUpdateView.as_view(), name="set-update"),
