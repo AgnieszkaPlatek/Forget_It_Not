@@ -15,7 +15,8 @@
                 </thead>
                 <tbody>
                     {% for set in sets %}
-                        <tr><td><a class="mb-3" href="{% url 'flashcard-list' set.id %}"><b>{{ set.name }}</b><span class="badge badge-primary ml-2">{{ set.count_flashcards }}</span></a></td>
+                        <tr><td><a class="mb-3" href="{% url 'flashcard-list' set.id %}"><b>{{ set.name }}</b>
+                            <span class="badge badge-primary ml-2">{{ set.count_flashcards }}</span></a></td>
                         <td><small>{{ set.created|date:"F d, Y" }}</small></td></tr>
                     {% endfor %}
                 </tbody>

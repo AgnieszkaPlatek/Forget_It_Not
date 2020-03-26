@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from flashcards.models import Set
 from PIL import Image
 
 
@@ -21,5 +20,3 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
-    def total_sets(self):
-        return Set.objects.filter(owner=user.username).count()

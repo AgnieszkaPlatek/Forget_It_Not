@@ -1,22 +1,26 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <div class="ml-3 mb-3 mt-4">
-            <h3>Learning set {{ set.name }}</h3>
+        <div class="ml-3 mb-4 mt-4">
+            <h3>Learning set <strong>{{ set.name }}</strong></h3>
         </div>
         <hr>
+        <div class="ml-3 mb-3">
+            <progress id="learning" value="{{ count }}" max="{{ total }}"> {{ count }}</progress>
+            <label class="ml-2" for="learning"><b>{{ count }} / {{ total }}</b></label>
+        </div>
         <div class="card mt-4 mb-4">
-            <h3 class="card-body mb-5 mt-4 ml-4 p-1">{{ flashcard.back }} - {{ flashcard.front }}</h3>
+            <h3 class="card-body mb-5 mt-4 ml-4 p-1">{{ back }}</h3>
         </div>
         <div class="ml-4 mb-3">
-            <h5>Did you know?</h5>
+            <h4>Did you know?</h4>
         </div>
-        <div class="mb-3 ml-3">
+        <div class="mb-5 ml-3">
             <form method="POST">
             {% csrf_token %}
-            <button class="btn btn-success ml-3" type="submit" name="learned" value="ok">YES</button>
-            <button class="btn btn-danger ml-1" type="submit" name="not learned" value="no">NO</button>
-        </form>
+                <button class="btn btn-outline-success btn-lg ml-2" type="submit" name="learned" value="ok"><b>YES</b></button>
+                <button class="btn btn-outline-danger btn-lg ml-1" type="submit" name="not-learned" value="no"><b>NO</b></button>
+            </form>
         </div>
     </div>
 {% endblock content %}

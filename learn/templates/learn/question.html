@@ -1,15 +1,22 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <div class="ml-3 mb-3 mt-4">
-            <h3>Learning set {{ set.name }}</h3>
-            <i class="material-icons mt-2" style="font-size:40px;color:black">loop</i>
+        <div class="ml-3 mb-4 mt-4">
+            <h3>Learning set <strong>{{ set.name }}</strong></h3>
+        </div>
+        <hr>
+        <div class="ml-3 mb-3">
+            <progress id="learning" value="{{ count }}" max="{{ total }}"> {{ count }}</progress>
+            <label class="ml-2" for="learning"><b>{{ count }} / {{ total }}</b></label>
         </div>
         <hr>
         <div class="card mt-4 mb-4">
-            <h3 class="card-body mb-5 mt-4 ml-4 p-1">{{ flashcard.front }}</h3>
+            <h3 class="card-body mb-5 mt-4 ml-4 p-1">{{ front }}</h3>
         </div>
-        <button type="button" class="btn btn-outline-primary btn-lg ml-3 mb-3 px-4">Check if you know</button>
+        <div>
+            <a class="btn btn-outline-primary btn-lg ml-3 mb-3 px-4" href="{% url 'learn-answer' l_pk=l_pk f_pk=f_pk %}">Check
+                if you know</a>
+        </div>
     </div>
 
 {% endblock %}

@@ -71,7 +71,7 @@ class SetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 @login_required
 def flashcard_list(request, pk):
     set = get_object_or_404(Set, pk=pk, owner=request.user)
-    flashcards = Flashcard.objects.flashcards_for_set(set.pk)
+    flashcards = set.flashcard_set.order_by('added')
     page = request.GET.get('page', 1)
     paginator = Paginator(flashcards, 30)
     try:
@@ -80,7 +80,7 @@ def flashcard_list(request, pk):
         flashcards = paginator.page(1)
     except EmptyPage:
         flashcards = paginator.page(paginator.num_pages)
-    count = set.flashcard_set.count()
+    count = set.count_flashcards
     context = {
         "set": set,
         "flashcards": flashcards,
