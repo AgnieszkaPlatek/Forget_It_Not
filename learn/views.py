@@ -8,16 +8,19 @@ from .models import LearningSession, Question
 
 @login_required
 def learn(request):
-    user_sets = Set.objects.filter(owner=request.user)
+    user = request.user
+    user_sets = Set.objects.filter(owner=user)
     sets = []
     for set in user_sets:
         if set.count_flashcards > 0:
             sets.append(set)
-    return render(request, 'learn/learn.html', {"sets": sets})
+    empty = user.flashcard_set.count() == 0
+    return render(request, 'learn/learn.html', {"sets": sets, "empty": empty})
 
 
 @login_required
 def learn_set(request, pk):
+    LearningSession.objects.all().delete()
     set = get_object_or_404(Set, pk=pk)
     session = LearningSession(learner=request.user, set_to_learn=set)
     session.save()
@@ -32,6 +35,7 @@ def learn_set(request, pk):
 
 @login_required
 def learn_all(request):
+    LearningSession.objects.all().delete()
     user = request.user
     session = LearningSession(learner=user)
     session.save()

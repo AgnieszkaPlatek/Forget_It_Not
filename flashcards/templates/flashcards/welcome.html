@@ -2,22 +2,16 @@
 {% block content %}
   <div class="content-section">
     <div class="mt-4 ml-2">
-      <h3>Welcome!</h3>
+      <h1 class="h3">Welcome!</h1>
     </div>
-      <hr/>
+    <hr/>
     <div class="row ml-2 mb-2">
-      <h5>Create your own sets of flashcards and ...</h5>
+      <h5>Create your own sets of flashcards!</h5>
     </div>
-    <div class="ml-2">
-      <h4><b>F O R G E T - T H E M - N O T</b></h4>
-    </div>
-    <div class="row mb-3 mt-5">
-        <form class="ml-3">
-          <button class="btn btn-outline-primary" type="submit" formaction="{% url 'register' %}">Register</button>
-        </form>
-        <form class="ml-3">
-          <button class="btn btn-outline-primary" type="submit" formaction="{% url 'login' %}">Log In</button>
-        </form>
+    <div class="row mt-5 mb-4 ml-3">
+        <a href="#" class="btn btn-primary" role="button">Enter as a Guest</a>
+        <a href="{% url 'register' %}" class="btn btn-outline-primary ml-2" role="button">Register</a>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary ml-2" role="button">Log In</a>
     </div>
   </div>
 {% endblock content %}

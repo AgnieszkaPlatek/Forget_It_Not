@@ -1,16 +1,26 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <div class="mr-3 mt-5 row float-right ml-3">
-            <a href="{% url 'flashcard-update' flashcard.id %}" class="btn btn-outline-primary btn-sm" role="button" aria-pressed="true">Edit</a>
-            <a href="{% url 'flashcard-delete' flashcard.id %}" class="btn btn-outline-dark btn-sm ml-2" role="button" aria-pressed="true">Delete</a>
+        <div class="card mt-5 ml-4 mr-3">
+            <h1 class="h3 card-body mb-5 mt-4 p-1">{{ flashcard.back }} - {{ flashcard.front }}</h1>
         </div>
-        <div class="card mt-4">
-            <h3 class="card-body box-shadow mb-5 mt-4 ml-4 p-1">{{ flashcard.back }} - {{ flashcard.front }}</h3>
-        </div>
-        <div class="row mb-4 ml-3 mt-5">
-            <a href="{% url 'flashcard-add' flashcard.set.pk %}" class="btn btn-primary" role="button" aria-pressed="true">New Flashcard</a>
-            <a href="{% url 'flashcard-list' flashcard.set.pk %}" class="btn btn-outline-dark ml-2" role="button" aria-pressed="true">Back</a>
+        <div class="fluid container mt-5 mb-1">
+            <div class="row">
+                <div class="col-md-8 col-xl-9 mb-4 mb-md-2">
+                    <a href="{% url 'flashcard-add' flashcard.set.pk %}" class="btn btn-primary ml-2" role="button"
+                       aria-pressed="true">New Flashcard</a>
+                    <a href="{% url 'flashcard-list' flashcard.set.pk %}" class="btn btn-outline-dark ml-1"
+                       role="button"
+                       aria-pressed="true">Back</a>
+                </div>
+                <div class="col-md-4 col-xl-3">
+                    <a href="{% url 'flashcard-update' flashcard.id %}" class="btn btn-outline-primary btn-sm ml-2 ml-lg-5"
+                       role="button"
+                       aria-pressed="true">Edit</a>
+                    <a href="{% url 'flashcard-delete' flashcard.id %}" class="btn btn-outline-dark btn-sm ml-1"
+                       role="button" aria-pressed="true">Delete</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}
