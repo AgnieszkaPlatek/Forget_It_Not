@@ -9,13 +9,8 @@ from flashcards.models import Set, Flashcard
 class LearningSession(models.Model):
     learner = models.ForeignKey(User, on_delete=models.CASCADE)
     set_to_learn = models.ForeignKey(Set, on_delete=models.CASCADE, null=True)
-
-    @property
-    def total_questions(self):
-        if self.set_to_learn:
-            return self.set_to_learn.count_flashcards
-        else:
-            return self.learner.flashcard_set.count()
+    part_of_set = models.BooleanField(default=False)
+    total_questions = models.IntegerField(null=False, default=0)
 
     @property
     def questions_learned(self):
@@ -31,7 +26,7 @@ class LearningSession(models.Model):
         return question
 
 
-def __str__(self):
+    def __str__(self):
         return f'Learning session {self.pk}'
 
 
@@ -40,7 +35,7 @@ class Question(models.Model):
     flashcard = models.ForeignKey(Flashcard, on_delete=models.CASCADE, unique=False)
 
     def get_absolute_url(self):
-        return reverse('learn-question', kwargs={'l_+pk': self.session.id,'f_pk': self.pk})
+        return reverse('learn-question', kwargs={'l_pk': self.session.id,'f_pk': self.pk})
 
     def __str__(self):
         return f'Question {self.pk}'

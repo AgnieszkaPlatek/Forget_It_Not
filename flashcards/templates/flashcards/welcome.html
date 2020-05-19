@@ -1,17 +1,26 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
   <div class="content-section">
-    <div class="mt-4 ml-2">
-      <h1 class="h3">Welcome!</h1>
-    </div>
-    <hr/>
-    <div class="row ml-2 mb-2">
-      <h5>Create your own sets of flashcards!</h5>
-    </div>
-    <div class="row mt-5 mb-4 ml-3">
-        <a href="#" class="btn btn-primary" role="button">Enter as a Guest</a>
-        <a href="{% url 'register' %}" class="btn btn-outline-primary ml-2" role="button">Register</a>
-        <a href="{% url 'login' %}" class="btn btn-outline-primary ml-2" role="button">Log In</a>
-    </div>
+      <div class="fluid-container mx-5">
+          <div class="my-4 ml-3 fluid-container">
+              <h1 class="h2 text-center">Welcome!</h1>
+          </div>
+          <div class="ml-4 mb-2 text-center">
+              <h5>Please <a id="please-register" href="{% url 'register' %}">register</a> to begin creating your
+                  own sets of</h5>
+          </div>
+          <div class="card col-md-9 content-center mt-4 mx-auto p-3">
+              <h1 class="h3 card-body p-3">flashcards</h1>
+          </div>
+          <div class="mt-4">
+              <h5 class="text-center mb-3">or just</h5>
+          </div>
+          <div class="my-5">
+              <form method="POST">
+                  {% csrf_token %}
+                  <button id="grad" class="btn btn-lg btn-block p-3" type="submit" value="demo"><b>TRY IT OUT</b></button>
+              </form>
+          </div>
+      </div>
   </div>
 {% endblock content %}

@@ -5,7 +5,6 @@ from flashcards.models import Set, Flashcard
 from .models import LearningSession, Question
 
 
-
 @login_required
 def learn(request):
     user = request.user
@@ -22,10 +21,10 @@ def learn(request):
 def learn_set(request, pk):
     LearningSession.objects.all().delete()
     set = get_object_or_404(Set, pk=pk)
-    session = LearningSession(learner=request.user, set_to_learn=set)
+    total = set.count_flashcards
+    session = LearningSession(learner=request.user, set_to_learn=set, total_questions=total)
     session.save()
     l_pk = session.pk
-    total = set.count_flashcards
     for flashcard in set.flashcard_set.all():
         q = Question(session=session, flashcard=flashcard)
         q.save()
@@ -33,18 +32,27 @@ def learn_set(request, pk):
     return render(request, 'learn/learn_set.html', context)
 
 
+def learn_part(request, l_pk):
+    session = get_object_or_404(LearningSession, pk=l_pk)
+    set = session.set_to_learn
+    l_pk = session.pk
+    total = session.total_questions
+    context = {"set": set, "total": total, "l_pk": l_pk}
+    return render(request, 'learn/learn_part.html', context)
+
+
 @login_required
 def learn_all(request):
     LearningSession.objects.all().delete()
     user = request.user
-    session = LearningSession(learner=user)
-    session.save()
     flashcards = Flashcard.objects.filter(owner=user)
+    total = flashcards.objects.count()
+    session = LearningSession(learner=user, total_questions=total)
+    session.save()
     for flashcard in flashcards:
         q = Question(session=session, flashcard=flashcard)
         q.save()
     l_pk = session.pk
-    total = session.total_questions
     context = {"total": total, "l_pk": l_pk}
     return render(request, 'learn/learn_all.html', context)
 
@@ -103,7 +111,6 @@ def answer(request, l_pk, f_pk):
 @login_required
 def finished(request, l_pk):
     session = get_object_or_404(LearningSession, pk=l_pk)
-    total = session.total_questions
     if session.set_to_learn:
         set = session.set_to_learn
     else:

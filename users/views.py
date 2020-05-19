@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Profile
-from flashcards.models import Set
+from flashcards.models import Set, Flashcard
 
 
 def register(request):
@@ -37,11 +37,13 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     total_sets = Set.objects.filter(owner=request.user).count()
+    total_flashcards = Flashcard.objects.filter(owner=request.user).count()
 
     context = {
         'u_form': u_form,
         'p_form': p_form,
-        'total_sets': total_sets
+        'total_sets': total_sets,
+        'total_flashcards': total_flashcards
     }
 
     return render(request, 'users/profile.html', context)

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'flashcards.apps.FlashcardsConfig',
     'learn.apps.LearnConfig',
-    'users.apps.UsersConfig',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [

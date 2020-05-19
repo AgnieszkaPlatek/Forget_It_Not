@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import (
     ListView,
     DetailView,
@@ -9,15 +9,34 @@ from django.views.generic import (
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from django.urls import reverse_lazy
 
-from .models import Set, Flashcard
 
+from .models import Set, Flashcard
+from learn.models import LearningSession, Question
+
+
+
+def is_valid_query(p):
+    return p != '' and p is not None
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, 'flashcards/home.html')
+        total_sets = Set.objects.filter(owner=request.user).count()
+        total_flashcards = Flashcard.objects.filter(owner=request.user).count()
+        flashcards = Flashcard.objects.filter(owner=request.user)
+        query = request.GET.get('search')
+        context = {'total_sets': total_sets, 'total_flashcards': total_flashcards}
+        if is_valid_query(query):
+            flashcards = flashcards.filter(
+                Q(front__icontains=query) |
+                Q(back__icontains=query)).distinct()
+            context['flashcards'] = flashcards
+        return render(request, 'flashcards/home.html', context)
     else:
+        # if request.method == "POST" and "demo" in request.POST:
+        #     pass
         return render(request, 'flashcards/welcome.html')
 
 
@@ -81,12 +100,62 @@ def flashcard_list(request, pk):
     except EmptyPage:
         flashcards = paginator.page(paginator.num_pages)
     count = set.count_flashcards
+    query = request.GET.get('search')
+    qs = set.flashcard_set.order_by('added')
     context = {
         "set": set,
         "flashcards": flashcards,
-        "count": count
+        "count": count,
     }
+    if is_valid_query(query):
+        qs = qs.filter(
+            Q(front__icontains=query) |
+            Q(back__icontains=query)).distinct()
+        context["qs"] = qs
+        del context["flashcards"]
+
     return render(request, 'flashcards/flashcard_list.html', context)
+
+
+def filter_flashcards(request, pk):
+    set = get_object_or_404(Set, pk=pk, owner=request.user)
+    flashcards = Flashcard.objects.filter(set=set).order_by('added')
+    min_date = request.GET.get('min_date')
+    max_date = request.GET.get('max_date')
+    context = {"set": set}
+    if is_valid_query(min_date):
+        flashcards = flashcards.filter(added__gte=min_date)
+        context['flashcards'] = flashcards
+    if is_valid_query(max_date):
+        flashcards = flashcards.filter(added__lte=max_date)
+        context['flashcards'] = flashcards
+    if request.method == "POST" and "learn" in request.POST:
+        LearningSession.objects.all().delete()
+        total = len(flashcards)
+        session = LearningSession(learner=request.user, set_to_learn=set, total_questions=total)
+        session.save()
+        for flashcard in flashcards:
+            q = Question(session=session, flashcard=flashcard)
+            q.save()
+        l_pk = session.pk
+        return redirect('learn-part', l_pk=l_pk)
+
+    return render(request, 'flashcards/flashcards_select_form.html', context)
+
+
+def search_for_flashcards(request, pk):
+    set = get_object_or_404(Set, pk=pk, owner=request.user)
+    flashcards = Flashcard.objects.filter(set=set).order_by('added')
+    query = request.GET.get('search')
+    context = {
+        "set": set
+    }
+    if is_valid_query(query):
+        flashcards = flashcards.filter(
+            Q(front__icontains=query) |
+            Q(back__icontains=query)).distinct()
+        context['flashcards'] = flashcards
+    return render(request, 'flashcards/flashcards_search.html', context)
 
 
 class FlashcardDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
