@@ -1,3 +1,7 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import (
     ListView,
@@ -6,11 +10,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.urls import reverse_lazy
+
 
 
 from .models import Set, Flashcard
@@ -35,9 +38,16 @@ def home(request):
             context['flashcards'] = flashcards
         return render(request, 'flashcards/home.html', context)
     else:
-        # if request.method == "POST" and "demo" in request.POST:
-        #     pass
-        return render(request, 'flashcards/welcome.html')
+        return redirect('flashcards-welcome')
+
+
+def welcome(request):
+    if request.method == "POST" and "demo" in request.POST:
+        user = authenticate(username="guest", password="testing321")
+        if user is not None:
+            login(request, user)
+            return redirect('flashcards-home')
+    return render(request, 'flashcards/welcome.html')
 
 
 class SetListView(LoginRequiredMixin, ListView):

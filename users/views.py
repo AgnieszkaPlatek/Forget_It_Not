@@ -21,6 +21,7 @@ def register(request):
 
 @login_required
 def profile(request):
+    username = request.user.username
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -43,8 +44,11 @@ def profile(request):
         'u_form': u_form,
         'p_form': p_form,
         'total_sets': total_sets,
-        'total_flashcards': total_flashcards
+        'total_flashcards': total_flashcards,
     }
+
+    if request.user.username == "guest":
+        context['guest'] = True
     return render(request, 'users/profile.html', context)
 
 
