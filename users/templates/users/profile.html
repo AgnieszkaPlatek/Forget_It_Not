@@ -24,7 +24,9 @@
                 <button class="btn btn-primary" type="submit">Update</button>
             </div>
             <div class="col-md-3 col-sm-4 mb-3">
-                <a href="" class="btn btn-sm btn-outline-dark">Delete account</a>
+                <form method="POST">
+                    <a href="{% url 'delete' %}" class="btn btn-sm btn-outline-dark">Delete account</a>
+                </form>
             </div>
         </div>
       </form>

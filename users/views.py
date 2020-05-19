@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from .models import Profile
 from flashcards.models import Set, Flashcard
 
 
@@ -45,5 +45,13 @@ def profile(request):
         'total_sets': total_sets,
         'total_flashcards': total_flashcards
     }
-
     return render(request, 'users/profile.html', context)
+
+
+@login_required
+def delete_user(request):
+    if request.method == "POST" and "delete" in request.POST:
+        request.user.delete()
+        messages.success(request, f'Your account has been deleted!')
+        return redirect('flashcards-home')
+    return render(request, 'users/profile_confirm_delete.html')
