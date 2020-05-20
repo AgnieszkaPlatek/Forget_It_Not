@@ -275,3 +275,18 @@ header img{
     margin-left:18px;
     margin-right 24px;
 }
+
+.btn-next {
+    background: #dddddd;
+    color: #000000;
+}
+
+.btn-previous {
+    background: #eeeeee;
+    color: #000000;
+}
+
+.btn-next:hover, .btn-previous:hover {
+    background: #bbbbbb;
+    color: #000000;
+}

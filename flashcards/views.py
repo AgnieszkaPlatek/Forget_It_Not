@@ -41,6 +41,21 @@ def home(request):
         return redirect('flashcards-welcome')
 
 
+def guest(request):
+    if request.user.username == 'guest':
+        total_sets = Set.objects.filter(owner=request.user).count()
+        total_flashcards = Flashcard.objects.filter(owner=request.user).count()
+        flashcards = Flashcard.objects.filter(owner=request.user)
+        query = request.GET.get('search')
+        context = {'total_sets': total_sets, 'total_flashcards': total_flashcards}
+        if is_valid_query(query):
+            flashcards = flashcards.filter(
+                Q(front__icontains=query) |
+                Q(back__icontains=query)).distinct()
+            context['flashcards'] = flashcards
+        return render(request, 'flashcards/guest.html', context)
+
+
 def welcome(request):
     if request.method == "POST" and "demo" in request.POST:
         user = authenticate(username="guest", password="testing321")
@@ -168,15 +183,61 @@ def search_for_flashcards(request, pk):
     return render(request, 'flashcards/flashcards_search.html', context)
 
 
-class FlashcardDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-    model = Flashcard
-    context_object_name = 'flashcard'
+def make_list_of_ids(pk):
+    """
+    pk: the primary key of a flashcard
 
-    def test_func(self):
-        set = self.get_object()
-        if self.request.user == set.owner:
-            return True
-        return False
+    returns: a list of ids of all flashcards that are in the same set as the flashcard with given id
+
+    This function will help in finding next and previous flashcard to let the user browse flashcards
+    from their set conveniently.
+    """
+    flashcard = Flashcard.objects.get(pk=pk)
+    set = flashcard.set
+    set_flashcards = Flashcard.objects.filter(set__id=set.id)
+    return [f.id for f in set_flashcards]
+
+
+def find_next_flashcard(pk):
+    """
+    pk: the primary key of a flashcard
+
+    returns: the primary key of the next flashcards in the set
+    """
+    flashcards_ids = make_list_of_ids(pk)
+    index = flashcards_ids.index(pk)
+    try:
+        return flashcards_ids[index + 1]
+    except IndexError:
+        return None
+
+
+def find_previous_flashcard(pk):
+    """
+    pk: the primary key of a flashcard
+
+    returns: the primary key of the previous flashcards in the set
+    """
+    flashcards_ids = make_list_of_ids(pk)
+    index = flashcards_ids.index(pk)
+    if flashcards_ids[0] == pk:
+        return None
+    return flashcards_ids[index - 1]
+
+
+@login_required
+def flashcard_detail(request, pk):
+    flashcard = get_object_or_404(Flashcard, pk=pk)
+    next_id = find_next_flashcard(pk)
+    previous_id = find_previous_flashcard(pk)
+    context = {
+        "flashcard": flashcard
+    }
+    if next_id:
+        context["next_id"] = next_id
+    if previous_id:
+        context["previous_id"] = previous_id
+    return render(request, 'flashcards/flashcard_detail.html', context)
 
 
 class FlashcardAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -232,3 +293,4 @@ class FlashcardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         flashcard = self.get_object()
         pk = flashcard.set.pk
         return reverse_lazy('flashcard-list', kwargs={'pk': pk})
+

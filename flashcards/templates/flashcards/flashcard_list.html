@@ -80,20 +80,21 @@
                 </div>
             {% endif %}
             <div class="container-fluid mt-5">
-                <div class="row flashcards-footer">
-                    <div class="col-7 col-lg-7 mb-2">
-                        <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-primary mb-2 px-5" role="button"
+                <div class="row flashcards-footer mb-2">
+                    <div class="col-12 col-lg-7">
+                        <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-primary px-5" role="button"
                            aria-pressed="true">Add Flashcard</a>
-                        <a href="{% url 'set-list' %}" class="btn btn-outline-dark btn-sm ml-lg-2 mb-2" role="button"
+                        <a href="{% url 'set-list' %}" class="btn btn-outline-dark btn-square btn-sm ml-lg-2 px-3" role="button"
                            aria-pressed="true">Back</a>
                     </div>
-                    <div class="col-5 col-lg-5 mb-2 mt-2">
-                        <a href="{% url 'set-update' set.pk %}" class="btn btn-outline-primary btn-sm ml-lg-5 mr-lg-2 mb-2" role="button"
+                    <div class="col-12 col-lg-5">
+                        <a href="{% url 'set-update' set.pk %}" class="btn btn-outline-primary btn-square btn-sm ml-lg-5 mr-lg-2 px-xl-4" role="button"
                            aria-pressed="true">Update Set</a>
-                        <a href="{% url 'set-delete' set.pk %}" class="btn btn-outline-dark btn-sm mb-2" role="button"
+                        <a href="{% url 'set-delete' set.pk %}" class="btn btn-outline-dark btn-square btn-sm px-xl-4" role="button"
                            aria-pressed="true">Delete Set</a>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 {% endblock content %}

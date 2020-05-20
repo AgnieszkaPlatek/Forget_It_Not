@@ -1,13 +1,13 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <div class="mx-4 mb-3">
+        <div class="mx-5 mb-3">
             {% if not empty %}
                 <div class="pt-2 mt-2 mb-4 text-center">
                     <h1 class="h2">Learn</h1>
                 </div>
                 <div class="container col-12 mt-4 mb-4">
-                    <a class="btn btn-learn btn-primary btn-lg btn-block content-center text-uppercase py-2" href="{% url 'learn-all' %}">Learn all flashcards</a>
+                    <a class="btn btn-learn btn-primary btn-square btn-lg btn-block content-center text-uppercase py-2" href="{% url 'learn-all' %}">Learn all flashcards</a>
                 </div>
             {% else %}
                 <div class="pt-2 mt-4 mb-4">
@@ -27,19 +27,19 @@
                     {% for set in sets %}
                         {% if set.count_flashcards > 50 %}
                             <div class="btn-group col-12">
-                                <button type="button" class="btn btn-square btn-g btn-block btn-lg text-uppercase dropdown-toggle mb-1"
+                                <button type="button" class="btn btn-square btn-g btn-block btn-lg dropdown-toggle mb-1"
                                         data-toggle="dropdown">{{ set.name }}
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item text-center text-uppercase py-1" href="{% url 'learn-set' set.pk %}">
+                                    <a class="dropdown-item text-center py-1" href="{% url 'learn-set' set.pk %}">
                                         Learn all flashcards from the set</a>
-                                    <a class="dropdown-item text-center text-uppercase mb-1 py-1" href="{% url 'flashcard-filter' set.pk %}">
+                                    <a class="dropdown-item text-center mb-1 py-1" href="{% url 'flashcard-filter' set.pk %}">
                                         Choose part to learn</a>
                                 </div>
                             </div>
                         {% else %}
                             <div class="mx-3">
-                                <a href="{% url 'learn-set' set.pk %}" class="btn btn-square btn-g btn-lg btn-block text-uppercase mb-1"
+                                <a href="{% url 'learn-set' set.pk %}" class="btn btn-square btn-g btn-lg btn-block mb-1"
                                    role="button" aria-pressed="true">{{ set.name }}</a>
                             </div>
                         {% endif %}
