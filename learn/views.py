@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 from flashcards.models import Set, Flashcard
-from .models import LearningSession, Question
+from .models import Learn
 
 
 @login_required
@@ -16,24 +16,26 @@ def learn(request):
     empty = user.flashcard_set.count() == 0
     return render(request, 'learn/learn.html', {"sets": sets, "empty": empty})
 
+def make_question_ids(flashcards):
+    question_ids = [flashcard.pk for flashcard in flashcards]
+    question_str_ids = [str(id) for id in question_ids]
+    return ' '.join(question_str_ids)
+
 
 @login_required
 def learn_set(request, pk):
-    LearningSession.objects.all().delete()
     set = get_object_or_404(Set, pk=pk)
-    total = set.count_flashcards
-    session = LearningSession(learner=request.user, set_to_learn=set, total_questions=total)
+    question_ids = make_question_ids(set.flashcard_set.all())
+    total = set.flashcard_set.count()
+    session = Learn(learner=request.user, question_ids=question_ids, total_questions=total, set_to_learn=set)
     session.save()
     l_pk = session.pk
-    for flashcard in set.flashcard_set.all():
-        q = Question(session=session, flashcard=flashcard)
-        q.save()
     context = {"set": set, "total": total, "l_pk": l_pk}
     return render(request, 'learn/learn_set.html', context)
 
 
 def learn_part(request, l_pk):
-    session = get_object_or_404(LearningSession, pk=l_pk)
+    session = get_object_or_404(Learn, pk=l_pk)
     set = session.set_to_learn
     l_pk = session.pk
     total = session.total_questions
@@ -43,15 +45,12 @@ def learn_part(request, l_pk):
 
 @login_required
 def learn_all(request):
-    LearningSession.objects.all().delete()
     user = request.user
     flashcards = Flashcard.objects.filter(owner=user)
-    total = flashcards.objects.count()
-    session = LearningSession(learner=user, total_questions=total)
+    question_ids = make_question_ids(flashcards)
+    total = len(flashcards)
+    session = Learn(learner=user, question_ids=question_ids, total_questions=total)
     session.save()
-    for flashcard in flashcards:
-        q = Question(session=session, flashcard=flashcard)
-        q.save()
     l_pk = session.pk
     context = {"total": total, "l_pk": l_pk}
     return render(request, 'learn/learn_all.html', context)
@@ -59,58 +58,48 @@ def learn_all(request):
 
 @login_required
 def question(request, l_pk):
-    session = get_object_or_404(LearningSession, pk=l_pk)
-    question = session.pick_question()
-    if session.set_to_learn:
-        set = session.set_to_learn
-    else:
-        set = None
-    front = question.flashcard.front
+    session = get_object_or_404(Learn, pk=l_pk)
+    question_id = session.pick_question()
+    flashcard = get_object_or_404(Flashcard, pk=question_id)
+    front = flashcard.front
     total = session.total_questions
-    count = session.questions_learned
-    f_pk = question.pk
-    context = {"set": set, "l_pk": l_pk, "f_pk": f_pk, "front": front, "count": count,
+    learned = session.learned
+    context = {"set": set, "l_pk": l_pk, "f_pk": question_id, "front": front, "learned": learned,
                "total": total}
+    if session.set_to_learn:
+        context["set"] = session.set_to_learn
     return render(request, 'learn/question.html', context)
 
 
 @login_required
 def answer(request, l_pk, f_pk):
-    session = get_object_or_404(LearningSession, pk=l_pk)
-    question = get_object_or_404(Question, pk=f_pk)
-    if session.set_to_learn:
-        set = session.set_to_learn
-    else:
-        set = None
-    back = question.flashcard.back
-    total = session.total_questions
-    count = session.questions_learned
-    finished = session.everything_learned
-    context = {"set": set, "l_pk": l_pk, "f_pk": f_pk, "count": count, "back": back,
-               "total": total, "finished": finished}
+    session = get_object_or_404(Learn, pk=l_pk)
+    flashcard = get_object_or_404(Flashcard, pk=f_pk)
 
     if request.method == "POST" and "learned" in request.POST:
-        # Delete the learned question object.
+        session.mark_learned(f_pk)
+        session.save()
         # Check if there are more flashcards to learn.
-        if session.question_set.count() > 1:
-            question.delete()
+        if session.left_to_learn > 0:
             return redirect('learn-question', l_pk=l_pk)
         else:
-            # CHeck if user is learning one set or all flashcards.
-            if session.set_to_learn:
-                return redirect('learn-finished', l_pk=l_pk)
-            else:
-                return redirect('learn-finished', l_pk=l_pk)
+            return redirect('learn-finished', l_pk=l_pk)
 
     elif request.method == "POST" and "not-learned" in request.POST:
         return redirect('learn-question', l_pk=l_pk)
 
+    back = flashcard.back
+    total = session.total_questions
+    learned = session.learned
+    context = {"set": set, "l_pk": l_pk, "f_pk": f_pk, "learned": learned, "back": back, "total": total}
+    if session.set_to_learn:
+        context["set"] = session.set_to_learn
     return render(request, 'learn/answer.html', context)
 
 
 @login_required
-def finished(request, l_pk):
-    session = get_object_or_404(LearningSession, pk=l_pk)
+def finished_learning(request, l_pk):
+    session = get_object_or_404(Learn, pk=l_pk)
     if session.set_to_learn:
         set = session.set_to_learn
     else:

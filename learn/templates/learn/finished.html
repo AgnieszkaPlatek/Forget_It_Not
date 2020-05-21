@@ -8,10 +8,7 @@
         <div class="ml-5 mb-4">
             <h4>You finished learning <strong>{{ set.name }}!</strong></h4>
         </div>
-        <div class="ml-5 mb-3 mt-2">
-            <progress id="learning" value="{{ total }}" max="{{ total }}"> {{ count }}</progress>
-            <label class="ml-2" for="learning"><b>{{ total }} / {{ total }}</b></label>
-        </div>
+
     {% else %}
         <div class="ml-5 mb-3 mt-5 pt-2 row">
             <h3>Well done</h3><i class="material-icons ml-3" style="font-size:33px;color:#2c73bf">thumb_up</i>
@@ -20,6 +17,11 @@
             <h4>You finished learning your flashcards!</h4>
         </div>
     {% endif %}
+
+    <div class="ml-5 mb-3 mt-5">
+        <progress id="learning" value="{{ total }}" max="{{ total }}"> {{ total }}</progress>
+        <label class="ml-2" for="learning"><b>{{ total }} / {{ total }}</b></label>
+    </div>
 
     <div class="row mb-4 mt-4 ml-4 pt-4">
         <a href="{% url 'set-list' %}" class="btn btn-primary" role="button">Your sets</a>

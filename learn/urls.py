@@ -9,5 +9,5 @@ urlpatterns = [
     path('all/learn/', views.learn_all, name="learn-all"),
     path('learn/question/<int:l_pk>/', views.question, name='learn-question'),
     path('learn/answer/<int:l_pk>/<int:f_pk>/', views.answer, name='learn-answer'),
-    path('learn/finished/<int:l_pk>/', views.finished, name='learn-finished')
+    path('learn/finished/<int:l_pk>/', views.finished_learning, name='learn-finished')
 ]

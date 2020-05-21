@@ -1,11 +1,9 @@
-from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import (
     ListView,
-    DetailView,
     CreateView,
     UpdateView,
     DeleteView
@@ -15,9 +13,9 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 
 
-
 from .models import Set, Flashcard
-from learn.models import LearningSession, Question
+from learn.models import Learn
+from learn.views import make_question_ids
 
 
 
@@ -60,6 +58,9 @@ def welcome(request):
     if request.method == "POST" and "demo" in request.POST:
         user = authenticate(username="guest", password="testing321")
         if user is not None:
+            # sets = Set.objects.filter(owner="guest")
+            # for set in sets:
+            #     set.delete()
             login(request, user)
             return redirect('flashcards-home')
     return render(request, 'flashcards/welcome.html')
@@ -155,13 +156,10 @@ def filter_flashcards(request, pk):
         flashcards = flashcards.filter(added__lte=max_date)
         context['flashcards'] = flashcards
     if request.method == "POST" and "learn" in request.POST:
-        LearningSession.objects.all().delete()
+        question_ids = make_question_ids(flashcards)
         total = len(flashcards)
-        session = LearningSession(learner=request.user, set_to_learn=set, total_questions=total)
+        session = Learn(learner=request.user, question_ids=question_ids, total_questions=total)
         session.save()
-        for flashcard in flashcards:
-            q = Question(session=session, flashcard=flashcard)
-            q.save()
         l_pk = session.pk
         return redirect('learn-part', l_pk=l_pk)
 
@@ -189,8 +187,7 @@ def make_list_of_ids(pk):
 
     returns: a list of ids of all flashcards that are in the same set as the flashcard with given id
 
-    This function will help in finding next and previous flashcard to let the user browse flashcards
-    from their set conveniently.
+    Helps in finding next and previous flashcard to let the user easily browse flashcards from their set.
     """
     flashcard = Flashcard.objects.get(pk=pk)
     set = flashcard.set
