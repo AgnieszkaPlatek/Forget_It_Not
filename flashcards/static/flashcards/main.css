@@ -290,3 +290,21 @@ header img{
     background: #bbbbbb;
     color: #000000;
 }
+
+.btn-not {
+    background: #fc836d;
+    color: #ffffff;
+}
+
+.btn-not:hover {
+    background: #f35335;
+}
+
+.btn-yes {
+    background: #77b6f9;
+    color: #ffffff;
+}
+
+.btn-yes:hover {
+    background: #3590F0;
+}

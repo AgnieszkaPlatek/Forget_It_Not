@@ -1,32 +1,35 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
 <div class="content-section">
-    {% if set %}
-        <div class="ml-5 mb-3 mt-5 row">
+    <div class="mx-5">
+        <div class="mb-3 ml-3 mt-4 row">
             <h3>Well done</h3><i class="material-icons ml-3" style="font-size:33px;color:#2c73bf">thumb_up</i>
         </div>
-        <div class="ml-5 mb-4">
+        <div class="mb-3 ml-3 mt-3">
+            <progress id="learning" value="{{ total }}" max="{{ total }}"> {{ total }}</progress>
+            <label class="ml-2" for="learning"><b>{{ total }} / {{ total }}</b></label>
+        </div>
+        {% if set %}
+        <div class="mb-4 ml-3">
             <h4>You finished learning <strong>{{ set.name }}!</strong></h4>
         </div>
-
-    {% else %}
-        <div class="ml-5 mb-3 mt-5 pt-2 row">
-            <h3>Well done</h3><i class="material-icons ml-3" style="font-size:33px;color:#2c73bf">thumb_up</i>
-        </div>
-        <div>
+        {% else %}
+        <div class="mb-4 ml-3">
             <h4>You finished learning your flashcards!</h4>
         </div>
-    {% endif %}
+        {% endif %}
 
-    <div class="ml-5 mb-3 mt-5">
-        <progress id="learning" value="{{ total }}" max="{{ total }}"> {{ total }}</progress>
-        <label class="ml-2" for="learning"><b>{{ total }} / {{ total }}</b></label>
+        <div class="fluid-container">
+            <div class="row col-12 ml-1 mb-4 btn-md-group mt-5">
+                <a href="{% url 'set-list' %}" class="btn btn-square btn-lb col-md-4 d-inline-block"
+                   role="button">Your Sets</a>
+                <a href="{% url 'set-create' %}" class="btn btn-square btn-b col-md-4 d-inline-block"
+                   role="button">New Set</a>
+                <a href="{% url 'learn' %}" class="btn btn-square btn-lb col-md-4 d-inline-block"
+                   role="button">Learn</a>
+            </div>
+        </div>
     </div>
 
-    <div class="row mb-4 mt-4 ml-4 pt-4">
-        <a href="{% url 'set-list' %}" class="btn btn-primary" role="button">Your sets</a>
-        <a href="{% url 'set-create' %}" class="btn btn-outline-primary ml-2" role="button">New Set</a>
-        <a href="{% url 'learn' %}" class="btn btn-outline-primary ml-2" role="button">Learn</a>
-    </div>
 </div>
 {% endblock content %}

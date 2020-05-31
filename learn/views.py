@@ -16,6 +16,7 @@ def learn(request):
     empty = user.flashcard_set.count() == 0
     return render(request, 'learn/learn.html', {"sets": sets, "empty": empty})
 
+
 def make_question_ids(flashcards):
     question_ids = [flashcard.pk for flashcard in flashcards]
     question_str_ids = [str(id) for id in question_ids]
@@ -31,7 +32,7 @@ def learn_set(request, pk):
     session.save()
     l_pk = session.pk
     context = {"set": set, "total": total, "l_pk": l_pk}
-    return render(request, 'learn/learn_set.html', context)
+    return render(request, 'learn/learn_intro.html', context)
 
 
 def learn_part(request, l_pk):
@@ -39,8 +40,9 @@ def learn_part(request, l_pk):
     set = session.set_to_learn
     l_pk = session.pk
     total = session.total_questions
-    context = {"set": set, "total": total, "l_pk": l_pk}
-    return render(request, 'learn/learn_part.html', context)
+    part = True
+    context = {"set": set, "total": total, "l_pk": l_pk, "part": part}
+    return render(request, 'learn/learn_intro.html', context)
 
 
 @login_required
@@ -53,7 +55,7 @@ def learn_all(request):
     session.save()
     l_pk = session.pk
     context = {"total": total, "l_pk": l_pk}
-    return render(request, 'learn/learn_all.html', context)
+    return render(request, 'learn/learn_intro.html', context)
 
 
 @login_required

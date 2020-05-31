@@ -158,7 +158,7 @@ def filter_flashcards(request, pk):
     if request.method == "POST" and "learn" in request.POST:
         question_ids = make_question_ids(flashcards)
         total = len(flashcards)
-        session = Learn(learner=request.user, question_ids=question_ids, total_questions=total)
+        session = Learn(learner=request.user, question_ids=question_ids, total_questions=total, set_to_learn=set)
         session.save()
         l_pk = session.pk
         return redirect('learn-part', l_pk=l_pk)
