@@ -39,19 +39,19 @@ def home(request):
         return redirect('flashcards-welcome')
 
 
-def guest(request):
-    if request.user.username == 'guest':
-        total_sets = Set.objects.filter(owner=request.user).count()
-        total_flashcards = Flashcard.objects.filter(owner=request.user).count()
-        flashcards = Flashcard.objects.filter(owner=request.user)
-        query = request.GET.get('search')
-        context = {'total_sets': total_sets, 'total_flashcards': total_flashcards}
-        if is_valid_query(query):
-            flashcards = flashcards.filter(
-                Q(front__icontains=query) |
-                Q(back__icontains=query)).distinct()
-            context['flashcards'] = flashcards
-        return render(request, 'flashcards/guest.html', context)
+# def guest(request):
+#     if request.user.username == 'guest':
+#         total_sets = Set.objects.filter(owner=request.user).count()
+#         total_flashcards = Flashcard.objects.filter(owner=request.user).count()
+#         flashcards = Flashcard.objects.filter(owner=request.user)
+#         query = request.GET.get('search')
+#         context = {'total_sets': total_sets, 'total_flashcards': total_flashcards}
+#         if is_valid_query(query):
+#             flashcards = flashcards.filter(
+#                 Q(front__icontains=query) |
+#                 Q(back__icontains=query)).distinct()
+#             context['flashcards'] = flashcards
+#         return render(request, 'flashcards/guest.html', context)
 
 
 def welcome(request):

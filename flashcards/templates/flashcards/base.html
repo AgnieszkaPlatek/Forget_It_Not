@@ -19,7 +19,7 @@
       <title>Forget-It-Not</title>
     {% endif %}
   </head>
-  <body>
+  <body">
     <header class="site-header">
       <nav class="navbar navbar-expand-lg navbar-dark bg-darkblue fixed-top">
         <div class="container">
@@ -59,7 +59,7 @@
         <div class="col-md-9">
           {% if messages %}
             {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
+              <div class="message">
                 {{ message }}
               </div>
             {% endfor %}

@@ -17,7 +17,7 @@ ul {
 
 img {
     object-fit: cover;
-}
+ }
 
 header img{
     display: block;
@@ -26,6 +26,8 @@ header img{
 
 .bg-darkblue {
   background-color: #2c3779;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -48,8 +50,11 @@ header img{
   padding: 10px 20px;
   border: 1.5px solid #bbbbbb;
   margin-bottom: 20px;
+  -webkit-box-shadow: 4px 9px 20px -4px rgba(0,0,0,0.37);
+  -moz-box-shadow: 4px 9px 20px -4px rgba(0,0,0,0.37);
+  box-shadow: 4px 9px 20px -4px rgba(0,0,0,0.37);
+  justify-content: center;
 }
-
 
 .account-img {
   height: 125px;
@@ -65,12 +70,12 @@ header img{
 .nav-img {
     height: 60px;
     width: 60px;
-    margin-right: 0px;
+    margin-right: 0;
     margin-bottom: 5px;
 }
 
 .navbar-brand img{
-    height:60px;
+    height:50px;
 }
 
 .btn-square{
@@ -123,18 +128,16 @@ header img{
 #grad {
     background-color: #5ba9fc;
     background-image: -webkit-radial-gradient(rgb(255, 255, 255), rgb(150, 200, 253));
-    background-image: radial-gradient(rgb(255, 255, 255), rgb(150, 200, 253));
+    background-image: radial-gradient(rgb(255, 255, 255), rgb(91, 169, 252));
     color: #000000;
     border: none;
-    width: 100%;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
     word-spacing: 4px;
 }
 
 #grad:hover {
     background-image: -webkit-radial-gradient(rgb(255, 255, 255), rgb(119, 182, 249));
-    background-image: radial-gradient(rgb(255, 255, 255), rgb(119, 182, 249));
-    letter-spacing: 2.5px;
+    background-image: radial-gradient(rgb(255, 255, 255), rgb(53, 144, 240));
     text-shadow: 2px 2px 5px #ffffff;
 }
 
@@ -307,4 +310,12 @@ header img{
 
 .btn-yes:hover {
     background: #3590F0;
+}
+
+.message {
+    background-color: #999999;
+    color: #ffffff;
+    padding: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }

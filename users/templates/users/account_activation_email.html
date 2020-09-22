@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+please click on the link below to confirm your email and complete registration on Forget-It-Not:
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Thank you and happy learning!
+{% endautoescape %}

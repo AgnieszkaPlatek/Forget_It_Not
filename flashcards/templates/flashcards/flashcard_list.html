@@ -81,13 +81,13 @@
             {% endif %}
             <div class="container-fluid mt-5">
                 <div class="row flashcards-footer mb-2">
-                    <div class="col-12 col-lg-7">
+                    <div class="col-12 col-lg-6">
                         <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-primary px-5" role="button"
                            aria-pressed="true">Add Flashcard</a>
                         <a href="{% url 'set-list' %}" class="btn btn-outline-dark btn-square btn-sm ml-lg-2 px-3" role="button"
                            aria-pressed="true">Back</a>
                     </div>
-                    <div class="col-12 col-lg-5">
+                    <div class="col-12 col-lg-6">
                         <a href="{% url 'set-update' set.pk %}" class="btn btn-outline-primary btn-square btn-sm ml-lg-5 mr-lg-2 px-xl-4" role="button"
                            aria-pressed="true">Update Set</a>
                         <a href="{% url 'set-delete' set.pk %}" class="btn btn-outline-dark btn-square btn-sm px-xl-4" role="button"
