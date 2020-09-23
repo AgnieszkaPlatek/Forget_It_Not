@@ -39,30 +39,23 @@ def home(request):
         return redirect('flashcards-welcome')
 
 
-# def guest(request):
-#     if request.user.username == 'guest':
-#         total_sets = Set.objects.filter(owner=request.user).count()
-#         total_flashcards = Flashcard.objects.filter(owner=request.user).count()
-#         flashcards = Flashcard.objects.filter(owner=request.user)
-#         query = request.GET.get('search')
-#         context = {'total_sets': total_sets, 'total_flashcards': total_flashcards}
-#         if is_valid_query(query):
-#             flashcards = flashcards.filter(
-#                 Q(front__icontains=query) |
-#                 Q(back__icontains=query)).distinct()
-#             context['flashcards'] = flashcards
-#         return render(request, 'flashcards/guest.html', context)
-
-
 def welcome(request):
     if request.method == "POST" and "demo" in request.POST:
         user = authenticate(username="guest", password="testing321")
-        if user is not None:
-            # sets = Set.objects.filter(owner="guest")
-            # for set in sets:
-            #     set.delete()
-            login(request, user)
-            return redirect('flashcards-home')
+        pk = user.pk
+
+        # Delete all previously created demo sets with the exception of example set
+        sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example")
+        for set in sets_to_be_deleted:
+            set.delete()
+
+        # Delete all previously created flashcards added by demo user to the example set
+        example_set = Set.objects.get(owner=pk, name="example")
+        flashcards_to_be_deleted = Flashcard.objects.filter(set=example_set)[5:]
+        for f in flashcards_to_be_deleted:
+            f.delete()
+        login(request, user)
+        return redirect('flashcards-home')
     return render(request, 'flashcards/welcome.html')
 
 
