@@ -6,13 +6,13 @@
                 <div class="mb-2 mr-5">
                     <h1 class="h2">{{ set.name }}<span class="badge badge-primary ml-3">{{ count }}</span></h1>
                 </div>
-                <div class="mb-lg-4 pb-2">
+                <div class="mb-lg-3 pb-2">
                     <h5>by {{ user }}</h5>
                     <p class="text-muted">created on {{ set.created|date:"F d, Y" }}</p>
                 </div>
             </div>
             <div class="fluid-container">
-                <div class="row col-12 btn-md-group mb-3" id="lm">
+                <div class="row col-12 btn-md-group mb-2" id="lm">
                     <a id="set_filter" href="{% url 'flashcard-filter' set.pk %}" class="btn btn-square d-inline-block col-lg-6">Filter flashcards by date</a>
                     <a id="set_search" href="{% url 'flashcard-search' set.pk %}" class="btn btn-square d-inline-block col-lg-6">Search for flashcard<i class="ml-3 fa fa-search"></i></a>
                 </div>
@@ -22,8 +22,7 @@
                     <div class="fluid-container mb-3">
                         <div class="col-12">
                             <a href="{% url 'learn-set' set.pk %}" class="btn btn-square btn-learn btn-block btn-primary btn-lg"
-                               role="button"
-                               aria-pressed="true">Learn</a>
+                               role="button" aria-pressed="true">Learn</a>
                         </div>
                     </div>
                 {% endif %}

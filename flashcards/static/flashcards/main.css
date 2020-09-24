@@ -248,8 +248,8 @@ header img{
     width: 100%;
 }
 
-.btn-lb {
-    background: #5ba9fc;
+.btn-db {
+    background: #0b61bc;
     color: #ffffff;
 }
 
@@ -263,8 +263,8 @@ header img{
     color: #ffffff;
 }
 
-.btn-b:hover, .btn-lb:hover {
-    background: #0b61bc;
+.btn-b:hover, .btn-db:hover {
+    background: #2c3779;
     color: #ffffff;
     text-weight: bold;
 }
@@ -294,6 +294,16 @@ header img{
     color: #000000;
 }
 
+.btn-check {
+    background: #3590F0;
+    color: #ffffff;
+}
+
+.btn-check:hover {
+    background: #3380d1;
+    color: #ffffff;
+}
+
 .btn-not {
     background: #fc836d;
     color: #ffffff;
@@ -301,6 +311,7 @@ header img{
 
 .btn-not:hover {
     background: #f35335;
+    color: #ffffff;
 }
 
 .btn-yes {

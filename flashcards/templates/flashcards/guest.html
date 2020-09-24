@@ -1,0 +1,43 @@
+{% extends "flashcards/base.html" %}
+{% block content %}
+<div class="content-section">
+    <div class="mx-4 mt-4">
+        <div>
+            <h1 class="h2 mb-3">Hello <b>Guest</b>!</h1>
+            <h5>You have <b>{{ total_sets }}</b> sets and <b>{{ total_flashcards }}</b> flashcards</h5>
+        </div>
+        <div id="home_search" class="search-container mb-5 mt-3 mt-lg-5">
+            <form action="">
+                <input type="text" placeholder="Search for flashcard" name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="container">
+            <table class="table table-hover col-11">
+                <tbody>
+                {% for flashcard in flashcards %}
+                <tr>
+                    <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{
+                        flashcard.front}}</a></td>
+                    <td><a
+                    <td><a href="{% url 'flashcard-list' flashcard.set.pk %}">{{ flashcard.set.name }}</a></td>
+                    <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="fluid-container">
+            <div class="row col-12 mb-4 btn-md-group mt-5">
+                <a href="{% url 'set-list' %}" class="btn btn-square btn-lb col-md-4 d-inline-block"
+                   role="button">Your Sets</a>
+                <a href="{% url 'set-create' %}" class="btn btn-square btn-b col-md-4 d-inline-block"
+                   role="button">New Set</a>
+                <a href="{% url 'learn' %}" class="btn btn-square btn-lb col-md-4 d-inline-block"
+                   role="button">Learn</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
