@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import (
     ListView,
@@ -41,8 +42,15 @@ def home(request):
 
 def welcome(request):
     if request.method == "POST" and "demo" in request.POST:
-        user = authenticate(username="guest", password="testing321")
-        pk = user.pk
+        try:
+            user = authenticate(username="guest", password="testing321")
+            pk = user.pk
+        except User.DoesNotExist:
+            user = User(username="guest", password="testing321", )
+            user.is_active = True
+            user.save()
+            user = authenticate(username="guest", password="testing321")
+            pk = user.pk
 
         # Delete all previously created demo sets with the exception of example set
         sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example")

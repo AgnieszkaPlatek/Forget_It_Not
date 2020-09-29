@@ -18,10 +18,6 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            # form.save()
-            # username = form.cleaned_data.get('username')
-            # messages.success(request, f'Account has been created for {username}. You are now able to log in.')
-            # return redirect('login')
             user = form.save(commit=False)
             user.is_active = False
             user.save()
@@ -52,7 +48,6 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        # login(request, user)
         messages.success(request, ('Your account has been confirmed. You can log in.'))
         return redirect('login')
     else:
