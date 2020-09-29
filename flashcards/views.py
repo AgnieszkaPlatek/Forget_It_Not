@@ -46,7 +46,7 @@ def welcome(request):
             user = authenticate(username="guest", password="testing321")
             pk = user.pk
         except User.DoesNotExist:
-            user = User(username="guest", password="testing321", )
+            user = = User.objects.create_user(username="guest", password="testing321")
             user.is_active = True
             user.save()
             user = authenticate(username="guest", password="testing321")
