@@ -42,27 +42,36 @@ def home(request):
 
 def welcome(request):
     if request.method == "POST" and "demo" in request.POST:
-        try:
-            user = authenticate(username="guest", password="testing321")
+        user = authenticate(username="guest", password="testing321")
+        if user is not None:
             pk = user.pk
-        except User.DoesNotExist:
-            user = = User.objects.create_user(username="guest", password="testing321")
+
+            # Delete all previously created demo sets with the exception of example set
+            sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example")
+            for set in sets_to_be_deleted:
+                set.delete()
+
+            # Delete all previously created flashcards added by demo user to the example set
+            example_set = Set.objects.get(owner=pk, name="example")
+            flashcards_to_be_deleted = Flashcard.objects.filter(set=example_set)[5:]
+            for f in flashcards_to_be_deleted:
+                f.delete()
+            login(request, user)
+
+        else:
+            # Create guest active demo user.
+            user = User.objects.create_user(username="guest", password="testing321")
             user.is_active = True
             user.save()
+            # Create example set with few example flashcards.
+            example_set = Set.objects.create(name="example", owner=user)
             user = authenticate(username="guest", password="testing321")
-            pk = user.pk
+            for i in range(1, 6):
+                front = f'Question {i}'
+                back = f'Answer {i}'
+                Flashcard.objects.create(set=example_set, owner=user, front=front, back=back)
 
-        # Delete all previously created demo sets with the exception of example set
-        sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example")
-        for set in sets_to_be_deleted:
-            set.delete()
 
-        # Delete all previously created flashcards added by demo user to the example set
-        example_set = Set.objects.get(owner=pk, name="example")
-        flashcards_to_be_deleted = Flashcard.objects.filter(set=example_set)[5:]
-        for f in flashcards_to_be_deleted:
-            f.delete()
-        login(request, user)
         return redirect('flashcards-home')
     return render(request, 'flashcards/welcome.html')
 
