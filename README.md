@@ -8,6 +8,7 @@ Simple django app for learning vocabulary by creating sets of flashcards and lea
 * [Features](#features)
 * [Technologies](#technologies)
 * [Screenshots](#screenshots)
+* [Installation and Setup](#installation-and-setup)
 * [License and contact](#license-and-contact)
 
 ## General info
@@ -39,7 +40,44 @@ It is a simple application designed for learning languages and repeating new wor
 ![Learn](./images/learn.png)
 
 
-## License and contact
+## Installation and Setup
+Install Python 3.8 from https://www.python.org/downloads/  
+Install git from https://git-scm.com/downloads 
+
+Clone the repository:
+```
+git clone https://github.com/AgnieszkaPlatek/Forget_It_Not.git
+cd Forget_It_Not
+```
+Create virtual environment:
+```
+python -m venv FIN_env
+```
+Activate the virtual environment on Windows / Linux:
+```
+FIN_env\Scripts\activate  /  source FIN_env/bin/activate
+```
+Install requirements:
+```
+pip install -r requirements.txt
+```
+Edit email configurations in settings.py (necessary for confirming registration):
+```
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = '<your-email>'
+EMAIL_HOST_PASSWORD = '<your-email-password>'
+```
+Run migrations and server:
+```
+python manage.py migrate 
+python manage.py runserver
+```
+Open http://localhost:8000 in the browser. 
+
+    
+# License and contact
 The project is licensed under the MIT License, see the [LICENSE.md](#./LICENSE.md) file for details.
 
 Created by Agnieszka (contact.forget.it.not@gmail.com) - feel free to contact me!
