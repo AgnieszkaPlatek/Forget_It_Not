@@ -1,4 +1,4 @@
-![Forget-It-Not](./images/logo_sm.PNG)
+![Forget-It-Not](./images/logo_sml.PNG)
 # Forget-It-Not
 Simple django app for learning vocabulary by creating sets of flashcards and learning them.
 
