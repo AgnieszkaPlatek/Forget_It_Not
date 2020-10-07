@@ -5,4 +5,5 @@ FIN_env
 db.sqlite3
 .DS_Store
 .idea
-/media/profile_pics
+/media/
+static/
