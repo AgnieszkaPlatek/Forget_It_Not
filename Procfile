@@ -1,0 +1,1 @@
+web: gunicorn FIN_django.wsgi
