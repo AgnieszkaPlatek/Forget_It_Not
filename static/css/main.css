@@ -1,6 +1,6 @@
 body {
   background: #cccccc;
-  background-image: url(textured_paper.png); /* Background pattern from Toptal Subtle Patterns */
+  background-image: url(static\img\textured_paper.png); /* Background pattern from Toptal Subtle Patterns */
   background-position: top left;
   background-repeat: repeat;
   margin-top: 5rem;
