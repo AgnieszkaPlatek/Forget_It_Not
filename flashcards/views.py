@@ -1,5 +1,3 @@
-import os
-
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -19,7 +17,7 @@ from django.urls import reverse_lazy
 from .models import Set, Flashcard
 from learn.models import Learn
 from learn.views import make_question_ids
-
+from FIN_django.settings import guest_password
 
 
 def is_valid_query(p):
@@ -51,9 +49,8 @@ def create_example_set(guest_user):
 
 
 def welcome(request):
-    password = os.environ.get('guest_password')
     if request.method == "POST" and "demo" in request.POST:
-        user = authenticate(username="guest", password=password)
+        user = authenticate(username="guest", password=guest_password)
         if user is not None:
             pk = user.pk
 
@@ -74,13 +71,13 @@ def welcome(request):
 
         else:
             # Create guest active demo user.
-            user = User.objects.create_user(username="guest", password=password)
+            user = User.objects.create_user(username="guest", password=guest_password)
             user.is_active = True
             user.save()
 
             # Create example set with few example flashcards.
             create_example_set(user)
-            user = authenticate(username="guest", password=password)
+            authenticate(username="guest", password=guest_password)
 
         return redirect('flashcards-home')
     return render(request, 'flashcards/welcome.html')
