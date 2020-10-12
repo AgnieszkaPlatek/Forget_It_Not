@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -40,9 +42,18 @@ def home(request):
         return redirect('flashcards-welcome')
 
 
+def create_example_set(guest_user):
+    example_set = Set.objects.create(name="example set", owner=guest_user)
+    for i in range(1, 6):
+        front = f'Question {i}'
+        back = f'Answer {i}'
+        Flashcard.objects.create(set=example_set, owner=guest_user, front=front, back=back)
+
+
 def welcome(request):
+    password = os.environ.get('guest_password')
     if request.method == "POST" and "demo" in request.POST:
-        user = authenticate(username="guest", password="testing321")
+        user = authenticate(username="guest", password=password)
         if user is not None:
             pk = user.pk
 
@@ -52,25 +63,24 @@ def welcome(request):
                 set.delete()
 
             # Delete all previously created flashcards added by demo user to the example set
-            example_set = Set.objects.get(owner=pk, name="example set")
-            flashcards_to_be_deleted = Flashcard.objects.filter(set=example_set)[5:]
-            for f in flashcards_to_be_deleted:
-                f.delete()
-            login(request, user)
+            try:
+                example_set = Set.objects.get(owner=pk, name="example set")
+                flashcards_to_be_deleted = Flashcard.objects.filter(set=example_set)[5:]
+                for f in flashcards_to_be_deleted:
+                    f.delete()
+                login(request, user)
+            except Set.DoesNotExist:
+                create_example_set(user)
 
         else:
             # Create guest active demo user.
-            user = User.objects.create_user(username="guest", password="testing321")
+            user = User.objects.create_user(username="guest", password=password)
             user.is_active = True
             user.save()
-            # Create example set with few example flashcards.
-            example_set = Set.objects.create(name="example", owner=user)
-            user = authenticate(username="guest", password="testing321")
-            for i in range(1, 6):
-                front = f'Question {i}'
-                back = f'Answer {i}'
-                Flashcard.objects.create(set=example_set, owner=user, front=front, back=back)
 
+            # Create example set with few example flashcards.
+            create_example_set(user)
+            user = authenticate(username="guest", password=password)
 
         return redirect('flashcards-home')
     return render(request, 'flashcards/welcome.html')
