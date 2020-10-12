@@ -28,15 +28,11 @@ It is a simple application designed for learning languages and repeating new wor
 ## Technologies
 * Python 3.8.0
 * Django 3.0
-* django-crispy-forms 1.8.1 
-* Pillow  6.2.1
-* six 1.15.0
+* Bootstrap 4
 
 ## Screenshots
 ![Homepage](./images/home.png)
-![Set_list](./images/set_list.png)
 ![Flashcard_list](./images/flashcard_list.png)
-![Flashcard](./images/flashcard.png)
 ![Learn](./images/learn.png)
 
 

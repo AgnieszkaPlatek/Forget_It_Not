@@ -47,12 +47,12 @@ def welcome(request):
             pk = user.pk
 
             # Delete all previously created demo sets with the exception of example set
-            sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example")
+            sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example set")
             for set in sets_to_be_deleted:
                 set.delete()
 
             # Delete all previously created flashcards added by demo user to the example set
-            example_set = Set.objects.get(owner=pk, name="example")
+            example_set = Set.objects.get(owner=pk, name="example set")
             flashcards_to_be_deleted = Flashcard.objects.filter(set=example_set)[5:]
             for f in flashcards_to_be_deleted:
                 f.delete()

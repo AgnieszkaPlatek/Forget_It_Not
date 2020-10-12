@@ -1,7 +1,7 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
   <div class="content-section">
-      <div class="mx-4 mt-4">
+      <div class="ml-3 ml-md-5 mt-4">
           <div>
               <h1 class="h2 mb-3">Hello <b>{{ user.username }}</b>!</h1>
               <h5>You have <b>{{ total_sets }}</b> sets and <b>{{ total_flashcards }}</b> flashcards</h5>
@@ -29,12 +29,12 @@
               </table>
           </div>
           <div class="fluid-container">
-              <div class="row col-12 mb-4 btn-md-group mt-5">
-                  <a href="{% url 'set-list' %}" class="btn btn-square btn-db col-md-4 d-inline-block"
+              <div class="row col-12 mb-3 mt-5">
+                  <a href="{% url 'set-list' %}" class="btn btn-square btn-b col-md-4 pr-2 mb-1 mr-md-1"
                      role="button">Your Flashcard Sets</a>
-                  <a href="{% url 'set-create' %}" class="btn btn-square btn-b col-md-4 d-inline-block"
+                  <a href="{% url 'set-create' %}" class="btn btn-square btn-b col-md-3 mb-1 mr-md-1"
                      role="button">New Set</a>
-                  <a href="{% url 'learn' %}" class="btn btn-square btn-db col-md-4 d-inline-block"
+                  <a href="{% url 'learn' %}" class="btn btn-square btn-b col-md-4 mb-1"
                      role="button">Learn</a>
               </div>
           </div>
