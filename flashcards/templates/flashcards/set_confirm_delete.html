@@ -1,18 +1,14 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <div class="content-section">
-        <div class="mt-4">
-            <form method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group mt-2">
-                    <legend class="border-bottom mb-2 ml-3">Delete Set</legend>
-                    <h1 class="h3 ml-3">Are you sure you want to delete the set "{{ object.name }}"?</h1>
-                </fieldset>
-                <div class="row mb-4 ml-3">
-                    <button class="btn btn-outline-danger ml-3" type="submit">Yes, Delete</button>
-                    <a href="{% url 'set-list' %}" class="btn btn-outline-dark ml-3" role="button" aria-pressed="true">Cancel</a>
-                </div>
-            </form>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group mt-2">
+            <legend class="border-bottom mb-2 ml-3">Delete Set</legend>
+            <h1 class="h3 ml-3">Are you sure you want to delete the set "{{ object.name }}"?</h1>
+        </fieldset>
+        <div class="row mb-4 ml-3">
+            <button class="btn btn-outline-danger ml-3" type="submit">Yes, Delete</button>
+            <a href="{% url 'set-list' %}" class="btn btn-outline-dark ml-3" role="button" aria-pressed="true">Cancel</a>
         </div>
-    </div>
+    </form>
 {% endblock content %}

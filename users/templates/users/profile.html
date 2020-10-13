@@ -1,37 +1,35 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section pl-5">
-      <div class="media mt-4 ml-2">
-        <img class="rounded-circle account-img mr-5" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
-            <p class="mt-34 mb-1"><b>{{ total_sets }}</b> sets</p>
-            <p><b>{{ total_flashcards }}</b> flashcards</p>
-        </div>
-      </div>
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-          <br/>
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info</legend>
-            {{ u_form|crispy }}
-            {{ p_form|crispy }}
-        </fieldset>
-        <div class="row">
-            <div class="form-group col-md-9 col-sm-8">
-                <button class="btn btn-primary" type="submit">Update</button>
-            </div>
-            {% if not guest %}
-                <div class="col-md-3 col-sm-4 mb-3">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <a href="{% url 'delete' %}" class="btn btn-sm btn-outline-dark">Delete account</a>
-                    </form>
-                </div>
-            {% endif %}
-        </div>
-      </form>
+  <div class="media mt-4 ml-2">
+    <img class="rounded-circle account-img mr-5" src="{{ user.profile.image.url }}">
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+        <p class="mt-34 mb-1"><b>{{ total_sets }}</b> sets</p>
+        <p><b>{{ total_flashcards }}</b> flashcards</p>
     </div>
+  </div>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+      <br/>
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Profile Info</legend>
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+    </fieldset>
+    <div class="row">
+        <div class="form-group col-md-9 col-sm-8">
+            <button class="btn btn-primary" type="submit">Update</button>
+        </div>
+        {% if not guest %}
+            <div class="col-md-3 col-sm-4 mb-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    <a href="{% url 'delete' %}" class="btn btn-sm btn-outline-dark">Delete account</a>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+  </form>
 {% endblock content %}

@@ -15,7 +15,7 @@ def learn(request):
             sets.append(set)
     empty = user.flashcard_set.count() == 0
     num = len(sets)
-    return render(request, 'learn/learn.html', {"sets": sets, "empty": empty, "num": num})
+    return render(request, 'learn/learn.html', {"sets": sets, "empty": empty, "num": num, "learn": "active"})
 
 
 def make_question_ids(flashcards):

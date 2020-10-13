@@ -1,43 +1,39 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <div class="content-section">
-        <div class="mx-5">
-            {% if set %}
-            <div class="ml-3 mb-4 mt-4">
-                <h1 class="h2">Learning set <strong>{{ set.name }}</strong></h1>
+    {% if set %}
+    <div class="ml-3 mb-4 mt-4">
+        <h1 class="h2">Learning set <strong>{{ set.name }}</strong></h1>
+    </div>
+    {% else %}
+    <div class="mb-4 mt-4">
+        <h2>Learning all flashcards</h2>
+    </div>
+    {% endif %}
+    <div class="ml-3 mb-5 mt-3">
+        <progress id="learning" value="{{ learned }}" max="{{ total }}"> {{ learned }}</progress>
+        <label class="ml-2" for="learning"><b>{{ learned }} / {{ total }}</b></label>
+    </div>
+    <div class="card col-md-8 content-center mx-auto p-3 mb-5">
+        <h2 class="card-body p-3">{{ back }}</h2>
+    </div>
+    <div class="ml-4 mb-3 mt-5">
+        <h4>Did you know?</h4>
+    </div>
+    <div class="ml-3 row">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row ml-1">
+                <button class="btn btn-yes btn-square ml-1 px-5" type="submit" name="learned"
+                        value="ok"><b>YES</b>
+                </button>
+                <button class="btn btn-not btn-square ml-1 px-5" type="submit" name="not-learned"
+                        value="no">
+                    <b>NO</b></button>
             </div>
-            {% else %}
-            <div class="mb-4 mt-4">
-                <h2>Learning all flashcards</h2>
-            </div>
-            {% endif %}
-            <div class="ml-3 mb-5 mt-3">
-                <progress id="learning" value="{{ learned }}" max="{{ total }}"> {{ learned }}</progress>
-                <label class="ml-2" for="learning"><b>{{ learned }} / {{ total }}</b></label>
-            </div>
-            <div class="card col-md-8 content-center mx-auto p-3 mb-5">
-                <h2 class="card-body p-3">{{ back }}</h2>
-            </div>
-            <div class="ml-4 mb-3 mt-5">
-                <h4>Did you know?</h4>
-            </div>
-            <div class="ml-3 row">
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="row ml-1">
-                        <button class="btn btn-yes btn-square ml-1 px-5" type="submit" name="learned"
-                                value="ok"><b>YES</b>
-                        </button>
-                        <button class="btn btn-not btn-square ml-1 px-5" type="submit" name="not-learned"
-                                value="no">
-                            <b>NO</b></button>
-                    </div>
-                </form>
-            </div>
-            <div class="clearfix">
-                <a href="{% url 'set-list' %}" class="btn btn-outline-dark btn-sm float-right mb-3 px-4 mr-2"
-                   role="button">Cancel</a>
-            </div>
-        </div>
+        </form>
+    </div>
+    <div class="clearfix">
+        <a href="{% url 'set-list' %}" class="btn btn-outline-dark btn-sm float-right mb-3 px-4 mr-2"
+           role="button">Cancel</a>
     </div>
 {% endblock content %}

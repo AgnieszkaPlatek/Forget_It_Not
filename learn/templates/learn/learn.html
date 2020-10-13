@@ -1,52 +1,48 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <div class="content-section">
-        <div class="pt-2 mt-2 mb-4 text-center">
-            <h1 class="h2">Learn</h1>
+    <div class="pt-2 mt-2 mb-4 text-center">
+        <h1 class="h2">Learn</h1>
+    </div>
+    <div class="mx-md-5 mb-3">
+        {% if not empty and num > 1 %}
+        <div class="container col-12 mt-4 mb-4">
+            <a class="btn btn-learn btn-primary btn-square btn-lg btn-block content-center text-uppercase py-2"
+               href="{% url 'learn-all' %}">Learn all flashcards</a>
         </div>
-        <div class="mx-md-5 mb-3">
-            {% if not empty and num > 1 %}
-                <div class="container col-12 mt-4 mb-4">
-                    <a class="btn btn-learn btn-primary btn-square btn-lg btn-block content-center text-uppercase py-2" href="{% url 'learn-all' %}">Learn all flashcards</a>
-                </div>
-            {% elif empty %}
-                <div class="pt-2 mt-4 mb-4">
-                    <h2>Learn</h2>
-                </div>
-                <div class="ml-3">
-                    <h6>You have to add some flashcards before learning them!</h6>
-                </div>
-                <div class="row mt-4 mb-3">
-                    <a href="{% url 'set-list' %}" class="btn btn-primary" role="button">Your sets</a>
-                    <a href="{% url 'set-create' %}" class="btn btn-outline-primary ml-2" role="button">New Set</a>
-                </div>
-            {% endif %}
+        {% elif empty %}
+        <div>
+            <h6>You have to add some flashcards before learning them!</h6>
+        </div>
+        <div class="row mt-4 mb-3">
+            <a href="{% url 'set-list' %}" class="btn btn-primary" role="button">Your sets</a>
+            <a href="{% url 'set-create' %}" class="btn btn-outline-primary ml-2" role="button">New Set</a>
+        </div>
+        {% endif %}
 
-            <div class="fluid-container">
-                <div>
-                    {% for set in sets %}
-                        {% if set.count_flashcards > 50 %}
-                            <div class="btn-group col-12">
-                                <button type="button" class="btn btn-square btn-g btn-block btn-lg dropdown-toggle mb-1"
-                                        data-toggle="dropdown">{{ set.name }}
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item text-center py-1" href="{% url 'learn-set' set.pk %}">
-                                        Learn all flashcards from the set</a>
-                                    <a class="dropdown-item text-center mb-1 py-1" href="{% url 'flashcard-filter' set.pk %}">
-                                        Choose part to learn</a>
-                                </div>
-                            </div>
-                        {% else %}
-                            <div class="mx-3">
-                                <a href="{% url 'learn-set' set.pk %}" class="btn btn-square btn-g btn-lg btn-block mb-1"
-                                   role="button" aria-pressed="true">{{ set.name }}</a>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+        <div class="fluid-container">
+            <div>
+                {% for set in sets %}
+                {% if set.count_flashcards > 50 %}
+                <div class="btn-group col-12">
+                    <button type="button" class="btn btn-square btn-g btn-block btn-lg dropdown-toggle mb-1"
+                            data-toggle="dropdown">{{ set.name }}
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item text-center py-1" href="{% url 'learn-set' set.pk %}">
+                            Learn all flashcards from the set</a>
+                        <a class="dropdown-item text-center mb-1 py-1"
+                           href="{% url 'flashcard-filter' set.pk %}">
+                            Choose part to learn</a>
+                    </div>
                 </div>
+                {% else %}
+                <div class="mx-3">
+                    <a href="{% url 'learn-set' set.pk %}" class="btn btn-square btn-g btn-lg btn-block mb-1"
+                       role="button" aria-pressed="true">{{ set.name }}</a>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
-
 {% endblock content %}

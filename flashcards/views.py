@@ -92,6 +92,11 @@ class SetListView(LoginRequiredMixin, ListView):
         qs = super().get_queryset()
         return qs.filter(owner=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super(SetListView, self).get_context_data(**kwargs)
+        context['set_list'] = 'active'
+        return context
+
 
 class SetCreateView(LoginRequiredMixin, CreateView):
     model = Set
