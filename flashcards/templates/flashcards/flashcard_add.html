@@ -7,9 +7,9 @@
             <legend class="border-bottom mb-2">Add flashcard</legend>
             {{ form|crispy }}
         </fieldset>
-        <div class="row mb-4 mt-4">
-            <button class="btn btn-primary ml-3 px-5" type="submit">Add</button>
-            <a href="{% url 'set-list' %}" class="btn btn-outline-dark ml-2" role="button">Cancel</a>
+        <div class="row mb-4 mt-4 ml-1">
+            <button class="btn btn-square btn-add px-5" type="submit">Add</button>
+            <a href="{% url 'set-list' %}" class="btn btn-square btn-back px-4 ml-2" role="button">Cancel</a>
         </div>
     </form>
 {% endblock content %}

@@ -78,10 +78,6 @@ header img{
     height:50px;
 }
 
-.btn-square{
-    border-radius: 0;
-}
-
 .card {
     -webkit-box-shadow: 4px 9px 20px -4px rgba(0,0,0,0.37);
     -moz-box-shadow: 4px 9px 20px -4px rgba(0,0,0,0.37);
@@ -100,9 +96,6 @@ header img{
 
 @media(max-width: 991px)
 {
-    .flashcards-footer a {
-                display: block;
-            }
     .nav-img {
            display: none;
         }
@@ -169,7 +162,7 @@ header img{
 }
 
 .search-container button:hover {
-  background: #bbbbbb;
+    background: #bbbbbb;
 }
 
 @media (max-width: 991px)
@@ -241,6 +234,12 @@ header img{
     }
 }
 
+/* Buttons */
+
+.btn-square{
+    border-radius: 0;
+}
+
 .btn-learn {
     background: #3590F0;
     letter-spacing: 1px;
@@ -258,6 +257,17 @@ header img{
     color: #000000;
 }
 
+.btn-lb {
+    background: #5BA9FC;
+    color: #ffffff;
+}
+
+.btn-lb:hover {
+    background: #5BA9FC;
+    color: #2c3779;
+    font-weight: bold;
+}
+
 .btn-b {
     background: #3590F0;
     color: #ffffff;
@@ -272,11 +282,6 @@ header img{
 .btn-g:hover {
     background: #cccccc;
     color: #000000;
-}
-
-#learn-set {
-    margin-left:18px;
-    margin-right 24px;
 }
 
 .btn-next {
@@ -321,6 +326,51 @@ header img{
 
 .btn-yes:hover {
     background: #3590F0;
+}
+
+.btn-delete {
+    background: #f35335;
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background: #444444;
+    color: #ffffff;
+}
+
+.btn-back {
+     background: #777777;
+     color: #ffffff;
+ }
+
+ .btn-back:hover {
+     background: #444444;
+     color: #ffffff;
+ }
+
+ .btn-add {
+     background: #2337af;
+     color: #ffffff;
+ }
+
+ .btn-add:hover {
+     background: #2c3779;
+     color: #ffffff;
+ }
+
+ .btn-update {
+     background: #3380d1;
+     color: #ffffff;
+ }
+
+ .btn-update:hover {
+     background: #2c3779;
+     color: #ffffff;
+
+
+#learn-set {
+    margin-left:18px;
+    margin-right 24px;
 }
 
 .message {

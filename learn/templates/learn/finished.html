@@ -18,12 +18,12 @@
     {% endif %}
 
     <div class="fluid-container">
-        <div class="row col-12 ml-1 mb-4 btn-md-group mt-5">
-            <a href="{% url 'set-list' %}" class="btn btn-square btn-db col-md-4 d-inline-block"
-               role="button">Your Sets</a>
-            <a href="{% url 'set-create' %}" class="btn btn-square btn-b col-md-4 d-inline-block"
+        <div class="row btn-group col-12 mb-3 mt-3">
+            <a href="{% url 'set-list' %}" class="btn btn-square btn-db display-block col-md-4 mb-1"
+               role="button">Your Flashcard Sets</a>
+            <a href="{% url 'set-create' %}" class="btn btn-square btn-lb display-block col-md-4 mb-1"
                role="button">New Set</a>
-            <a href="{% url 'learn' %}" class="btn btn-square btn-db col-md-4 d-inline-block"
+            <a href="{% url 'learn' %}" class="btn btn-square btn-b display-block col-md-4 mb-1"
                role="button">Learn</a>
         </div>
     </div>

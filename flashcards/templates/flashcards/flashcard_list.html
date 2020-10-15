@@ -76,20 +76,20 @@
 
         </div>
     {% endif %}
-    <div class="container-fluid mt-5">
-        <div class="row flashcards-footer mb-2">
-            <div class="col-12 col-lg-6">
-                <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-primary px-5" role="button"
-                   aria-pressed="true">Add Flashcard</a>
-                <a href="{% url 'set-list' %}" class="btn btn-outline-dark btn-square btn-sm ml-lg-2 px-3" role="button"
-                   aria-pressed="true">Back</a>
+    <div class="fluid-container mt-5 ml-3">
+        <div class="row btn-group mb-2 col-12">
+            <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-add d-inline-block col-lg-8" role="button"
+               aria-pressed="true">Add Flashcard</a>
+            <a href="{% url 'set-list' %}" class="btn btn-back btn-square d-inline-block col-lg-4" role="button"
+               aria-pressed="true">Back</a>
+        </div>
+        <div class="row col-12">
+            <div class="col-lg-4 offset-lg-4">
             </div>
-            <div class="col-12 col-lg-6">
-                <a href="{% url 'set-update' set.pk %}" class="btn btn-outline-primary btn-square btn-sm ml-lg-5 mr-lg-2 px-xl-4" role="button"
-                   aria-pressed="true">Update Set</a>
-                <a href="{% url 'set-delete' set.pk %}" class="btn btn-outline-dark btn-square btn-sm px-xl-4" role="button"
-                   aria-pressed="true">Delete Set</a>
-            </div>
+            <a href="{% url 'set-update' set.pk %}" class="btn btn-update btn-square d-inline-block btn-sm col-lg-2 mb-1" role="button"
+               aria-pressed="true">Update Set</a>
+            <a href="{% url 'set-delete' set.pk %}" class="btn btn-delete btn-square d-inline-block btn-sm col-lg-2 mb-1" role="button"
+               aria-pressed="true">Delete Set</a>
         </div>
     </div>
-{% endblock content %}
+{% endblock content %}col-md-3

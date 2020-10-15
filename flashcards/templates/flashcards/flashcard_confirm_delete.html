@@ -7,8 +7,8 @@
             <h1 class="h5">Are you sure you want to delete the flashcard <br><b>{{ object.front }} - {{ object.back }}?</b></h1>
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
-            <a class="btn btn-outline-dark" href="{% url 'flashcard-detail' object.id %}">Cancel</a>
+            <button class="btn btn-square btn-delete btn-sm px-5" type="submit">Yes, Delete</button>
+            <a class="btn btn-square btn-back btn-sm px-5" href="{% url 'flashcard-detail' object.id %}">Cancel</a>
         </div>
     </form>
 {% endblock content %}

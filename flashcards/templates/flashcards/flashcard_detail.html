@@ -28,23 +28,22 @@
             {% endif %}
         </div>
     </div>
-    <div class="container-fluid mt-5">
-        <div class="row flashcards-footer mb-3">
-            <div class="col-12 col-lg-8">
-                <a href="{% url 'flashcard-add' flashcard.set.pk %}" class="btn btn-square btn-primary px-5" role="button"
-                   aria-pressed="true">Add Flashcard</a>
-                <a href="{% url 'flashcard-list' flashcard.set.pk %}" class="btn btn-outline-dark btn-square btn-sm ml-lg-1 px-3"
-                   role="button"
-                   aria-pressed="true">Back</a>
+    <div class="fluid-container mt-5">
+        <div class="row btn-group col-12 mb-3 ml-12">
+            <a href="{% url 'flashcard-add' flashcard.set.pk %}" class="btn btn-square col-lg-4 display-block btn-add" role="button"
+               aria-pressed="true">Add Flashcard</a>
+            <a href="{% url 'flashcard-list' flashcard.set.pk %}" class="btn btn-back btn-square display-block col-lg-2"
+               role="button"
+               aria-pressed="true">Back</a>
+            <div class="col-lg-1 offset-lg-1">
             </div>
-            <div class="col-12 col-lg-4">
-                <a href="{% url 'flashcard-update' flashcard.id %}"
-                   class="btn btn-outline-primary btn-square btn-sm mr-lg-1 px-xl-4" role="button"
-                   aria-pressed="true">Edit</a>
-                <a href="{% url 'flashcard-delete' flashcard.id %}" class="btn btn-outline-dark btn-square btn-sm px-xl-4"
-                   role="button"
-                   aria-pressed="true">Delete</a>
-            </div>
+            <a href="{% url 'flashcard-update' flashcard.id %}"
+               class="btn btn-update btn-square display-block col-lg-2" role="button"
+               aria-pressed="true">Edit</a>
+            <a href="{% url 'flashcard-delete' flashcard.id %}"
+               class="btn btn-delete btn-square display-block col-lg-2"
+               role="button" aria-pressed="true">Delete</a>
         </div>
     </div>
+
 {% endblock content %}

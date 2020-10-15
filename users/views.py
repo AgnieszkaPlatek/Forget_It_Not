@@ -81,6 +81,8 @@ def profile(request):
         'p_form': p_form,
         'total_sets': total_sets,
         'total_flashcards': total_flashcards,
+        'title': f'{username} - profile',
+        'profile': 'active'
     }
 
     if request.user.username == "guest":

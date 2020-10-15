@@ -154,6 +154,7 @@ def flashcard_list(request, pk):
         "set": set,
         "flashcards": flashcards,
         "count": count,
+        "title": str(set.name)
     }
     if is_valid_query(query):
         qs = qs.filter(

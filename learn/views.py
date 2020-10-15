@@ -15,7 +15,8 @@ def learn(request):
             sets.append(set)
     empty = user.flashcard_set.count() == 0
     num = len(sets)
-    return render(request, 'learn/learn.html', {"sets": sets, "empty": empty, "num": num, "learn": "active"})
+    context = {"sets": sets, "empty": empty, "num": num, "learn": "active", "title": "Learn"}
+    return render(request, 'learn/learn.html', context)
 
 
 def make_question_ids(flashcards):
@@ -32,7 +33,7 @@ def learn_set(request, pk):
     session = Learn(learner=request.user, question_ids=question_ids, total_questions=total, set_to_learn=set)
     session.save()
     l_pk = session.pk
-    context = {"set": set, "total": total, "l_pk": l_pk}
+    context = {"set": set, "total": total, "l_pk": l_pk, "title": f"Learn {set.name}"}
     return render(request, 'learn/learn_intro.html', context)
 
 
@@ -55,7 +56,7 @@ def learn_all(request):
     session = Learn(learner=user, question_ids=question_ids, total_questions=total)
     session.save()
     l_pk = session.pk
-    context = {"total": total, "l_pk": l_pk}
+    context = {"total": total, "l_pk": l_pk, "title": "Learn all flashcards"}
     return render(request, 'learn/learn_intro.html', context)
 
 

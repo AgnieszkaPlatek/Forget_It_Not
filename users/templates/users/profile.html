@@ -19,14 +19,14 @@
         {{ p_form|crispy }}
     </fieldset>
     <div class="row">
-        <div class="form-group col-md-9 col-sm-8">
-            <button class="btn btn-primary" type="submit">Update</button>
+        <div class="form-group col-sm-8 col-md-9">
+            <button class="btn btn-square btn-primary px-5" type="submit">Update</button>
         </div>
         {% if not guest %}
-            <div class="col-md-3 col-sm-4 mb-3">
+            <div class="col-sm-4 col-md-3 mb-3">
                 <form method="POST">
                     {% csrf_token %}
-                    <a href="{% url 'delete' %}" class="btn btn-sm btn-outline-dark">Delete account</a>
+                    <a href="{% url 'delete' %}" class="btn btn-square btn-sm btn-delete">Delete account</a>
                 </form>
             </div>
         {% endif %}
