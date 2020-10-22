@@ -74,7 +74,7 @@ header img{
     margin-bottom: 5px;
 }
 
-.navbar-brand img{
+.navbar-brand img {
     height:50px;
 }
 
@@ -90,7 +90,7 @@ header img{
 @media (max-width: 575px)
 {
     .navbar-brand img {
-        height: 50px;
+        height: 40px;
     }
     .content-section {
        margin: -15px;
