@@ -42,7 +42,7 @@ header img{
 }
 
 .site-header .navbar-nav .nav-link.active {
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .content-section {
@@ -89,8 +89,11 @@ header img{
 
 @media (max-width: 575px)
 {
-    .navbar-brand img{
-        height:40px;
+    .navbar-brand img {
+        height: 50px;
+    }
+    .content-section {
+       margin: -15px;
     }
 }
 
@@ -268,6 +271,7 @@ header img{
     font-weight: bold;
 }
 
+
 .btn-b {
     background: #3590F0;
     color: #ffffff;
@@ -343,30 +347,30 @@ header img{
      color: #ffffff;
  }
 
- .btn-back:hover {
-     background: #444444;
-     color: #ffffff;
- }
+.btn-back:hover {
+ background: #444444;
+ color: #ffffff;
+}
 
- .btn-add {
-     background: #2337af;
-     color: #ffffff;
- }
+.btn-add {
+ background: #2337af;
+ color: #ffffff;
+}
 
- .btn-add:hover {
-     background: #2c3779;
-     color: #ffffff;
- }
+.btn-add:hover {
+ background: #2c3779;
+ color: #ffffff;
+}
 
- .btn-update {
-     background: #3380d1;
-     color: #ffffff;
- }
+.btn-update {
+ background: #3380d1;
+ color: #ffffff;
+}
 
- .btn-update:hover {
-     background: #2c3779;
-     color: #ffffff;
-
+.btn-update:hover {
+ background: #2c3779;
+ color: #ffffff;
+}
 
 #learn-set {
     margin-left:18px;
