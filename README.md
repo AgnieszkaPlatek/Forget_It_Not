@@ -2,6 +2,8 @@
 # Forget-It-Not
 Simple django app for learning vocabulary by creating sets of flashcards and learning them.
 
+https://forgetitnot.herokuapp.com
+
 
 ## Table of contents
 * [General info](#general-info)
