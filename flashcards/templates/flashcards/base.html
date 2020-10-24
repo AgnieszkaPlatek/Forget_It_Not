@@ -57,17 +57,18 @@
     </header>
     <main role="main" class="container">
       <div class="row">
-        <div class="col-12 col-xl-9">
+        <div class="col-xl-9">
           {% if messages %}
             {% for message in messages %}
-              <div class="message">
+              <div class="message mb-4 mb-sm-0">
                 {{ message }}
               </div>
             {% endfor %}
           {% endif %}
           <div class="content-section">
             <div class="mx-3 mx-md-5 mt-4">
-              {% block content %}{% endblock %}
+              {% block content %}
+              {% endblock %}
             </div>
           </div>
         </div>

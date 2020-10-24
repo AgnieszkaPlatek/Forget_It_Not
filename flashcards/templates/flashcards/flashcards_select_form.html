@@ -1,42 +1,45 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="mb-4">
-        <h1 class="h2 mb-4">Filter flashcards from <b>{{ set.name }}</b></h1>
-        <div class="filter mb-4">
-            <form method="GET" class="row col-6 col-lg-12">
-                <label for="min_date" class="h6 col-lg-2 text-lg-right pt-2">from date:</label>
-                <input type="date" id="min_date" name="min_date" placeholder="dd/mm/yyyy" class="col-lg-3">
-                <label for="max_date" class="h6 col-lg-2 text-lg-right pt-2">to date:</label>
-                <input type="date" id="max_date" name="max_date" placeholder="dd/mm/yyyy" class="col-lg-3">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
+    <section class="mx-2">
+        <div class="mb-4">
+            <h1 class="h2 mb-4">Filter flashcards from <b>{{ set.name }}</b></h1>
+            <div class="filter mb-4">
+                <form method="GET" class="row col-12">
+                    <label for="min_date" class="h6 col-lg-2 text-lg-right pt-2">from date:</label>
+                    <input type="date" id="min_date" name="min_date" placeholder="dd/mm/yyyy" class="col-lg-3">
+                    <label for="max_date" class="h6 col-lg-2 text-lg-right pt-2">to date:</label>
+                    <input type="date" id="max_date" name="max_date" placeholder="dd/mm/yyyy" class="col-lg-3">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="container mb-4">
-        <table class="table table-hover col-11">
-            <tbody>
-            {% for flashcard in flashcards %}
-            <tr>
-                <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front }}</a>
-                </td>
-                <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% if flashcards %}
+        <div class="container mb-4">
+            <table class="table table-hover col-11">
+                <tbody>
+                {% for flashcard in flashcards %}
+                <tr>
+                    <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front }}</a>
+                    </td>
+                    <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if flashcards %}
         <form method="POST">
             {% csrf_token %}
             <button class="btn btn-square btn-learn btn-block btn-primary btn-lg mb-3" type="submit" name="learn"
                     value="learn">LEARN
             </button>
         </form>
-    {% endif %}
+        {% endif %}
 
-    <div class="ml-lg-1 mb-3">
-        <a href="{% url 'flashcard-list' set.pk %}" class="btn btn-outline-dark px-3 ml-1" role="button"
-           aria-pressed="true">Back</a>
-    </div>
+        <div class="ml-lg-1 mb-3">
+            <a href="{% url 'flashcard-list' set.pk %}"
+               class="btn btn-back btn-square btn-sm d-inline-block col-12 col-md-3" role="button"
+               aria-pressed="true">Back</a>
+        </div>
+    </section>
 {% endblock content %}

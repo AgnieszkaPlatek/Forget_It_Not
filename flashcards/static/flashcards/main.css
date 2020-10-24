@@ -383,4 +383,12 @@ header img{
     padding: 15px;
     margin-top: 0px;
     margin-bottom: 0px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.alert-custom {
+    border-radius: 0px;
+    text-align: center;
+    letter-spacing: 2px;
 }

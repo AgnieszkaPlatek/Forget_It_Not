@@ -26,7 +26,7 @@
         {% endif %}
         {% if count > 50 %}
             <div class="fluid-container mb-5">
-                <div class="btn-group col-12">
+                <div class="btn-group col-12 mb-1">
                     <button type="button" class="btn btn-square btn-block btn-learn btn-lg btn-primary text-uppercase dropdown-toggle" data-toggle="dropdown">
                         Learn
                     </button>
@@ -77,10 +77,10 @@
         </div>
     {% endif %}
     <div class="fluid-container mt-5 ml-3">
-        <div class="row btn-group mb-2 col-12">
-            <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-add d-inline-block col-lg-8" role="button"
+        <div class="row btn-group mb-3 col-12">
+            <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-add d-inline-block col-lg-8 mb-1" role="button"
                aria-pressed="true">Add Flashcard</a>
-            <a href="{% url 'set-list' %}" class="btn btn-back btn-square d-inline-block col-lg-4" role="button"
+            <a href="{% url 'set-list' %}" class="btn btn-back btn-square d-inline-block col-lg-4 mb-1" role="button"
                aria-pressed="true">Back</a>
         </div>
         <div class="row col-12">

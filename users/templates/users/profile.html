@@ -1,35 +1,39 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-  <div class="media mt-4 ml-2">
-    <img class="rounded-circle account-img mr-5" src="{{ user.profile.image.url }}">
-    <div class="media-body">
-      <h2 class="account-heading">{{ user.username }}</h2>
-      <p class="text-secondary">{{ user.email }}</p>
-        <p class="mt-34 mb-1"><b>{{ total_sets }}</b> sets</p>
-        <p><b>{{ total_flashcards }}</b> flashcards</p>
-    </div>
-  </div>
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-      <br/>
-    <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Profile Info</legend>
-        {{ u_form|crispy }}
-        {{ p_form|crispy }}
-    </fieldset>
-    <div class="row">
-        <div class="form-group col-sm-8 col-md-9">
-            <button class="btn btn-square btn-primary px-5" type="submit">Update</button>
+    <section class="mx-3">
+        <div class="media mt-4 ml-2">
+            <img class="rounded-circle account-img mr-5" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ user.username }}</h2>
+                <p class="text-secondary">{{ user.email }}</p>
+                <p class="mt-34 mb-1"><b>{{ total_sets }}</b> sets</p>
+                <p><b>{{ total_flashcards }}</b> flashcards</p>
+            </div>
         </div>
         {% if not guest %}
-            <div class="col-sm-4 col-md-3 mb-3">
-                <form method="POST">
-                    {% csrf_token %}
-                    <a href="{% url 'delete' %}" class="btn btn-square btn-sm btn-delete">Delete account</a>
-                </form>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <br/>
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+
+            <div class="fluid-container">
+                <button class="btn btn-square btn-primary col-md-4 d-inline-block mb-4" type="submit">Update</button>
+                <div class="row col-12">
+                    <div class="col-4 offset-4 col-lg-5 offset-lg-5">
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <a href="{% url 'delete' %}"
+                           class="btn btn-square btn-sm btn-delete col-4 col-lg-2 d-inline-block">Delete account</a>
+                    </form>
+                </div>
             </div>
-        {% endif %}
-    </div>
-  </form>
+        </form>
+    </section>
+  {% endif %}
 {% endblock content %}
