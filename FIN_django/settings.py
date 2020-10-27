@@ -158,4 +158,7 @@ AWS_S3_SIGNATURE_VERSION = "s3v4"
 
 guest_password = os.environ.get('guest_password')
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+
 django_heroku.settings(locals())

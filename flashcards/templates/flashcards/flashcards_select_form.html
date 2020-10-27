@@ -1,9 +1,9 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <section class="mx-2">
+    <section class="mt-4 mx-2 mx-md-1">
         <div class="mb-4">
-            <h1 class="h2 mb-4">Filter flashcards from <b>{{ set.name }}</b></h1>
+            <h1 class="h4 mb-4">Filter flashcards from <b>{{ set.name }}</b></h1>
             <div class="filter mb-4">
                 <form method="GET" class="row col-12">
                     <label for="min_date" class="h6 col-lg-2 text-lg-right pt-2">from date:</label>
@@ -36,10 +36,12 @@
         </form>
         {% endif %}
 
-        <div class="ml-lg-1 mb-3">
+        <div class="fluid-container ml-lg-1 mb-4">
             <a href="{% url 'flashcard-list' set.pk %}"
-               class="btn btn-back btn-square btn-sm d-inline-block col-12 col-md-3" role="button"
+               class="btn btn-back btn-square btn-sm d-inline-block col-md-3 col-6" role="button"
                aria-pressed="true">Back</a>
         </div>
+
+
     </section>
 {% endblock content %}

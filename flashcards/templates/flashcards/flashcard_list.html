@@ -1,95 +1,106 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <div class="ml-4">
-        <div class="mb-2 mr-5">
-            <h1 class="h2">{{ set.name }}<span class="badge badge-primary ml-3">{{ count }}</span></h1>
+    <section class="my-4">
+        <div class="ml-4">
+            <div class="mb-2 mr-5">
+                <h1 class="h2">{{ set.name }}<span class="badge badge-primary ml-3">{{ count }}</span></h1>
+            </div>
+            <div class="mb-lg-3 pb-2">
+                <h5>by {{ user }}</h5>
+                <p class="text-muted">created on {{ set.created|date:"F d, Y" }}</p>
+            </div>
         </div>
-        <div class="mb-lg-3 pb-2">
-            <h5>by {{ user }}</h5>
-            <p class="text-muted">created on {{ set.created|date:"F d, Y" }}</p>
+        <div class="fluid-container">
+            <div class="row col-12 btn-md-group mb-2" id="lm">
+                <a id="set_filter" href="{% url 'flashcard-filter' set.pk %}"
+                   class="btn btn-square d-inline-block col-lg-6">Filter flashcards by date</a>
+                <a id="set_search" href="{% url 'flashcard-search' set.pk %}"
+                   class="btn btn-square d-inline-block col-lg-6">Search for flashcard<i class="ml-3 fa fa-search"></i></a>
+            </div>
         </div>
-    </div>
-    <div class="fluid-container">
-        <div class="row col-12 btn-md-group mb-2" id="lm">
-            <a id="set_filter" href="{% url 'flashcard-filter' set.pk %}" class="btn btn-square d-inline-block col-lg-6">Filter flashcards by date</a>
-            <a id="set_search" href="{% url 'flashcard-search' set.pk %}" class="btn btn-square d-inline-block col-lg-6">Search for flashcard<i class="ml-3 fa fa-search"></i></a>
-        </div>
-    </div>
-    <div>
-        {% if count > 0 and count < 50 %}
+        <div>
+            {% if count > 0 and count < 50 %}
             <div class="fluid-container mb-3">
                 <div class="col-12">
                     <a href="{% url 'learn-set' set.pk %}" class="btn btn-square btn-learn btn-block btn-primary btn-lg"
                        role="button" aria-pressed="true">Learn</a>
                 </div>
             </div>
-        {% endif %}
-        {% if count > 50 %}
+            {% endif %}
+            {% if count > 50 %}
             <div class="fluid-container mb-5">
                 <div class="btn-group col-12 mb-1">
-                    <button type="button" class="btn btn-square btn-block btn-learn btn-lg btn-primary text-uppercase dropdown-toggle" data-toggle="dropdown">
+                    <button type="button"
+                            class="btn btn-square btn-block btn-learn btn-lg btn-primary text-uppercase dropdown-toggle"
+                            data-toggle="dropdown">
                         Learn
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item text-center text-uppercase py-1" href="{% url 'learn-set' set.pk %}">
                             Learn all flashcards from the set</a>
-                        <a class="dropdown-item text-center text-uppercase mb-1 py-1" href="{% url 'flashcard-filter' set.pk %}">
+                        <a class="dropdown-item text-center text-uppercase mb-1 py-1"
+                           href="{% url 'flashcard-filter' set.pk %}">
                             Choose part to learn</a>
                     </div>
                 </div>
             </div>
-        {% endif %}
-    </div>
-    <div class="container">
-         <table class="table table-hover col-11">
-             <tbody>
+            {% endif %}
+        </div>
+        <div class="container">
+            <table class="table table-hover col-11">
+                <tbody>
                 {% for flashcard in flashcards %}
-                    <tr>
-                        <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front }}</a></td>
-                        <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
-                    </tr>
+                <tr>
+                    <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front }}</a></td>
+                    <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
+                </tr>
                 {% endfor %}
-             </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
 
-    {% if flashcards.has_other_pages %}
+        {% if flashcards.has_other_pages %}
         <div class="ml-3">
 
             {% if flashcards.has_previous %}
-                <a class="btn btn-outline-primary btn-sm" href="?page=1">First</a>
-                <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcards.previous_page_number }}">Previous</a>
+            <a class="btn btn-outline-primary btn-sm" href="?page=1">First</a>
+            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcards.previous_page_number }}">Previous</a>
             {% endif %}
 
             {% for num in flashcards.paginator.page_range %}
-                {% if flashcards.number == num %}
-                    <a class="btn btn-primary btn-sm" href="?page={{ num }}">{{ num }}</a>
-                {% elif num > flashcards.number|add:'-3' and num < flashcards.number|add:'3' %}
-                    <a class="btn btn-outline-primary btn-sm" href="?page={{ num }}">{{ num }}</a>
-                {% endif %}
+            {% if flashcards.number == num %}
+            <a class="btn btn-primary btn-sm" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > flashcards.number|add:'-3' and num < flashcards.number|add:'3' %}
+            <a class="btn btn-outline-primary btn-sm" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
             {% endfor %}
 
             {% if flashcards.has_next %}
-                <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcardsj.next_page_number }}">Next</a>
-                <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcards.paginator.num_pages }}">Last</a>
+            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcardsj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcards.paginator.num_pages }}">Last</a>
             {% endif %}
 
         </div>
-    {% endif %}
-    <div class="fluid-container mt-5 ml-3">
-        <div class="row btn-group mb-3 col-12">
-            <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-add d-inline-block col-lg-8 mb-1" role="button"
-               aria-pressed="true">Add Flashcard</a>
-            <a href="{% url 'set-list' %}" class="btn btn-back btn-square d-inline-block col-lg-4 mb-1" role="button"
-               aria-pressed="true">Back</a>
-        </div>
-        <div class="row col-12">
-            <div class="col-lg-4 offset-lg-4">
+        {% endif %}
+        <div class="fluid-container mt-5 ml-3">
+            <div class="row btn-group mb-3 col-12">
+                <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-add d-inline-block col-lg-8 mb-1"
+                   role="button"
+                   aria-pressed="true">Add Flashcard</a>
+                <a href="{% url 'set-list' %}" class="btn btn-back btn-square d-inline-block col-lg-4 mb-1"
+                   role="button"
+                   aria-pressed="true">Back</a>
             </div>
-            <a href="{% url 'set-update' set.pk %}" class="btn btn-update btn-square d-inline-block btn-sm col-lg-2 mb-1" role="button"
-               aria-pressed="true">Update Set</a>
-            <a href="{% url 'set-delete' set.pk %}" class="btn btn-delete btn-square d-inline-block btn-sm col-lg-2 mb-1" role="button"
-               aria-pressed="true">Delete Set</a>
+            <div class="row col-12">
+                <div class="col-lg-4 offset-lg-4">
+                </div>
+                <a href="{% url 'set-update' set.pk %}"
+                   class="btn btn-update btn-square d-inline-block btn-sm col-lg-2 mb-1" role="button"
+                   aria-pressed="true">Update Set</a>
+                <a href="{% url 'set-delete' set.pk %}"
+                   class="btn btn-delete btn-square d-inline-block btn-sm col-lg-2 mb-1" role="button"
+                   aria-pressed="true">Delete Set</a>
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock content %}col-md-3

@@ -1,15 +1,17 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group mt-2">
-            <legend class="border-bottom mb-2">Create new set</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="row mb-4">
-            <button class="btn btn-primary ml-3" type="submit">Submit</button>
-            <a href="{% url 'set-list' %}" class="btn btn-outline-dark ml-3" role="button" aria-pressed="true">Cancel</a>
-        </div>
-    </form>
+    <section class="mt-4 mx-1">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group mt-2">
+                <legend class="border-bottom mb-4">Create new set</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="row mb-4 mt-3">
+                <button class="btn btn-primary btn-square ml-3 px-5" type="submit">Submit</button>
+                <a href="{% url 'set-list' %}" class="btn btn-back btn-square ml-3" role="button" aria-pressed="true">Cancel</a>
+            </div>
+        </form>
+    </section>
 {% endblock content %}

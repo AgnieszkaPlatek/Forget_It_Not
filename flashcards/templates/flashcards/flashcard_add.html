@@ -1,15 +1,17 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group mt-2">
-            <legend class="border-bottom mb-2">Add flashcard</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="row mb-4 mt-4 ml-1">
-            <button class="btn btn-square btn-add px-5" type="submit">Add</button>
-            <a href="{% url 'set-list' %}" class="btn btn-square btn-back px-4 ml-2" role="button">Cancel</a>
-        </div>
-    </form>
+    <section class="mt-4 mx-1">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group mt-2">
+                <legend class="border-bottom mb-2">Add flashcard</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="row mb-4 mt-4 ml-1">
+                <button class="btn btn-square btn-primary px-5" type="submit">Add</button>
+                <a href="{% url 'set-list' %}" class="btn btn-square btn-back px-4 ml-2" role="button">Cancel</a>
+            </div>
+        </form>
+    </section>
 {% endblock content %}

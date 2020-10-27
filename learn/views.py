@@ -14,8 +14,10 @@ def learn(request):
         if set.count_flashcards > 0:
             sets.append(set)
     empty = user.flashcard_set.count() == 0
-    num = len(sets)
-    context = {"sets": sets, "empty": empty, "num": num, "learn": "active", "title": "Learn"}
+    num_sets = len(sets)
+    num_flashcards = Flashcard.objects.filter(owner=user).count
+    context = {"sets": sets, "empty": empty, "num_sets": num_sets, "num_flashcards": num_flashcards,
+               "learn": "active", "title": "Learn"}
     return render(request, 'learn/learn.html', context)
 
 

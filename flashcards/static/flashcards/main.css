@@ -47,9 +47,7 @@ header img{
 
 .content-section {
   background: #ffffff;
-  padding-bottom: 20px;
   border: 1.5px solid #bbbbbb;
-  margin-bottom: 20px;
   -webkit-box-shadow: 4px 9px 20px -4px rgba(0,0,0,0.37);
   -moz-box-shadow: 4px 9px 20px -4px rgba(0,0,0,0.37);
   box-shadow: 4px 9px 20px -4px rgba(0,0,0,0.37);
@@ -244,10 +242,17 @@ header img{
 }
 
 .btn-learn {
-    background: #3590F0;
+    background: #5ba9fc;
     letter-spacing: 1px;
     border: none;
     width: 100%;
+    color: #ffffff;
+}
+
+.btn-learn:hover {
+    background: #3590F0;
+    color: #ffffff;
+    text-weight: bold;
 }
 
 .btn-db {

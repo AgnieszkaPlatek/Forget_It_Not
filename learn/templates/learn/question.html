@@ -1,12 +1,12 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <section class="mx-2">
+    <section class="mt-3 mx-2">
         {% if set %}
-        <div class="ml-3 mb-4 mt-4">
+        <div class="ml-2 mb-4 mt-4">
             <h1 class="h2">Learning set <strong>{{ set.name }}</strong></h1>
         </div>
         {% else %}
-        <div class="ml-4 mb-4 mt-4">
+        <div class="ml-2 mb-4 mt-4">
             <h2>Learning all flashcards</h2>
         </div>
         {% endif %}
@@ -24,7 +24,7 @@
             <div class="row mx-1">
                 <div class="col-4 offset-4 col-md-5 offset-md-5">
                 </div>
-                <a href="{% url 'set-list' %}" class="btn btn-back btn-square d-inline-block btn-sm col-4 col-md-2 mb-2"
+                <a href="{% url 'set-list' %}" class="btn btn-back btn-square d-inline-block btn-sm col-4 col-md-2 mb-3"
                    role="button">Cancel</a>
             </div>
         </div>

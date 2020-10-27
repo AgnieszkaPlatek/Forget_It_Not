@@ -1,49 +1,56 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <div class="mt-4 mb-5 mx-3">
-        <h1 class="h2">{{ flashcard.set }}</h1>
-        <h5>by {{ user }}</h5>
-        <small class="text-muted">added on {{ flashcard.added|date:"F d, Y" }}</small>
-    </div>
-    <div class="card col-md-8 content-center mx-auto p-3 mb-5">
-        <h4 class="card-body p-3">{{ flashcard.back }} - {{ flashcard.front }}</h4>
-    </div>
-    <div class="fluid container">
-        <div class="row">
-            {% if previous_id and next_id %}
+    <section class="mt-4">
+        <div class="mb-5 mx-3">
+            <h1 class="h2">{{ flashcard.set }}</h1>
+            <h5>by {{ user }}</h5>
+            <small class="text-muted">added on {{ flashcard.added|date:"F d, Y" }}</small>
+        </div>
+        <div class="card col-md-8 content-center mx-auto p-3 mb-5">
+            <h4 class="card-body p-3">{{ flashcard.back }} - {{ flashcard.front }}</h4>
+        </div>
+        <div class="fluid container">
+            <div class="row">
+                {% if previous_id and next_id %}
                 <a href="{% url 'flashcard-detail' previous_id %}"
                    class="btn btn-square btn-previous col-6 offset-md-2 col-md-4 d-inline-block" role="button"
                    aria-pressed="true">Previous</a>
                 <a href="{% url 'flashcard-detail' next_id %}"
                    class="btn btn-square btn-next col-6 col-md-4 d-inline-block"
                    role="button" aria-pressed="true">Next</a>
-            {% endif %}
-            {% if previous_id and not next_id %}
-                <a href="{% url 'flashcard-detail' previous_id %}" class="btn btn-square btn-previous offset-md-2 col-md-8 d-inline-block" role="button"
+                {% endif %}
+                {% if previous_id and not next_id %}
+                <a href="{% url 'flashcard-detail' previous_id %}"
+                   class="btn btn-square btn-previous offset-md-2 col-md-8 d-inline-block" role="button"
                    aria-pressed="true">Previous</a>
-            {% endif %}
-            {% if next_id and not previous_id %}
-                <a href="{% url 'flashcard-detail' next_id %}" class="btn btn-square btn-next offset-md-2 col-md-8 d-inline-block"
+                {% endif %}
+                {% if next_id and not previous_id %}
+                <a href="{% url 'flashcard-detail' next_id %}"
+                   class="btn btn-square btn-next offset-md-2 col-md-8 d-inline-block"
                    role="button" aria-pressed="true">Next</a>
-            {% endif %}
-        </div>
-    </div>
-    <div class="fluid-container mt-5">
-        <div class="row btn-group col-12 mb-3 ml-12">
-            <a href="{% url 'flashcard-add' flashcard.set.pk %}" class="btn btn-square col-lg-4 display-block btn-add" role="button"
-               aria-pressed="true">Add Flashcard</a>
-            <a href="{% url 'flashcard-list' flashcard.set.pk %}" class="btn btn-back btn-square display-block col-lg-2"
-               role="button"
-               aria-pressed="true">Back</a>
-            <div class="col-lg-1 offset-lg-1">
+                {% endif %}
             </div>
-            <a href="{% url 'flashcard-update' flashcard.id %}"
-               class="btn btn-update btn-square display-block col-lg-2" role="button"
-               aria-pressed="true">Edit</a>
-            <a href="{% url 'flashcard-delete' flashcard.id %}"
-               class="btn btn-delete btn-square display-block col-lg-2"
-               role="button" aria-pressed="true">Delete</a>
         </div>
-    </div>
-
+        <div class="fluid-container mt-5 ml-3">
+            <div class="row btn-group col-12 mb-3">
+                <a href="{% url 'flashcard-add' flashcard.set.pk %}"
+                   class="btn btn-square col-lg-8 d-inline-block btn-add mb-1" role="button"
+                   aria-pressed="true">Add Flashcard</a>
+                <a href="{% url 'flashcard-list' flashcard.set.pk %}"
+                   class="btn btn-back btn-square d-inline-block col-lg-4 mb-1"
+                   role="button"
+                   aria-pressed="true">Back</a>
+            </div>
+            <div class="row col-12">
+                <div class="col-lg-4 offset-lg-4">
+                </div>
+                <a href="{% url 'flashcard-update' flashcard.id %}"
+                   class="btn btn-update btn-square d-inline-block col-lg-2 mb-1" role="button"
+                   aria-pressed="true">Edit</a>
+                <a href="{% url 'flashcard-delete' flashcard.id %}"
+                   class="btn btn-delete btn-square d-inline-block col-lg-2 mb-1"
+                   role="button" aria-pressed="true">Delete</a>
+            </div>
+        </div>
+    </section>
 {% endblock content %}

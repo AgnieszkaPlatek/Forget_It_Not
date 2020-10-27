@@ -2,8 +2,8 @@
 {% load crispy_forms_tags %}
 {% block content %}
     {% if not messages %}
-        <section class="mx-3">
-            <form class="mt-3" method="POST">
+        <section class="m-3">
+            <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Register account</legend>
