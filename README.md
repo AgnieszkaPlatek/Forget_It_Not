@@ -29,7 +29,7 @@ It is a simple application designed for learning languages and repeating new wor
 
 ## Technologies
 * Python 3.8.0
-* Django 3.0
+* Django 3.1.2
 * Bootstrap 4
 
 ## Screenshots
@@ -51,9 +51,9 @@ Create virtual environment:
 ```
 python -m venv FIN_env
 ```
-Activate the virtual environment on Windows / Linux:
+Activate the virtual environment on Windows or Linux:
 ```
-FIN_env\Scripts\activate  /  source FIN_env/bin/activate
+FIN_env\Scripts\activate  or  source FIN_env/bin/activate
 ```
 Install requirements:
 ```
@@ -66,6 +66,11 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = '<your-email>'
 EMAIL_HOST_PASSWORD = '<your-email-password>'
+```
+Delete these two lines (not to force HTTPS protocol):
+```
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
 ```
 Run migrations and server:
 ```
