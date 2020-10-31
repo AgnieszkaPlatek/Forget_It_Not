@@ -1,21 +1,21 @@
 {% extends "flashcards/base.html" %}
 {% block content %}
-    <section class="my-4">
-            {% if not empty and num_sets > 1 %}
-                <div class="mx-md-5 mb-4">
-                    <div class="mb-4 text-center">
-                        <h1 class="h2">Learn</h1>
-                    </div>
-                    <div class="container col-12 mt-4 mb-4">
-                        <a class="btn btn-learn btn-square btn-lg btn-block content-center text-uppercase py-2"
-                           href="{% url 'learn-all' %}">Learn all flashcards
-                            <span class="badge badge-dark ml-2">{{ num_flashcards }}</span>
-                        </a>
-                    </div>
-                    <div class="fluid-container">
-                        <div>
-                            {% for set in sets %}
-                                {% if set.count_flashcards > 50 %}
+    <section class="mt-4 mb-5">
+        {% if not empty %}
+            <div class="mx-md-5">
+                <div class="mb-4 text-center">
+                    <h1 class="h2">Learn</h1>
+                </div>
+                <div class="container col-12 mt-4 mb-3">
+                    <a class="btn btn-learn btn-square btn-lg btn-block content-center text-uppercase py-2"
+                       href="{% url 'learn-all' %}">Learn all flashcards
+                        <span class="badge badge-dark ml-2">{{ num_flashcards }}</span>
+                    </a>
+                </div>
+                <div class="fluid-container">
+                    <div>
+                        {% for set in sets %}
+                            {% if set.count_flashcards > 6 %}
                                 <div class="btn-group col-12">
                                     <button type="button" class="btn btn-square btn-g btn-block btn-lg dropdown-toggle mb-1"
                                             data-toggle="dropdown">{{ set.name }}
@@ -28,7 +28,7 @@
                                             Choose part to learn</a>
                                     </div>
                                 </div>
-                                {% else %}
+                            {% else %}
                                 <div class="mx-3">
                                     <a href="{% url 'learn-set' set.pk %}"
                                        class="btn btn-square btn-g btn-lg btn-block mb-1"
@@ -36,16 +36,16 @@
                                         <span class="badge badge-secondary ml-2">{{ set.count_flashcards }}</span>
                                     </a>
                                 </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-            {% elif empty %}
-                <div class="my-4 mx-3">
-                    <h4>You have to add some flashcards before learning them! <i class='fas fa-smile-wink'
-                                                                                style='font-size:24px'></i></h4>
-                </div>
-            {% endif %}
+            </div>
+        {% elif empty %}
+            <div class="my-4 mx-3">
+                <h4>You have to add some flashcards before learning them! <i class='fas fa-smile-wink'
+                                                                            style='font-size:24px'></i></h4>
+            </div>
+        {% endif %}
     </section>
 {% endblock content %}
