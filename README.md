@@ -59,6 +59,10 @@ Install requirements:
 ```
 pip install -r requirements.txt
 ```
+Change DEBUG variable to True
+```
+DEBUG = True
+```
 Edit email configurations in settings.py (necessary for confirming registration):
 ```
 EMAIL_HOST = 'smtp.gmail.com'
@@ -67,10 +71,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = '<your-email>'
 EMAIL_HOST_PASSWORD = '<your-email-password>'
 ```
-Delete these two lines (not to force HTTPS protocol):
+Set guest user password in settings.py:
 ```
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+guest_password = '<your-guest-user-password>'
+```
+Delete code related to production from settings.py, below this line:
+```
+'''-----Settings for production-----'''
 ```
 Run migrations and server:
 ```

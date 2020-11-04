@@ -10,8 +10,8 @@ class Set(models.Model):
     """
     name = models.CharField(max_length=20)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    created = models.DateField(auto_now_add=True)
+    last_modified = models.DateField(auto_now=True)
 
     @property
     def count_flashcards(self):
@@ -31,8 +31,8 @@ class Flashcard(models.Model):
     set = models.ForeignKey(Set, on_delete=models.CASCADE)
     front = models.CharField(max_length=50)
     back = models.CharField(max_length=50)
-    added = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    added = models.DateField(auto_now_add=True)
+    last_modified = models.DateField(auto_now=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):

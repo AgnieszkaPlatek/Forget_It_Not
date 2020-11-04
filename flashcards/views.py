@@ -23,6 +23,7 @@ from FIN_django.settings import guest_password
 def is_valid_query(p):
     return p != '' and p is not None
 
+
 def home(request):
     if request.user.is_authenticated:
         total_sets = Set.objects.filter(owner=request.user).count()
@@ -171,7 +172,7 @@ def filter_flashcards(request, pk):
     flashcards = Flashcard.objects.filter(set=set).order_by('added')
     min_date = request.GET.get('min_date')
     max_date = request.GET.get('max_date')
-    context = {"set": set}
+    context = {'set': set}
     if is_valid_query(min_date):
         flashcards = flashcards.filter(added__gte=min_date)
         context['flashcards'] = flashcards

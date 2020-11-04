@@ -207,7 +207,7 @@ header img{
 
 .filter button{
   padding: 6px 12px;
-  background: #dddddd;
+  background: #80c4fd;
   font-size: 17px;
   border: none;
   cursor: pointer;
@@ -215,7 +215,7 @@ header img{
 }
 
 .filter button:hover {
-    background: #bbbbbb;
+    background: #46a9fc;
 }
 
 .filter input[type=date] {
@@ -396,4 +396,9 @@ header img{
     border-radius: 0px;
     text-align: center;
     letter-spacing: 2px;
+}
+
+table a {
+    letter-spacing: 1.5px;
+    word-spacing: 4px;
 }

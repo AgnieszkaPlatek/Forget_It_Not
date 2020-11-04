@@ -1,47 +1,57 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <section class="mt-4 mx-2 mx-md-1">
-        <div class="mb-4">
-            <h1 class="h4 mb-4">Filter flashcards from <b>{{ set.name }}</b></h1>
-            <div class="filter mb-4">
-                <form method="GET" class="row col-12">
-                    <label for="min_date" class="h6 col-lg-2 text-lg-right pt-2">from date:</label>
-                    <input type="date" id="min_date" name="min_date" placeholder="dd/mm/yyyy" class="col-lg-3">
-                    <label for="max_date" class="h6 col-lg-2 text-lg-right pt-2">to date:</label>
-                    <input type="date" id="max_date" name="max_date" placeholder="dd/mm/yyyy" class="col-lg-3">
+    <section class="my-4 mx-1">
+        <h1 class="h4 mb-5 ml-3">Filter flashcards from <b>{{ set.name }}</b></h1>
+        <div class="filter fluid-container mb-4">
+            <form method="GET">
+                <div class="class=row col-12 mb-md-2">
+                    <label for="min_date" class="h6 col-lg-2 text-left pt-2">from date:</label>
+                    <input type="date" id="min_date" name="min_date" placeholder="dd/mm/yyyy" class="ml-2 col-5 col-md-4">
+                </div>
+                <div class="class=row col-12">
+                    <label for="max_date" class="h6 col-lg-2 text-left pt-2">to date:</label>
+                    <input type="date" id="max_date" name="max_date" placeholder="dd/mm/yyyy" class="ml-2 col-5 col-md-4">
                     <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-        <div class="container mb-4">
-            <table class="table table-hover col-11">
+
+        <div class="container mb-4 mt-5">
+            <table class="table table-hover col-12">
                 <tbody>
                 {% for flashcard in flashcards %}
-                <tr>
-                    <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front }}</a>
-                    </td>
-                    <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
-                </tr>
+                    <tr>
+                        <td class="col-7"><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} &minus; {{ flashcard.front }}</a>
+                        </td>
+                        <td class="col-5"><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-        {% if flashcards %}
-        <form method="POST">
-            {% csrf_token %}
-            <button class="btn btn-square btn-learn btn-block btn-primary btn-lg mb-3" type="submit" name="learn"
-                    value="learn">LEARN
-            </button>
-        </form>
-        {% endif %}
 
-        <div class="fluid-container ml-lg-1 mb-4">
-            <a href="{% url 'flashcard-list' set.pk %}"
-               class="btn btn-back btn-square btn-sm d-inline-block col-md-3 col-6" role="button"
-               aria-pressed="true">Back</a>
+
+        <div class="fluid-container">
+            {% if flashcards %}
+            <div class="col-12 mx-1">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-square btn-learn d-inline-block btn-lg mb-2" type="submit"
+                            name="learn"
+                            value="learn">LEARN
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+            <div class="row col-12 ml-1">
+                <div class="col-4 offset-4">
+                </div>
+                <a href="{% url 'flashcard-list' set.pk %}"
+                   class="btn btn-back btn-square btn-sm d-inline-block col-4" role="button"
+                   aria-pressed="true">Back</a>
+            </div>
         </div>
-
 
     </section>
 {% endblock content %}

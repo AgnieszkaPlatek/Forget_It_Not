@@ -16,8 +16,7 @@
                 <tbody>
                 {% for flashcard in flashcards %}
                 <tr>
-                    <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front
-                        }}</a>
+                    <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front }}</a>
                     </td>
                     <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
                 </tr>
