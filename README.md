@@ -59,20 +59,16 @@ Install requirements:
 ```
 pip install -r requirements.txt
 ```
-Change DEBUG variable to True
+Change following settings as follows or set your own environment variables in your system
+and check email configuration:
 ```
 DEBUG = True
-```
-Edit email configurations in settings.py (necessary for confirming registration):
-```
+SECRET_KEY = '<your-secret-key>'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = '<your-email>'
 EMAIL_HOST_PASSWORD = '<your-email-password>'
-```
-Set guest user password in settings.py:
-```
 guest_password = '<your-guest-user-password>'
 ```
 Delete code related to production from settings.py, below this line:
