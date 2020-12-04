@@ -25,32 +25,40 @@ from django.contrib.auth.views import (
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
+
 from users import views as user_views
 
+
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
-    path('register/', user_views.register, name='register'),
+]
+
+urlpatterns += i18n_patterns(
+    path(_('register/'), user_views.register, name='register'),
     path('activate/<uidb64>/<token>/', user_views.activate, name='activate'),
-    path('profile/', user_views.profile, name='profile'),
-    path('login/', LoginView.as_view(template_name='users/login.html', extra_context={'log_in': 'active'}),
+    path(_('profile/'), user_views.profile, name='profile'),
+    path(_('login/'), LoginView.as_view(template_name='users/login.html', extra_context={'log_in': 'active'}),
          name='login'),
-    path('logout/', LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-    path('delete_confirm/', user_views.delete_user, name='delete'),
-    path('password-reset/',
+    path(_('logout/'), LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path(_('delete_confirm/'), user_views.delete_user, name='delete'),
+    path(_('password-reset/'),
          PasswordResetView.as_view(template_name='users/password_reset.html'),
          name='password_reset'),
-    path('password-reset-confirm/<uidb64>/<token>/',
+    path(_('password-reset-confirm/<uidb64>/<token>/'),
          PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),
          name='password_reset_confirm'),
-    path('password-reset/done/',
+    path(_('password-reset/done/'),
          PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'),
          name='password_reset_done'),
-    path('password-reset-complete/',
+    path(_('password-reset-complete/'),
          PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
          name='password_reset_complete'),
     path('', include('flashcards.urls')),
     path('', include('learn.urls'))
-]
+)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,5 @@
 {% extends "flashcards/base.html" %}
+{% load i18n %}
 {% block content %}
     <section class="mt-4 my-3">
         <div class="mb-5 mx-3">
@@ -14,20 +15,20 @@
                 {% if previous_id and next_id %}
                 <a href="{% url 'flashcard-detail' previous_id %}"
                    class="btn btn-square btn-previous col-6 offset-md-2 col-md-4 d-inline-block" role="button"
-                   aria-pressed="true">Previous</a>
+                   aria-pressed="true">{% translate 'Previous' %}</a>
                 <a href="{% url 'flashcard-detail' next_id %}"
                    class="btn btn-square btn-next col-6 col-md-4 d-inline-block"
-                   role="button" aria-pressed="true">Next</a>
+                   role="button" aria-pressed="true">{% translate 'Next' %}</a>
                 {% endif %}
                 {% if previous_id and not next_id %}
                 <a href="{% url 'flashcard-detail' previous_id %}"
                    class="btn btn-square btn-previous offset-md-2 col-md-8 d-inline-block" role="button"
-                   aria-pressed="true">Previous</a>
+                   aria-pressed="true">{% translate 'Previous' %}</a>
                 {% endif %}
                 {% if next_id and not previous_id %}
                 <a href="{% url 'flashcard-detail' next_id %}"
                    class="btn btn-square btn-next offset-md-2 col-md-8 d-inline-block"
-                   role="button" aria-pressed="true">Next</a>
+                   role="button" aria-pressed="true">{% translate 'Next' %}</a>
                 {% endif %}
             </div>
         </div>
@@ -35,21 +36,21 @@
             <div class="row btn-group col-12 mb-3">
                 <a href="{% url 'flashcard-add' flashcard.set.pk %}"
                    class="btn btn-square col-lg-8 d-inline-block btn-add mb-1" role="button"
-                   aria-pressed="true">Add Flashcard</a>
+                   aria-pressed="true">{% translate 'Add Flashcard' %}</a>
                 <a href="{% url 'flashcard-list' flashcard.set.pk %}"
                    class="btn btn-back btn-square d-inline-block col-lg-4 mb-1"
                    role="button"
-                   aria-pressed="true">Back</a>
+                   aria-pressed="true">{% translate 'Back' %}</a>
             </div>
             <div class="row col-12">
                 <div class="col-lg-4 offset-lg-4">
                 </div>
                 <a href="{% url 'flashcard-update' flashcard.id %}"
                    class="btn btn-update btn-square d-inline-block col-lg-2 mb-1" role="button"
-                   aria-pressed="true">Edit</a>
+                   aria-pressed="true">{% translate 'Edit' %}</a>
                 <a href="{% url 'flashcard-delete' flashcard.id %}"
                    class="btn btn-delete btn-square d-inline-block col-lg-2 mb-1"
-                   role="button" aria-pressed="true">Delete</a>
+                   role="button" aria-pressed="true">{% translate 'Delete' %}</a>
             </div>
         </div>
     </section>

@@ -25,7 +25,7 @@ It is a simple application designed for learning languages and repeating new wor
 * Filtering flashcards by date
 * Search bar to look for a specific flashcard 
 * Learning all flashcards, flashcards from one set or from filtered part
-
+* English and Polish language
 
 ## Technologies
 * Python 3.8.0

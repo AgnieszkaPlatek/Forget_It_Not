@@ -1,17 +1,18 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 {% block content %}
     <section class="my-4 mx-1">
-        <h1 class="h4 mb-5 ml-3">Filter flashcards from <b>{{ set.name }}</b></h1>
+        <h1 class="h4 mb-5 ml-3">{% translate 'Filter flashcards from' %} <b>{{ set.name }}</b></h1>
         <div class="filter fluid-container mb-4">
             <form method="GET">
                 <div class="class=row col-12 mb-md-2">
-                    <label for="min_date" class="h6 col-lg-2 text-left pt-2">from date:</label>
-                    <input type="date" id="min_date" name="min_date" placeholder="dd/mm/yyyy" class="ml-2 col-5 col-md-4">
+                    <label for="min_date" class="h6 col-lg-2 text-left pt-2">{% translate 'from date:' %}</label>
+                    <input type="date" id="min_date" name="min_date" placeholder="{% translate 'dd/mm/yyyy' %}" class="ml-2 col-5 col-md-4">
                 </div>
                 <div class="class=row col-12">
-                    <label for="max_date" class="h6 col-lg-2 text-left pt-2">to date:</label>
-                    <input type="date" id="max_date" name="max_date" placeholder="dd/mm/yyyy" class="ml-2 col-5 col-md-4">
+                    <label for="max_date" class="h6 col-lg-2 text-left pt-2">{% translate 'to date:' %}</label>
+                    <input type="date" id="max_date" name="max_date" placeholder="{% translate 'dd/mm/yyyy' %}" class="ml-2 col-5 col-md-4">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </div>
             </form>
@@ -24,7 +25,7 @@
                     <tr>
                         <td class="col-7"><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} &minus; {{ flashcard.front }}</a>
                         </td>
-                        <td class="col-5"><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
+                        <td class="col-5"><small>{{ flashcard.added | date:"d E, Y" }}</small></td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -37,9 +38,8 @@
             <div class="col-12 mx-1">
                 <form method="POST">
                     {% csrf_token %}
-                    <button class="btn btn-square btn-learn d-inline-block btn-lg mb-2" type="submit"
-                            name="learn"
-                            value="learn">LEARN
+                    <button class="btn btn-square btn-learn d-inline-block btn-lg mb-2" type="submit" name="learn"
+                            value="learn">{% translate 'LEARN' %}
                     </button>
                 </form>
             </div>
@@ -49,7 +49,7 @@
                 </div>
                 <a href="{% url 'flashcard-list' set.pk %}"
                    class="btn btn-back btn-square btn-sm d-inline-block col-4" role="button"
-                   aria-pressed="true">Back</a>
+                   aria-pressed="true">{% translate 'Back' %}</a>
             </div>
         </div>
 

@@ -1,0 +1,700 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-04 19:30+0100\n"
+"PO-Revision-Date: 2020-11-26 09:31+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: .\FIN_django\settings.py:121
+msgid "English"
+msgstr ""
+
+#: .\FIN_django\settings.py:122
+msgid "Polish"
+msgstr ""
+
+#: .\FIN_django\urls.py:40
+msgid "register/"
+msgstr "rejestracja/"
+
+#: .\FIN_django\urls.py:42
+msgid "profile/"
+msgstr "profil/"
+
+#: .\FIN_django\urls.py:43
+msgid "login/"
+msgstr "logowanie/"
+
+#: .\FIN_django\urls.py:45
+msgid "logout/"
+msgstr "wyloguj/"
+
+#: .\FIN_django\urls.py:46
+msgid "delete_confirm/"
+msgstr "potwierdzenie_usuniecia"
+
+#: .\FIN_django\urls.py:47
+msgid "password-reset/"
+msgstr "resetowanie-hasla/"
+
+#: .\FIN_django\urls.py:50
+msgid "password-reset-confirm/<uidb64>/<token>/"
+msgstr "potwierdzenie-resetowania-hasla/<uidb64>/<token>/"
+
+#: .\FIN_django\urls.py:53
+msgid "password-reset/done/"
+msgstr "resetowanie-hasla/zrobione/"
+
+#: .\FIN_django\urls.py:56
+msgid "password-reset-complete/"
+msgstr "resetowanie-hasla-ukonczone/"
+
+#: .\flashcards\models.py:12
+msgid "name"
+msgstr "nazwa"
+
+#: .\flashcards\models.py:33
+msgid "front"
+msgstr "pytanie"
+
+#: .\flashcards\models.py:34
+msgid "back"
+msgstr "odpowiedź"
+
+#: .\flashcards\templates\flashcards\base.html:40
+#: .\flashcards\templates\flashcards\home.html:43
+#: .\learn\templates\learn\finished.html:25
+msgid "Your Flashcard Sets"
+msgstr "Moje bazy"
+
+#: .\flashcards\templates\flashcards\base.html:41
+#: .\flashcards\templates\flashcards\flashcard_list.html:47
+#: .\flashcards\templates\flashcards\flashcard_list.html:56
+#: .\flashcards\templates\flashcards\home.html:49
+#: .\learn\templates\learn\finished.html:29
+#: .\learn\templates\learn\learn.html:8
+#: .\learn\templates\learn\learn_intro.html:7
+msgid "Learn"
+msgstr "Nauka"
+
+#: .\flashcards\templates\flashcards\base.html:50
+msgid "Log out"
+msgstr "Wyloguj"
+
+#: .\flashcards\templates\flashcards\base.html:52
+msgid "Log in"
+msgstr "Zaloguj"
+
+#: .\flashcards\templates\flashcards\base.html:53
+msgid "Register"
+msgstr "Zarejestruj"
+
+#: .\flashcards\templates\flashcards\base.html:70
+msgid "PL"
+msgstr "EN"
+
+#: .\flashcards\templates\flashcards\flashcard_add.html:9
+msgid "Add flashcard"
+msgstr "Dodaj fiszkę"
+
+#: .\flashcards\templates\flashcards\flashcard_add.html:13
+msgid "Add"
+msgstr "Dodaj"
+
+#: .\flashcards\templates\flashcards\flashcard_add.html:14
+#: .\flashcards\templates\flashcards\flashcard_confirm_delete.html:16
+#: .\flashcards\templates\flashcards\flashcard_update.html:15
+#: .\flashcards\templates\flashcards\set_confirm_delete.html:14
+#: .\flashcards\templates\flashcards\set_create.html:15
+#: .\flashcards\templates\flashcards\set_update.html:15
+#: .\learn\templates\learn\answer.html:40
+#: .\learn\templates\learn\question.html:28
+#: .\users\templates\users\profile_confirm_delete.html:19
+msgid "Cancel"
+msgstr "Cofnij"
+
+#: .\flashcards\templates\flashcards\flashcard_confirm_delete.html:8
+msgid "Delete Flashcard"
+msgstr "Usuń fiszkę"
+
+#: .\flashcards\templates\flashcards\flashcard_confirm_delete.html:9
+msgid "Are you sure you want to delete the flashcard"
+msgstr "Czy jesteś pewien, że chcesz usunąć tę fiszkę"
+
+#: .\flashcards\templates\flashcards\flashcard_confirm_delete.html:15
+#: .\flashcards\templates\flashcards\set_confirm_delete.html:12
+#: .\users\templates\users\profile_confirm_delete.html:17
+msgid "Yes, Delete"
+msgstr "Tak, usuń"
+
+#: .\flashcards\templates\flashcards\flashcard_detail.html:18
+#: .\flashcards\templates\flashcards\flashcard_detail.html:26
+#: .\flashcards\templates\flashcards\flashcard_list.html:86
+msgid "Previous"
+msgstr "Poprzednia"
+
+#: .\flashcards\templates\flashcards\flashcard_detail.html:21
+#: .\flashcards\templates\flashcards\flashcard_detail.html:31
+#: .\flashcards\templates\flashcards\flashcard_list.html:98
+msgid "Next"
+msgstr "Następna"
+
+#: .\flashcards\templates\flashcards\flashcard_detail.html:39
+#: .\flashcards\templates\flashcards\flashcard_list.html:108
+msgid "Add Flashcard"
+msgstr "Dodaj fiszkę"
+
+#: .\flashcards\templates\flashcards\flashcard_detail.html:43
+#: .\flashcards\templates\flashcards\flashcard_list.html:111
+#: .\flashcards\templates\flashcards\flashcards_search.html:31
+#: .\flashcards\templates\flashcards\flashcards_select_form.html:52
+msgid "Back"
+msgstr "Wstecz"
+
+#: .\flashcards\templates\flashcards\flashcard_detail.html:50
+msgid "Edit"
+msgstr "Edytuj"
+
+#: .\flashcards\templates\flashcards\flashcard_detail.html:53
+msgid "Delete"
+msgstr "Usuń"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:10
+#: .\flashcards\templates\flashcards\flashcard_list.html:18
+#: .\flashcards\templates\flashcards\set_list.html:7
+msgid "by"
+msgstr ""
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:11
+#: .\flashcards\templates\flashcards\flashcard_list.html:19
+#: .\flashcards\templates\flashcards\flashcard_list.html:24
+msgid "created on"
+msgstr "utworzono"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:12
+#: .\flashcards\templates\flashcards\flashcard_list.html:25
+#, python-format
+msgid ""
+"\n"
+"                    created on %(date)s "
+msgstr ""
+"\n"
+"                    utworzono %(date)s "
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:36
+msgid "Filter flashcards by date"
+msgstr "Filtruj fiszki według daty"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:38
+#: .\flashcards\templates\flashcards\flashcards_search.html:11
+#: .\flashcards\templates\flashcards\home.html:21
+msgid "Search for flashcard"
+msgstr "Wyszukaj fiszkę"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:59
+#: .\learn\templates\learn\learn.html:26
+msgid "Learn all flashcards from the set"
+msgstr "Nauka wszystkich fiszek z bazy"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:61
+#: .\learn\templates\learn\learn.html:29
+msgid "Choose part to learn"
+msgstr "Wybierz część do nauki"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:84
+msgid "First"
+msgstr "Pierwsza"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:100
+msgid "Last"
+msgstr "Ostatnia"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:118
+#: .\flashcards\templates\flashcards\set_update.html:9
+msgid "Update Set"
+msgstr "Edytuj bazę"
+
+#: .\flashcards\templates\flashcards\flashcard_list.html:121
+#: .\flashcards\templates\flashcards\set_confirm_delete.html:8
+msgid "Delete Set"
+msgstr "Usuń bazę"
+
+#: .\flashcards\templates\flashcards\flashcard_update.html:9
+msgid "Edit flashcard"
+msgstr "Edytuj fiszkę"
+
+#: .\flashcards\templates\flashcards\flashcard_update.html:13
+#: .\flashcards\templates\flashcards\set_create.html:13
+#: .\flashcards\templates\flashcards\set_update.html:13
+msgid "Submit"
+msgstr "Zapisz"
+
+#: .\flashcards\templates\flashcards\flashcards_search.html:7
+msgid "Search for flashcard in"
+msgstr "Szukaj fiszki w"
+
+#: .\flashcards\templates\flashcards\flashcards_select_form.html:6
+msgid "Filter flashcards from"
+msgstr "Filtruj fiszki z"
+
+#: .\flashcards\templates\flashcards\flashcards_select_form.html:10
+msgid "from date:"
+msgstr "od daty:"
+
+#: .\flashcards\templates\flashcards\flashcards_select_form.html:11
+#: .\flashcards\templates\flashcards\flashcards_select_form.html:15
+msgid "dd/mm/yyyy"
+msgstr "dd/mm/rrrr"
+
+#: .\flashcards\templates\flashcards\flashcards_select_form.html:14
+msgid "to date:"
+msgstr "do daty:"
+
+#: .\flashcards\templates\flashcards\flashcards_select_form.html:42
+msgid "LEARN"
+msgstr "NAUKA"
+
+#: .\flashcards\templates\flashcards\home.html:5
+msgid "Hello"
+msgstr "Witaj"
+
+#: .\flashcards\templates\flashcards\home.html:7
+#, python-format
+msgid ""
+"\n"
+"            You have <b>%(count)s</b> set\n"
+"            "
+msgid_plural ""
+"\n"
+"            You have <b>%(count)s</b> sets\n"
+"            "
+msgstr[0] ""
+"\n"
+"Masz <b>%(count)s</b> bazę\n"
+"        "
+msgstr[1] ""
+"\n"
+"Masz <b>%(count)s</b> bazy\n"
+"        "
+msgstr[2] ""
+"\n"
+"Masz <b>%(count)s</b> baz\n"
+"        "
+
+#: .\flashcards\templates\flashcards\home.html:12
+#, python-format
+msgid ""
+"\n"
+"            and <b>%(count)s</b> flashcard.\n"
+"            "
+msgid_plural ""
+"\n"
+"            and <b>%(count)s</b> flashcards.\n"
+"            "
+msgstr[0] ""
+"\n"
+"i <b>%(count)s</b> fiszkę.</h5>\n"
+"        "
+msgstr[1] ""
+"\n"
+"i <b>%(count)s</b> fiszki.</h5>\n"
+"        "
+msgstr[2] ""
+"\n"
+"i <b>%(count)s</b> fiszek.</h5>\n"
+"        "
+
+#: .\flashcards\templates\flashcards\home.html:18
+msgid "Keep it up!"
+msgstr "Tak trzymaj!"
+
+#: .\flashcards\templates\flashcards\home.html:42
+msgid "View your sets of flashcards"
+msgstr "Przeglądaj bazy"
+
+#: .\flashcards\templates\flashcards\home.html:45
+msgid "Create a new set"
+msgstr "Utwórz nową bazę"
+
+#: .\flashcards\templates\flashcards\home.html:46
+#: .\flashcards\templates\flashcards\set_list.html:37
+#: .\learn\templates\learn\finished.html:27
+msgid "New Set"
+msgstr "Nowa baza"
+
+#: .\flashcards\templates\flashcards\home.html:48
+msgid "Begin learning your flashcards"
+msgstr "Rozpocznij naukę"
+
+#: .\flashcards\templates\flashcards\set_confirm_delete.html:9
+msgid "Are you sure you want to delete the set"
+msgstr "Czy jesteś pewien, że chcesz usunąć tę bazę"
+
+#: .\flashcards\templates\flashcards\set_create.html:9
+msgid "Create new set"
+msgstr "Utwórz nową bazę"
+
+#: .\flashcards\templates\flashcards\set_list.html:6
+msgid "Flashcard Sets"
+msgstr "Moje bazy"
+
+#: .\flashcards\templates\flashcards\set_list.html:14
+msgid "Set"
+msgstr "Baza"
+
+#: .\flashcards\templates\flashcards\set_list.html:15
+msgid "Created on"
+msgstr "Utworzono"
+
+#: .\flashcards\templates\flashcards\set_list.html:31
+msgid "You have no sets yet. Click the button below to create one."
+msgstr ""
+"Jeszcze nie masz żadnej bazy. Kliknij przycisk poniżej, żeby utworzyć nową "
+"bazę."
+
+#: .\flashcards\templates\flashcards\welcome.html:6
+msgid "Welcome!"
+msgstr "Witaj!"
+
+#: .\flashcards\templates\flashcards\welcome.html:9
+msgid "Please"
+msgstr " "
+
+#: .\flashcards\templates\flashcards\welcome.html:9
+msgid "register"
+msgstr "Zarejestruj się, "
+
+#: .\flashcards\templates\flashcards\welcome.html:10
+msgid "to begin creating your own sets of"
+msgstr "żeby zacząć tworzyć swoje bazy"
+
+#: .\flashcards\templates\flashcards\welcome.html:13
+msgid "flashcards"
+msgstr "fiszek"
+
+#: .\flashcards\templates\flashcards\welcome.html:16
+msgid "or just"
+msgstr "lub"
+
+#: .\flashcards\templates\flashcards\welcome.html:22
+msgid "TRY IT OUT"
+msgstr "WYPRÓBUJ"
+
+#: .\flashcards\urls.py:18
+msgid "welcome/"
+msgstr "witaj/"
+
+#: .\flashcards\urls.py:19
+msgid "set/list/"
+msgstr "bazy/lista/"
+
+#: .\flashcards\urls.py:20
+msgid "set/create/"
+msgstr "baza/nowa/"
+
+#: .\flashcards\urls.py:21
+msgid "set/<int:pk>/"
+msgstr "baza/<int:pk>/"
+
+#: .\flashcards\urls.py:22
+msgid "set/<int:pk>/select/"
+msgstr "baza/<int:pk>/filtruj/"
+
+#: .\flashcards\urls.py:23
+msgid "set/<int:pk>/search/"
+msgstr "baza/<int:pk>/szukaj/"
+
+#: .\flashcards\urls.py:24
+msgid "set/<int:pk>/update/"
+msgstr "baza/<int:pk>/zmien/"
+
+#: .\flashcards\urls.py:25
+msgid "set/<int:pk>/delete/"
+msgstr "baza/<int:pk>/usun/"
+
+#: .\flashcards\urls.py:26
+msgid "set/<int:pk>/add/"
+msgstr "baza/<int:pk>/nowa/"
+
+#: .\flashcards\urls.py:27
+msgid "set/flashcard/<int:pk>/"
+msgstr "baza/fiszka//<int:pk>/"
+
+#: .\flashcards\urls.py:28
+msgid "set/flashcard/<int:pk>/update/"
+msgstr "baza/fiszka//<int:pk>/zmien/"
+
+#: .\flashcards\urls.py:29
+msgid "set/flashcard/<int:pk>/delete/"
+msgstr "baza/fiszka//<int:pk>/usun/"
+
+#: .\learn\templates\learn\answer.html:7
+#: .\learn\templates\learn\question.html:7
+msgid "Learning set"
+msgstr "Nauka bazy"
+
+#: .\learn\templates\learn\answer.html:11
+#: .\learn\templates\learn\learn_intro.html:15
+#: .\learn\templates\learn\question.html:11
+msgid "Learning all flashcards"
+msgstr "Nauka wszystkich fiszek"
+
+#: .\learn\templates\learn\answer.html:22
+msgid "Did you know?"
+msgstr "Czy wiedziałeś?"
+
+#: .\learn\templates\learn\answer.html:29
+msgid "YES"
+msgstr "TAK"
+
+#: .\learn\templates\learn\answer.html:33
+msgid "NO"
+msgstr "NIE"
+
+#: .\learn\templates\learn\finished.html:6
+msgid "Well done"
+msgstr "Dobra robota"
+
+#: .\learn\templates\learn\finished.html:14
+msgid "You finished learning"
+msgstr "Skończyłeś naukę"
+
+#: .\learn\templates\learn\finished.html:18
+msgid "You finished learning your flashcards!"
+msgstr "Skończyłeś naukę swoich fiszek!"
+
+#: .\learn\templates\learn\learn.html:12
+msgid "Learn all flashcards"
+msgstr "Nauka wszystkich fiszek"
+
+#: .\learn\templates\learn\learn.html:47
+msgid "You have to add some flashcards before learning them!"
+msgstr "Musisz najpierw dodać jakieś fiszki, żeby móc się ich uczyć!"
+
+#: .\learn\templates\learn\learn_intro.html:11
+msgid "Learn part of"
+msgstr "Nauka części bazy"
+
+#: .\learn\templates\learn\learn_intro.html:20
+msgid "You have"
+msgstr "Masz"
+
+#: .\learn\templates\learn\learn_intro.html:21
+#, python-format
+msgid ""
+"\n"
+"                <strong>%(count)s</strong> flashcard\n"
+"                "
+msgid_plural ""
+"\n"
+"                <strong>%(count)s</strong> flashcards\n"
+"                "
+msgstr[0] ""
+"\n"
+"                <strong>%(count)s</strong> fiszkę\n"
+"        "
+msgstr[1] ""
+"\n"
+"                <strong>%(count)s</strong> fiszki\n"
+"        "
+msgstr[2] ""
+"\n"
+"                <strong>%(count)s</strong> fiszek\n"
+"        "
+
+#: .\learn\templates\learn\learn_intro.html:26
+msgid "to learn. Good luck!"
+msgstr "do nauki. Powodzenia!"
+
+#: .\learn\templates\learn\learn_intro.html:29
+msgid "START"
+msgstr "ZACZYNAMY"
+
+#: .\learn\templates\learn\question.html:23
+msgid "Check if you know"
+msgstr "Sprawdź czy wiedziałeś"
+
+#: .\learn\urls.py:8
+msgid "learn/"
+msgstr "nauka/"
+
+#: .\users\templates\users\login.html:9 .\users\templates\users\login.html:13
+#: .\users\templates\users\password_reset_complete.html:9
+msgid "Log In"
+msgstr "Zaloguj"
+
+#: .\users\templates\users\login.html:15
+msgid "Forgot password?"
+msgstr "Zapomniałeś hasła?"
+
+#: .\users\templates\users\login.html:20
+msgid "Need An Account?"
+msgstr "Chcesz utworzyć konto?"
+
+#: .\users\templates\users\login.html:21
+msgid "Sign Up Now"
+msgstr "Zarejestruj się"
+
+#: .\users\templates\users\logout.html:6
+msgid "You have been logged out"
+msgstr "Zostałeś wylogowany"
+
+#: .\users\templates\users\logout.html:10
+msgid "Log In Again"
+msgstr "Zaloguj ponownie"
+
+#: .\users\templates\users\password_reset.html:9
+#: .\users\templates\users\password_reset_confirm.html:9
+#: .\users\templates\users\password_reset_confirm.html:13
+msgid "Reset Password"
+msgstr "Resetuj hasło"
+
+#: .\users\templates\users\password_reset.html:13
+msgid "Request password reset"
+msgstr "Potwierdź prośbę o zresetowanie hasła"
+
+#: .\users\templates\users\password_reset_complete.html:6
+msgid "Your password has been changed."
+msgstr "Twoje hasło zostało zmienione."
+
+#: .\users\templates\users\password_reset_done.html:6
+msgid "An email has been sent with instructions to reset your password"
+msgstr "Email został wysłany w celu zresetowania hasła"
+
+#: .\users\templates\users\profile.html:11
+#, python-format
+msgid ""
+"\n"
+"                <p class=\"mt-34 mb-1\"><b>%(count)s</b> set</p>\n"
+"                "
+msgid_plural ""
+"\n"
+"                <p class=\"mt-34 mb-1\"><b>%(count)s</b> sets</p>\n"
+"                "
+msgstr[0] ""
+"\n"
+"<b>%(count)s</b> baza\n"
+"        "
+msgstr[1] ""
+"\n"
+"<b>%(count)s</b> bazy\n"
+"        "
+msgstr[2] ""
+"\n"
+"<b>%(count)s</b> baz\n"
+"        "
+
+#: .\users\templates\users\profile.html:16
+#, python-format
+msgid ""
+"\n"
+"                <p><b>%(count)s</b> flashcard</p>\n"
+"                "
+msgid_plural ""
+"\n"
+"                <p><b>%(count)s</b> flashcards</p>\n"
+"                "
+msgstr[0] ""
+"\n"
+"<p><b>%(count)s</b> fiszka</p>\n"
+"        "
+msgstr[1] ""
+"\n"
+"<p><b>%(count)s</b> fiszki</p>\n"
+"        "
+msgstr[2] ""
+"\n"
+"<p><b>%(count)s</b> fiszek</p>\n"
+"        "
+
+#: .\users\templates\users\profile.html:28
+msgid "Profile Info"
+msgstr "Twój profil"
+
+#: .\users\templates\users\profile.html:35
+msgid "Update"
+msgstr "Aktualizuj"
+
+#: .\users\templates\users\profile.html:43
+msgid "Delete account"
+msgstr "Usuń konto"
+
+#: .\users\templates\users\profile_confirm_delete.html:8
+msgid "Are you sure you want to delete your account?"
+msgstr "Czy jesteś pewien, że chcesz usunąć swoje konto?"
+
+#: .\users\templates\users\profile_confirm_delete.html:11
+msgid ""
+"This will permanently delete your profile and any content you have generated."
+msgstr "To na zawsze usunie Twoje konto i wszystkie dane w nim zawarte."
+
+#: .\users\templates\users\register.html:10
+msgid "Register account"
+msgstr "Zarejestruj"
+
+#: .\users\templates\users\register.html:14
+msgid "Sign Up"
+msgstr "Zarejestruj"
+
+#: .\users\templates\users\register.html:19
+msgid "Sign In"
+msgstr "Zaloguj"
+
+#: .\users\views.py:29
+msgid "Confirm Your Forget-It-Not Account"
+msgstr "Potwierdź swoje konto w Forget-It-Not"
+
+#: .\users\views.py:39
+msgid "Please confirm your email to complete registration."
+msgstr "Proszę potwierdź swój adres e-mail w celu dokończenia rejestracji."
+
+#: .\users\views.py:56
+msgid "Your account has been confirmed. You can log in."
+msgstr "Twoje konto zostało potwierdzone. Możesz się zalogować."
+
+#: .\users\views.py:60
+msgid "The confirmation link is invalid!"
+msgstr "Link nie jest poprawny!"
+
+#: .\users\views.py:76
+msgid "Your account has been updated!"
+msgstr "Twoje konto zostało zmienione!"
+
+#: .\users\views.py:105
+msgid "Your account has been deleted!"
+msgstr "Twoje konto zostało usunięte!"
+
+#~ msgid "set/<int:pk>/learn/"
+#~ msgstr "baza/<int:pk>/nauka/"
+
+#~ msgid "set/learn/<int:l_pk>/"
+#~ msgstr "baza/nauka/<int:pk>/"
+
+#~ msgid "all/learn/"
+#~ msgstr "wszystko/nauka/"
+
+#~ msgid "learn/question/<int:l_pk>/"
+#~ msgstr "nauka/pytanie/<int:pk>/"
+
+#~ msgid "learn/answer/<int:l_pk>/<int:f_pk>/"
+#~ msgstr "nauka/odpowiedz/<int:l_pk>/<int:f_pk>/"
+
+#~ msgid "learn/finished/<int:l_pk>/"
+#~ msgstr "nauka/koniec/<int:l_pk>/"
+
+#~ msgid "sets"
+#~ msgstr "bazy"

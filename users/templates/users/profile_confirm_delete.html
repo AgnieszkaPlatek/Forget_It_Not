@@ -1,16 +1,22 @@
 {% extends "flashcards/base.html" %}
+{% load i18n %}
 {% block content %}
     <section class="mt-4">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group mt-2 mx-2">
-                <legend class="border-bottom mb-3 ml-3">Are you sure you want to delete your account?</legend>
-                <p class="ml-3">This will permanently delete your profile and any content you have generated.</p>
+                <legend class="border-bottom mb-3 ml-3">{% translate 'Are you sure you want to delete your account?' %}
+                </legend>
+                <p class="ml-3">
+                    {% translate 'This will permanently delete your profile and any content you have generated.' %}
+                </p>
                 {{ form }}
             </fieldset>
             <div class="row mb-4 ml-3">
-                <button class="btn btn-square btn-delete ml-2 px-4" type="submit" name="delete">Yes, Delete</button>
-                <a href="{% url 'profile' %}" class="btn btn-square btn-back ml-2" role="button" aria-pressed="true">Cancel</a>
+                <button class="btn btn-square btn-delete ml-2 px-4" type="submit" name="delete">
+                    {% translate 'Yes, Delete' %}</button>
+                <a href="{% url 'profile' %}" class="btn btn-square btn-back ml-2" role="button" aria-pressed="true">
+                    {% translate 'Cancel' %}</a>
             </div>
         </form>
     </section>

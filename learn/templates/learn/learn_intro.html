@@ -1,25 +1,32 @@
 {% extends "flashcards/base.html" %}
+{% load i18n %}
 {% block content %}
     <section class="mt-4 ml-3">
         {% if set and not part %}
         <div class="mb-4 pt-2">
-            <h1 class="h2">Learn <strong>{{ set.name }}</strong></h1>
+            <h1 class="h2">{% translate 'Learn' %} <strong>{{ set.name }}</strong></h1>
         </div>
         {% elif set and part %}
         <div class="mb-4 pt-2">
-            <h1 class="h2">Learn part of <strong>{{ set.name }}</strong></h1>
+            <h1 class="h2">{% translate 'Learn part of' %} <strong>{{ set.name }}</strong></h1>
         </div>
         {% else %}
         <div class="mb-4 pt-2">
-            <h1 class="h2">Learning all flashcards</h1>
+            <h1 class="h2">{% translate 'Learning all flashcards' %}</h1>
         </div>
         {% endif %}
 
         <div class="mb-3 pb-3">
-            <h5>You have <strong>{{ total }}</strong> flashcards to learn. Good luck!</h5>
+            <h5>{% translate 'You have' %}
+                {% blocktranslate count count=total %}
+                <strong>{{ count }}</strong> flashcard
+                {% plural %}
+                <strong>{{ count }}</strong> flashcards
+                {% endblocktranslate %}
+                {% translate 'to learn. Good luck!' %}</h5>
         </div>
         <div class="mb-3 pt-3">
-            <a class="btn btn-square btn-b mb-3 px-5" href="{% url 'learn-question' l_pk=l_pk %}">START</a>
+            <a class="btn btn-square btn-b mb-3 px-5" href="{% url 'learn-question' l_pk=l_pk %}">{% translate 'START' %}</a>
         </div>
     </section>
 {% endblock %}

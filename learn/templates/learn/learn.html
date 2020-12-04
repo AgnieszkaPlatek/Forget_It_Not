@@ -1,14 +1,15 @@
 {% extends "flashcards/base.html" %}
+{% load i18n %}
 {% block content %}
     <section class="mt-4 mb-5">
         {% if not empty %}
             <div class="mx-md-5">
                 <div class="mb-4 text-center">
-                    <h1 class="h2">Learn</h1>
+                    <h1 class="h2">{% translate 'Learn' %}</h1>
                 </div>
                 <div class="container col-12 mt-4 mb-3">
                     <a class="btn btn-learn btn-square btn-lg btn-block content-center text-uppercase py-2"
-                       href="{% url 'learn-all' %}">Learn all flashcards
+                       href="{% url 'learn-all' %}">{% translate 'Learn all flashcards' %}
                         <span class="badge badge-dark ml-2">{{ num_flashcards }}</span>
                     </a>
                 </div>
@@ -22,10 +23,10 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item text-center py-1" href="{% url 'learn-set' set.pk %}">
-                                            Learn all flashcards from the set</a>
+                                            {% translate 'Learn all flashcards from the set' %}</a>
                                         <a class="dropdown-item text-center mb-1 py-1"
                                            href="{% url 'flashcard-filter' set.pk %}">
-                                            Choose part to learn</a>
+                                            {% translate 'Choose part to learn' %}</a>
                                     </div>
                                 </div>
                             {% else %}
@@ -43,7 +44,7 @@
             </div>
         {% elif empty %}
             <div class="my-4 mx-3">
-                <h4>You have to add some flashcards before learning them! <i class='fas fa-smile-wink'
+                <h4>{% translate 'You have to add some flashcards before learning them!' %} <i class='fas fa-smile-wink'
                                                                             style='font-size:24px'></i></h4>
             </div>
         {% endif %}

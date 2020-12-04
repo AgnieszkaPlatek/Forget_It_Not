@@ -1,4 +1,5 @@
 {% extends "flashcards/base.html" %}
+{% load i18n %}
 {% block content %}
     <section class="my-4">
         <div class="ml-4">
@@ -6,17 +7,21 @@
                 <h1 class="h2">{{ set.name }}<span class="badge badge-primary ml-3">{{ count }}</span></h1>
             </div>
             <div class="mb-lg-3 pb-2">
-                <h5>by {{ user }}</h5>
-                <p class="text-muted">created on {{ set.created|date:"F d, Y" }}</p>
+                <h5>{% translate 'by' %} {{ user }}</h5>
+                <p class="text-muted">
+                    {% blocktranslate with date=set.created|date:"DATE_FORMAT" %}
+                    created on {{ date }} {% endblocktranslate %}</p>
+
             </div>
-        </div>
+
+            </div>
         {% if flashcards %}
         <div class="fluid-container">
             <div class="row col-12 btn-md-group mb-2" id="lm">
                 <a id="set_filter" href="{% url 'flashcard-filter' set.pk %}"
-                   class="btn btn-square d-inline-block col-lg-6">Filter flashcards by date</a>
+                   class="btn btn-square d-inline-block col-lg-6">{% translate 'Filter flashcards by date' %}</a>
                 <a id="set_search" href="{% url 'flashcard-search' set.pk %}"
-                   class="btn btn-square d-inline-block col-lg-6">Search for flashcard<i class="ml-3 fa fa-search"></i></a>
+                   class="btn btn-square d-inline-block col-lg-6">{% translate 'Search for flashcard' %}<i class="ml-3 fa fa-search"></i></a>
             </div>
         </div>
         {% endif %}
@@ -25,7 +30,7 @@
             <div class="fluid-container mb-3">
                 <div class="col-12">
                     <a href="{% url 'learn-set' set.pk %}" class="btn btn-square btn-learn btn-block btn-primary btn-lg"
-                       role="button" aria-pressed="true">Learn</a>
+                       role="button" aria-pressed="true">{% translate 'Learn' %}</a>
                 </div>
             </div>
             {% endif %}
@@ -34,15 +39,12 @@
                 <div class="btn-group col-12 mb-1">
                     <button type="button"
                             class="btn btn-square btn-block btn-learn btn-lg btn-primary text-uppercase dropdown-toggle"
-                            data-toggle="dropdown">
-                        Learn
-                    </button>
+                            data-toggle="dropdown">{% translate 'Learn' %}</button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item text-center text-uppercase py-1" href="{% url 'learn-set' set.pk %}">
-                            Learn all flashcards from the set</a>
+                            {% translate 'Learn all flashcards from the set' %}</a>
                         <a class="dropdown-item text-center text-uppercase mb-1 py-1"
-                           href="{% url 'flashcard-filter' set.pk %}">
-                            Choose part to learn</a>
+                           href="{% url 'flashcard-filter' set.pk %}">{% translate 'Choose part to learn' %}</a>
                     </div>
                 </div>
             </div>
@@ -54,7 +56,7 @@
                 {% for flashcard in flashcards %}
                 <tr>
                     <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} &minus; {{ flashcard.front }}</a></td>
-                    <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
+                    <td><small>{{ flashcard.added | date:"d E, Y" }}</small></td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -65,8 +67,9 @@
         <div class="ml-3">
 
             {% if flashcards.has_previous %}
-            <a class="btn btn-outline-primary btn-sm" href="?page=1">First</a>
-            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcards.previous_page_number }}">Previous</a>
+            <a class="btn btn-outline-primary btn-sm" href="?page=1">{% translate 'First' %}</a>
+            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcards.previous_page_number }}">
+                {% translate 'Previous' %}</a>
             {% endif %}
 
             {% for num in flashcards.paginator.page_range %}
@@ -78,8 +81,9 @@
             {% endfor %}
 
             {% if flashcards.has_next %}
-            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcardsj.next_page_number }}">Next</a>
-            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcards.paginator.num_pages }}">Last</a>
+            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcardsj.next_page_number }}">{% translate 'Next' %}</a>
+            <a class="btn btn-outline-primary btn-sm" href="?page={{ flashcards.paginator.num_pages }}">
+                {% translate 'Last' %}</a>
             {% endif %}
 
         </div>
@@ -87,22 +91,21 @@
         <div class="fluid-container mt-5 ml-3">
             <div class="row btn-group mb-3 col-12">
                 <a href="{% url 'flashcard-add' set.pk %}" class="btn btn-square btn-add d-inline-block col-lg-8 mb-1"
-                   role="button"
-                   aria-pressed="true">Add Flashcard</a>
+                   role="button" aria-pressed="true">{% translate 'Add Flashcard' %}</a>
                 <a href="{% url 'set-list' %}" class="btn btn-back btn-square d-inline-block col-lg-4 mb-1"
                    role="button"
-                   aria-pressed="true">Back</a>
+                   aria-pressed="true">{% translate 'Back' %}</a>
             </div>
             <div class="row col-12">
                 <div class="col-lg-4 offset-lg-4">
                 </div>
                 <a href="{% url 'set-update' set.pk %}"
                    class="btn btn-update btn-square d-inline-block btn-sm col-lg-2 mb-1" role="button"
-                   aria-pressed="true">Update Set</a>
+                   aria-pressed="true">{% translate 'Update Set' %}</a>
                 <a href="{% url 'set-delete' set.pk %}"
                    class="btn btn-delete btn-square d-inline-block btn-sm col-lg-2 mb-1" role="button"
-                   aria-pressed="true">Delete Set</a>
+                   aria-pressed="true">{% translate 'Delete Set' %}</a>
             </div>
         </div>
     </section>
-{% endblock content %}col-md-3
+{% endblock content %}

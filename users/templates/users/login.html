@@ -1,22 +1,24 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 {% block content %}
     <section class="mt-3 mx-3">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
+                <legend class="border-bottom mb-4">{% translate 'Log In' %}</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-square btn-b px-4" type="submit">Log In</button>
+                <button class="btn btn-square btn-b px-4" type="submit">{% translate 'Log In' %}</button>
                 <small class="text-muted ml-3">
-                    <a href="{% url 'password_reset' %}">Forgot password?</a>
+                    <a href="{% url 'password_reset' %}">{% translate 'Forgot password?' %}</a>
                 </small>
             </div>
         </form>
         <div class="border-top pt-3 mb-3">
-            <small class="text-muted">Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+            <small class="text-muted">{% translate 'Need An Account?' %} <a class="ml-2" href="{% url 'register' %}">
+                {% translate 'Sign Up Now' %}</a>
             </small>
         </div>
     </section>

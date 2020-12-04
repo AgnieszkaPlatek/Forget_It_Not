@@ -1,8 +1,9 @@
 {% extends "flashcards/base.html" %}
+{% load i18n %}
 {% block content %}
     <section class="mt-4">
         <div class="mb-3 ml-3 row">
-            <h3>Well done</h3><i class="material-icons ml-3" style="font-size:33px;color:#2c73bf">thumb_up</i>
+            <h3>{% translate 'Well done' %}</h3><i class="material-icons ml-3" style="font-size:33px;color:#2c73bf">thumb_up</i>
         </div>
         <div class="mb-3 ml-3 mt-3">
             <progress id="learning" value="{{ total }}" max="{{ total }}"> {{ total }}</progress>
@@ -10,22 +11,22 @@
         </div>
         {% if set %}
         <div class="mb-4 ml-3">
-            <h4>You finished learning <strong>{{ set.name }}!</strong></h4>
+            <h4>{% translate 'You finished learning' %} <strong>{{ set.name }}!</strong></h4>
         </div>
         {% else %}
         <div class="mb-4 ml-3">
-            <h4>You finished learning your flashcards!</h4>
+            <h4>{% translate 'You finished learning your flashcards!' %}</h4>
         </div>
         {% endif %}
 
         <div class="fluid-container ml-4 ml-md-2">
             <div class="row btn-group col-12 mb-3 mt-3">
                 <a href="{% url 'set-list' %}" class="btn btn-square btn-db d-inline-block col-md-4 mb-1"
-                   role="button">Your Flashcard Sets</a>
+                   role="button">{% translate 'Your Flashcard Sets' %}</a>
                 <a href="{% url 'set-create' %}" class="btn btn-square btn-lb d-inline-block col-md-4 mb-1"
-                   role="button">New Set</a>
+                   role="button">{% translate 'New Set' %}</a>
                 <a href="{% url 'learn' %}" class="btn btn-square btn-b d-inline-block col-md-4 mb-1"
-                   role="button">Learn</a>
+                   role="button">{% translate 'Learn' %}</a>
             </div>
         </div>
     </section>

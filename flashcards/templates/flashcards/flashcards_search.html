@@ -1,13 +1,14 @@
 {% extends "flashcards/base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 {% block content %}
     <section class="mt-4 ml-2 ml-md-1">
         <div>
-            <h1 class="h4">Search for flashcards in <b>{{ set.name }}</b></h1>
+            <h1 class="h4">{% translate 'Search for flashcard in' %} <b>{{ set.name }}</b></h1>
         </div>
         <div class="search-container mb-5 mt-3 mt-lg-4">
             <form action="">
-                <input type="text" placeholder="Search for flashcard" name="search" class="mb-4 mb-md-2">
+                <input type="text" placeholder="{% translate 'Search for flashcard' %}" name="search" class="mb-4 mb-md-2">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
@@ -15,11 +16,11 @@
             <table class="table table-hover col-12">
                 <tbody>
                 {% for flashcard in flashcards %}
-                <tr>
-                    <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front }}</a>
-                    </td>
-                    <td><small>{{ flashcard.added | date:"F d, Y" }}</small></td>
-                </tr>
+                    <tr>
+                        <td><a href="{% url 'flashcard-detail' flashcard.id %}">{{ flashcard.back }} - {{ flashcard.front }}</a>
+                        </td>
+                        <td><small>{{ flashcard.added | date:"d E, Y" }}</small></td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -27,7 +28,7 @@
         <div class="fluid-container ml-lg-1 mb-4">
                 <a href="{% url 'flashcard-list' set.pk %}"
                    class="btn btn-back btn-square btn-sm d-inline-block col-md-3 col-6" role="button"
-                   aria-pressed="true">Back</a>
+                   aria-pressed="true">{% translate 'Back' %}</a>
         </div>
     </section>
 {% endblock content %}

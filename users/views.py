@@ -5,6 +5,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.translation import gettext_lazy as _
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 
@@ -13,17 +14,20 @@ from .tokens import account_activation_token
 from flashcards.models import Set, Flashcard
 
 
-
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
+        if request.LANGUAGE_CODE == 'en-us':
+            email_path = 'users/account_activation_email.html'
+        else:
+            email_path = 'users/email_aktywacyjny.html'
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
-            subject = 'Confirm Your Forget-It-Not Account'
-            message = render_to_string('users/account_activation_email.html',
+            subject = _('Confirm Your Forget-It-Not Account')
+            message = render_to_string(email_path,
                                        {'user': user,
                                         'domain': current_site.domain,
                                         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -32,7 +36,8 @@ def register(request):
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(subject, message, to=[to_email])
             email.send()
-            messages.success(request, ('Please confirm your email to complete registration.'))
+            msg = _('Please confirm your email to complete registration.')
+            messages.success(request, msg)
 
     else:
         form = UserRegisterForm()
@@ -48,10 +53,12 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request, ('Your account has been confirmed. You can log in.'))
+        msg = _('Your account has been confirmed. You can log in.')
+        messages.success(request, msg)
         return redirect('login')
     else:
-        messages.warning(request, ('The confirmation link is invalid!'))
+        msg = _('The confirmation link is invalid!')
+        messages.warning(request, msg)
         return redirect('home')
 
 
@@ -66,7 +73,8 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, f'Your account has been updated!')
+            msg = _('Your account has been updated!')
+            messages.success(request, msg)
             return redirect('profile')
 
     else:
@@ -85,8 +93,8 @@ def profile(request):
         'profile': 'active'
     }
 
-    if request.user.username == "guest":
-        context['guest'] = True
+    if request.user.username == "demo":
+        context['demo'] = True
     return render(request, 'users/profile.html', context)
 
 
@@ -94,6 +102,7 @@ def profile(request):
 def delete_user(request):
     if request.method == "POST" and "delete" in request.POST:
         request.user.delete()
-        messages.success(request, f'Your account has been deleted!')
+        msg = _('Your account has been deleted!')
+        messages.success(request, msg)
         return redirect('flashcards-home')
     return render(request, 'users/profile_confirm_delete.html')

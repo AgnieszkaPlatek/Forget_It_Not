@@ -132,7 +132,7 @@ header img{
 #grad:hover {
     background-image: -webkit-radial-gradient(rgb(255, 255, 255), rgb(119, 182, 249));
     background-image: radial-gradient(rgb(255, 255, 255), rgb(53, 144, 240));
-    text-shadow: 2px 2px 5px #ffffff;
+    text-shadow: -0.05ex 0 #000000, 0.05ex 0 #000000;
 }
 
 #please-register:hover {
@@ -237,7 +237,19 @@ header img{
 
 /* Buttons */
 
-.btn-square{
+.btn-lang {
+    background: #C8EDA8;
+    border-radius: 8px;
+    font-size: 1.0rem;
+    cursor: pointer;
+}
+
+.btn-lang:hover {
+    text-shadow: -0.06ex 0 #000000, 0.06ex 0 #000000;
+    background: #F1D8BB;
+}
+
+.btn-square {
     border-radius: 0;
 }
 

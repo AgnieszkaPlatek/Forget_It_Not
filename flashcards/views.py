@@ -13,7 +13,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.urls import reverse_lazy
 
-
 from .models import Set, Flashcard
 from learn.models import Learn
 from learn.views import make_question_ids
@@ -42,27 +41,28 @@ def home(request):
 
 
 def create_example_set(guest_user):
-    example_set = Set.objects.create(name="example set", owner=guest_user)
-    for i in range(1, 6):
-        front = f'Question {i}'
-        back = f'Answer {i}'
+    example_set = Set.objects.create(name="example", owner=guest_user)
+    examples = [('kot', 'cat'), ('pies', 'dog'), ('koń', 'horse'), ('krowa', 'cow'), ('mysz', 'mouse')]
+    for example in examples:
+        front = example[0]
+        back = example[1]
         Flashcard.objects.create(set=example_set, owner=guest_user, front=front, back=back)
 
 
 def welcome(request):
     if request.method == "POST" and "demo" in request.POST:
-        user = authenticate(username="guest", password=guest_password)
+        user = authenticate(username="demo", password=guest_password)
         if user is not None:
             pk = user.pk
 
             # Delete all previously created demo sets with the exception of example set
-            sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example set")
+            sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example")
             for set in sets_to_be_deleted:
                 set.delete()
 
             # Delete all previously created flashcards added by demo user to the example set
             try:
-                example_set = Set.objects.get(owner=pk, name="example set")
+                example_set = Set.objects.get(owner=pk, name="example")
                 flashcards_to_be_deleted = Flashcard.objects.filter(set=example_set)[5:]
                 for f in flashcards_to_be_deleted:
                     f.delete()
@@ -72,13 +72,13 @@ def welcome(request):
 
         else:
             # Create guest active demo user.
-            user = User.objects.create_user(username="guest", password=guest_password)
+            user = User.objects.create_user(username="demo", password=guest_password)
             user.is_active = True
             user.save()
 
             # Create example set with few example flashcards.
             create_example_set(user)
-            authenticate(username="guest", password=guest_password)
+            authenticate(username="demo", password=guest_password)
 
         return redirect('flashcards-home')
     return render(request, 'flashcards/welcome.html')
@@ -127,7 +127,7 @@ class SetUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class SetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Set
-    success_url = '/set/list/'
+    success_url = reverse_lazy('set-list')
 
     def test_func(self):
         set = self.get_object()
@@ -194,9 +194,7 @@ def search_for_flashcards(request, pk):
     set = get_object_or_404(Set, pk=pk, owner=request.user)
     flashcards = Flashcard.objects.filter(set=set).order_by('added')
     query = request.GET.get('search')
-    context = {
-        "set": set
-    }
+    context = {"set": set}
     if is_valid_query(query):
         flashcards = flashcards.filter(
             Q(front__icontains=query) |
