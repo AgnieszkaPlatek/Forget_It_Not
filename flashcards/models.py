@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 class Set(models.Model):
     """
     Set model is a set of flashcards.
-    User can create as many sets as he like.
+    User can create as many sets as he likes.
     """
     name = models.CharField(max_length=20, verbose_name=_('name'))
     owner = models.ForeignKey(User, on_delete=models.CASCADE)

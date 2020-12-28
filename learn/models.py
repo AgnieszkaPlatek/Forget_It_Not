@@ -7,6 +7,10 @@ from flashcards.models import Set
 
 
 class Learn(models.Model):
+    """
+    Learn model is a learning session of flashcards.
+    User can learn all his flashcards, flashcards from one set or from part of it.
+    """
     learner = models.ForeignKey(User, on_delete=models.CASCADE)
     question_ids = models.TextField()
     total_questions = models.IntegerField(null=False, default=0)
