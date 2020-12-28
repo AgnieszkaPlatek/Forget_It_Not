@@ -1,6 +1,7 @@
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
+from . import views
 from .views import (
     SetListView,
     SetCreateView,
@@ -10,7 +11,6 @@ from .views import (
     FlashcardUpdateView,
     FlashcardDeleteView
 )
-from . import views
 
 
 urlpatterns = [

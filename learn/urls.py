@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 from . import views
 
-
 urlpatterns = [
     path(_('learn/'), views.learn, name='learn'),
     path('set/<int:pk>/learn/', views.learn_set, name='learn-set'),

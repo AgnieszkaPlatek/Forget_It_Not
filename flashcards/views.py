@@ -2,21 +2,21 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     CreateView,
     UpdateView,
     DeleteView
 )
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
-from django.urls import reverse_lazy
 
-from .models import Set, Flashcard
+from FIN_django.settings import guest_password
 from learn.models import Learn
 from learn.views import make_question_ids
-from FIN_django.settings import guest_password
+from .models import Set, Flashcard
 
 
 def is_valid_query(p):
@@ -312,4 +312,3 @@ class FlashcardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         flashcard = self.get_object()
         pk = flashcard.set.pk
         return reverse_lazy('flashcard-list', kwargs={'pk': pk})
-
