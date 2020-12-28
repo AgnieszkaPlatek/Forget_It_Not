@@ -24,6 +24,9 @@ class Set(models.Model):
     def __str__(self):
         return self.name
 
+    def __repr__(self):
+        return f'Set {self.name}'
+
 
 class Flashcard(models.Model):
     """
@@ -41,3 +44,6 @@ class Flashcard(models.Model):
 
     def __str__(self):
         return f'{self.front} - {self.back}'
+
+    def __repr__(self):
+        return f'Flashcard({self.front} - {self.back})'

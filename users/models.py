@@ -9,6 +9,9 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    def __repr__(self):
+        return f'Profile {self.user.username}'
+
     # def save(self, *args, **kwargs):
     #     super().save(*args, **kwargs)
     #

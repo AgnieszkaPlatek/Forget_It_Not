@@ -39,3 +39,6 @@ class Learn(models.Model):
 
     def __str__(self):
         return f'Learning session {self.pk}'
+
+    def __repr__(self):
+        return f'Learn {self.pk}'
