@@ -1,3 +1,6 @@
+from django.db.models import Q
+
+from flashcards.models import Set, Flashcard
 
 
 def make_list_of_ids(pk):
@@ -27,3 +30,7 @@ def create_example_set(guest_user):
         front = example[0]
         back = example[1]
         Flashcard.objects.create(set=example_set, owner=guest_user, front=front, back=back)
+
+
+def search(query, flashcards):
+    return flashcards.filter(Q(front__icontains=query) | Q(back__icontains=query)).distinct()

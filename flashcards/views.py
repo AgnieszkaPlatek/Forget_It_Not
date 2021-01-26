@@ -13,7 +13,7 @@ from django.views.generic import (
     DeleteView
 )
 
-from FIN_django.helpers import make_list_of_ids, make_question_ids, create_example_set
+from FIN_django.helpers import make_list_of_ids, make_question_ids, create_example_set, search
 from FIN_django.settings import guest_password, FLASHCARDS_PER_PAGE
 from learn.models import Learn
 from .models import Set, Flashcard
@@ -25,14 +25,10 @@ def home(request):
     else:
         total_sets = Set.objects.filter(owner=request.user).count()
         flashcards = Flashcard.objects.filter(owner=request.user)
-        total_flashcards = flashcards.count()
         query = request.GET.get('search')
-        context = {'total_sets': total_sets, 'total_flashcards': total_flashcards}
+        context = {'total_sets': total_sets, 'total_flashcards': flashcards.count()}
         if query and len(query) > 2:
-            flashcards = flashcards.filter(
-                Q(front__icontains=query) |
-                Q(back__icontains=query)).distinct()
-            context['flashcards'] = flashcards
+            context['flashcards'] = search(query, flashcards)
         return render(request, 'flashcards/home.html', context)
 
 
@@ -72,7 +68,6 @@ def welcome(request):
 class SetListView(LoginRequiredMixin, ListView):
     model = Set
     context_object_name = 'sets'
-    ordering = ['-created']
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -105,9 +100,7 @@ class SetUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         set = self.get_object()
-        if self.request.user == set.owner:
-            return True
-        return False
+        return self.request.user == set.owner
 
 
 class SetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -116,37 +109,22 @@ class SetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         set = self.get_object()
-        if self.request.user == set.owner:
-            return True
-        return False
+        return self.request.user == set.owner
 
 
 @login_required
 def flashcard_list(request, pk):
     set = get_object_or_404(Set, pk=pk, owner=request.user)
     flashcards = set.flashcard_set.all()
-    page = request.GET.get('page', FLASHCARDS_PER_PAGE)
-    paginator = Paginator(flashcards, 30)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(flashcards, FLASHCARDS_PER_PAGE)
     try:
         flashcards = paginator.page(page)
     except PageNotAnInteger:
         flashcards = paginator.page(1)
     except EmptyPage:
         flashcards = paginator.page(paginator.num_pages)
-    count = set.count_flashcards
-    query = request.GET.get('search')
-    context = {
-        'set': set,
-        'flashcards': flashcards,
-        'count': count,
-        'title': str(set.name)
-    }
-    if query:
-        qs = flashcards.filter(
-            Q(front__icontains=query) |
-            Q(back__icontains=query)).distinct()
-        context['qs'] = qs
-        del context['flashcards']
+    context = {'set': set, 'flashcards': flashcards, 'count': set.count_flashcards, 'title': str(set.name)}
 
     return render(request, 'flashcards/flashcard_list.html', context)
 
@@ -165,27 +143,21 @@ def filter_flashcards(request, pk):
         context['flashcards'] = flashcards
     if request.method == 'POST' and 'learn' in request.POST:
         question_ids = make_question_ids(flashcards)
-        total = len(flashcards)
         session = Learn.objects.create(learner=request.user, question_ids=question_ids,
-                                       total_questions=total, set_to_learn=set)
-        l_pk = session.pk
-        return redirect('learn-part', l_pk=l_pk)
+                                       total_questions=len(flashcards), set_to_learn=set)
+        return redirect('learn-part', l_pk=session.pk)
 
     return render(request, 'flashcards/flashcards_select_form.html', context)
 
 
 def search_for_flashcards(request, pk):
     set = get_object_or_404(Set, pk=pk, owner=request.user)
-    flashcards = Flashcard.objects.filter(set=set).order_by('added')
+    flashcards = Flashcard.objects.filter(set=set)
     query = request.GET.get('search')
     context = {'set': set}
-    if query:
-        flashcards = flashcards.filter(
-            Q(front__icontains=query) |
-            Q(back__icontains=query)).distinct()
-        context['flashcards'] = flashcards
+    if query and len(query) > 2:
+        context['flashcards'] = search(query, flashcards)
     return render(request, 'flashcards/flashcards_search.html', context)
-
 
 
 def find_next_flashcard(pk):
@@ -220,9 +192,7 @@ def flashcard_detail(request, pk):
     flashcard = get_object_or_404(Flashcard, pk=pk)
     next_id = find_next_flashcard(pk)
     previous_id = find_previous_flashcard(pk)
-    context = {
-        'flashcard': flashcard
-    }
+    context = {'flashcard': flashcard}
     if next_id:
         context['next_id'] = next_id
     if previous_id:
@@ -245,9 +215,7 @@ class FlashcardAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         pk = self.kwargs.get('pk', None)
         set = get_object_or_404(Set, pk=pk)
-        if self.request.user == set.owner:
-            return True
-        return False
+        return self.request.user == set.owner
 
 
 class FlashcardUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -265,9 +233,7 @@ class FlashcardUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         flashcard = self.get_object()
-        if self.request.user == flashcard.owner:
-            return True
-        return False
+        return self.request.user == flashcard.owner
 
 
 class FlashcardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -275,11 +241,8 @@ class FlashcardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         flashcard = self.get_object()
-        if self.request.user == flashcard.owner:
-            return True
-        return False
+        return self.request.user == flashcard.owner
 
     def get_success_url(self):
         flashcard = self.get_object()
-        pk = flashcard.set.pk
-        return reverse_lazy('flashcard-list', kwargs={'pk': pk})
+        return reverse_lazy('flashcard-list', kwargs={'pk': flashcard.set.pk})
