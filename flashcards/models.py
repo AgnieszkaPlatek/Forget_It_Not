@@ -14,6 +14,9 @@ class Set(models.Model):
     created = models.DateField(auto_now_add=True)
     last_modified = models.DateField(auto_now=True)
 
+    class Meta:
+        ordering = ['-created']
+
     @property
     def count_flashcards(self):
         return Flashcard.objects.filter(set=self).count()
