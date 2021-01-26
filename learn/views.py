@@ -15,9 +15,8 @@ def learn(request):
         if set.count_flashcards > 0:
             sets.append(set)
     empty = user.flashcard_set.count() == 0
-    num_sets = len(sets)
     num_flashcards = Flashcard.objects.filter(owner=user).count
-    context = {'sets': sets, 'empty': empty, 'num_sets': num_sets, 'num_flashcards': num_flashcards,
+    context = {'sets': sets, 'empty': empty, 'num_sets': len(sets), 'num_flashcards': num_flashcards,
                'learn': 'active', 'title': 'Learn'}
     return render(request, 'learn/learn.html', context)
 
@@ -27,20 +26,15 @@ def learn_set(request, pk):
     set = get_object_or_404(Set, pk=pk)
     question_ids = make_question_ids(set.flashcard_set.all())
     total = set.flashcard_set.count()
-    session = Learn(learner=request.user, question_ids=question_ids, total_questions=total, set_to_learn=set)
-    session.save()
-    l_pk = session.pk
-    context = {'set': set, 'total': total, 'l_pk': l_pk, 'title': f'Learn {set.name}'}
+    session = Learn.objects.create(learner=request.user, question_ids=question_ids, total_questions=total,
+                                    set_to_learn=set)
+    context = {'set': set, 'total': total, 'l_pk': session.pk, 'title': f'Learn {set.name}'}
     return render(request, 'learn/learn_intro.html', context)
 
 
 def learn_part(request, l_pk):
     session = get_object_or_404(Learn, pk=l_pk)
-    set = session.set_to_learn
-    l_pk = session.pk
-    total = session.total_questions
-    part = True
-    context = {'set': set, 'total': total, 'l_pk': l_pk, 'part': part}
+    context = {'set': session.set_to_learn, 'total': session.total_questions, 'l_pk': session.pk, 'part': True}
     return render(request, 'learn/learn_intro.html', context)
 
 
@@ -49,11 +43,8 @@ def learn_all(request):
     user = request.user
     flashcards = Flashcard.objects.filter(owner=user)
     question_ids = make_question_ids(flashcards)
-    total = len(flashcards)
-    session = Learn(learner=user, question_ids=question_ids, total_questions=total)
-    session.save()
-    l_pk = session.pk
-    context = {'total': total, 'l_pk': l_pk, 'title': 'Learn all flashcards'}
+    session = Learn.objects.create(learner=user, question_ids=question_ids, total_questions=len(flashcards))
+    context = {'total': len(flashcards), 'l_pk': session.pk, 'title': 'Learn all flashcards'}
     return render(request, 'learn/learn_intro.html', context)
 
 
@@ -62,11 +53,8 @@ def question(request, l_pk):
     session = get_object_or_404(Learn, pk=l_pk)
     question_id = session.pick_question()
     flashcard = get_object_or_404(Flashcard, pk=question_id)
-    front = flashcard.front
-    total = session.total_questions
-    learned = session.learned
-    context = {'set': set, 'l_pk': l_pk, 'f_pk': question_id, 'front': front, 'learned': learned,
-               'total': total}
+    context = {'set': set, 'l_pk': l_pk, 'f_pk': question_id, 'front': flashcard.front, 'learned': session.learned,
+               'total': session.total_questions}
     if session.set_to_learn:
         context['set'] = session.set_to_learn
     return render(request, 'learn/question.html', context)
@@ -89,10 +77,8 @@ def answer(request, l_pk, f_pk):
     elif request.method == 'POST' and 'not-learned' in request.POST:
         return redirect('learn-question', l_pk=l_pk)
 
-    back = flashcard.back
-    total = session.total_questions
-    learned = session.learned
-    context = {'set': set, 'l_pk': l_pk, 'f_pk': f_pk, 'learned': learned, 'back': back, 'total': total}
+    context = {'set': set, 'l_pk': l_pk, 'f_pk': f_pk, 'learned': session.learned, 'back': flashcard.back,
+               'total': session.total_questions}
     if session.set_to_learn:
         context['set'] = session.set_to_learn
     return render(request, 'learn/answer.html', context)
@@ -105,6 +91,5 @@ def finished_learning(request, l_pk):
         set = session.set_to_learn
     else:
         set = None
-    total = session.total_questions
-    context = {'total': total, 'set': set}
+    context = {'total': session.total_questions, 'set': set}
     return render(request, 'learn/finished.html', context)
