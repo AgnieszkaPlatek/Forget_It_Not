@@ -8,6 +8,7 @@ class SetCreateForm(ModelForm):
         model = Set
         fields = ['name']
 
+
 class FlashcardAddForm(ModelForm):
     class Meta:
         model = Flashcard

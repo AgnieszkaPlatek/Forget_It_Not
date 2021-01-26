@@ -93,14 +93,14 @@ def profile(request):
         'profile': 'active'
     }
 
-    if request.user.username == "demo":
+    if request.user.username == 'demo':
         context['demo'] = True
     return render(request, 'users/profile.html', context)
 
 
 @login_required
 def delete_user(request):
-    if request.method == "POST" and "delete" in request.POST:
+    if request.method == 'POST' and 'delete' in request.POST:
         request.user.delete()
         msg = _('Your account has been deleted!')
         messages.success(request, msg)

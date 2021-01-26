@@ -24,9 +24,6 @@ class Set(models.Model):
     def __str__(self):
         return self.name
 
-    def __repr__(self):
-        return f'Set {self.name}'
-
 
 class Flashcard(models.Model):
     """
@@ -39,11 +36,11 @@ class Flashcard(models.Model):
     last_modified = models.DateField(auto_now=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-added']
+
     def get_absolute_url(self):
         return reverse('flashcard-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return f'{self.front} - {self.back}'
-
-    def __repr__(self):
-        return f'Flashcard({self.front} - {self.back})'

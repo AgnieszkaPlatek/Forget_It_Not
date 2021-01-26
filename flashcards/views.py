@@ -13,56 +13,41 @@ from django.views.generic import (
     DeleteView
 )
 
-from FIN_django.settings import guest_password
+from FIN_django.helpers import make_list_of_ids, make_question_ids, create_example_set
+from FIN_django.settings import guest_password, FLASHCARDS_PER_PAGE
 from learn.models import Learn
-from learn.views import make_question_ids
 from .models import Set, Flashcard
 
 
-def is_valid_query(p):
-    return p != '' and p is not None
-
-
 def home(request):
-    if request.user.is_authenticated:
+    if not request.user.is_authenticated:
+        return redirect('flashcards-welcome')
+    else:
         total_sets = Set.objects.filter(owner=request.user).count()
-        total_flashcards = Flashcard.objects.filter(owner=request.user).count()
         flashcards = Flashcard.objects.filter(owner=request.user)
+        total_flashcards = flashcards.count()
         query = request.GET.get('search')
         context = {'total_sets': total_sets, 'total_flashcards': total_flashcards}
-        if is_valid_query(query):
+        if query and len(query) > 2:
             flashcards = flashcards.filter(
                 Q(front__icontains=query) |
                 Q(back__icontains=query)).distinct()
             context['flashcards'] = flashcards
         return render(request, 'flashcards/home.html', context)
-    else:
-        return redirect('flashcards-welcome')
-
-
-def create_example_set(guest_user):
-    example_set = Set.objects.create(name="example", owner=guest_user)
-    examples = [('kot', 'cat'), ('pies', 'dog'), ('koń', 'horse'), ('krowa', 'cow'), ('mysz', 'mouse')]
-    for example in examples:
-        front = example[0]
-        back = example[1]
-        Flashcard.objects.create(set=example_set, owner=guest_user, front=front, back=back)
 
 
 def welcome(request):
-    if request.method == "POST" and "demo" in request.POST:
-        user = authenticate(username="demo", password=guest_password)
-        if user is not None:
+    if request.method == 'POST' and 'demo' in request.POST:
+        user = authenticate(username='demo', password=guest_password)
+        if user:
             pk = user.pk
 
             # Delete all previously created demo sets with the exception of example set
-            sets_to_be_deleted = Set.objects.filter(owner=pk).exclude(name="example")
-            for set in sets_to_be_deleted:
-                set.delete()
+            Set.objects.filter(owner=pk).exclude(name='example').delete()
 
             # Delete all previously created flashcards added by demo user to the example set
             try:
-                example_set = Set.objects.get(owner=pk, name="example")
+                example_set = Set.objects.get(owner=pk, name='example')
                 flashcards_to_be_deleted = Flashcard.objects.filter(set=example_set)[5:]
                 for f in flashcards_to_be_deleted:
                     f.delete()
@@ -72,13 +57,13 @@ def welcome(request):
 
         else:
             # Create guest active demo user.
-            user = User.objects.create_user(username="demo", password=guest_password)
+            user = User.objects.create_user(username='demo', password=guest_password)
             user.is_active = True
             user.save()
 
             # Create example set with few example flashcards.
             create_example_set(user)
-            authenticate(username="demo", password=guest_password)
+            authenticate(username='demo', password=guest_password)
 
         return redirect('flashcards-home')
     return render(request, 'flashcards/welcome.html')
@@ -102,7 +87,7 @@ class SetListView(LoginRequiredMixin, ListView):
 class SetCreateView(LoginRequiredMixin, CreateView):
     model = Set
     fields = ['name']
-    template_name = "flashcards/set_create.html"
+    template_name = 'flashcards/set_create.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -112,7 +97,7 @@ class SetCreateView(LoginRequiredMixin, CreateView):
 class SetUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Set
     fields = ['name']
-    template_name = "flashcards/set_update.html"
+    template_name = 'flashcards/set_update.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -139,8 +124,8 @@ class SetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 @login_required
 def flashcard_list(request, pk):
     set = get_object_or_404(Set, pk=pk, owner=request.user)
-    flashcards = set.flashcard_set.order_by('added')
-    page = request.GET.get('page', 1)
+    flashcards = set.flashcard_set.all()
+    page = request.GET.get('page', FLASHCARDS_PER_PAGE)
     paginator = Paginator(flashcards, 30)
     try:
         flashcards = paginator.page(page)
@@ -150,19 +135,18 @@ def flashcard_list(request, pk):
         flashcards = paginator.page(paginator.num_pages)
     count = set.count_flashcards
     query = request.GET.get('search')
-    qs = set.flashcard_set.order_by('added')
     context = {
-        "set": set,
-        "flashcards": flashcards,
-        "count": count,
-        "title": str(set.name)
+        'set': set,
+        'flashcards': flashcards,
+        'count': count,
+        'title': str(set.name)
     }
-    if is_valid_query(query):
-        qs = qs.filter(
+    if query:
+        qs = flashcards.filter(
             Q(front__icontains=query) |
             Q(back__icontains=query)).distinct()
-        context["qs"] = qs
-        del context["flashcards"]
+        context['qs'] = qs
+        del context['flashcards']
 
     return render(request, 'flashcards/flashcard_list.html', context)
 
@@ -173,17 +157,17 @@ def filter_flashcards(request, pk):
     min_date = request.GET.get('min_date')
     max_date = request.GET.get('max_date')
     context = {'set': set}
-    if is_valid_query(min_date):
+    if min_date:
         flashcards = flashcards.filter(added__gte=min_date)
         context['flashcards'] = flashcards
-    if is_valid_query(max_date):
+    if max_date:
         flashcards = flashcards.filter(added__lte=max_date)
         context['flashcards'] = flashcards
-    if request.method == "POST" and "learn" in request.POST:
+    if request.method == 'POST' and 'learn' in request.POST:
         question_ids = make_question_ids(flashcards)
         total = len(flashcards)
-        session = Learn(learner=request.user, question_ids=question_ids, total_questions=total, set_to_learn=set)
-        session.save()
+        session = Learn.objects.create(learner=request.user, question_ids=question_ids,
+                                       total_questions=total, set_to_learn=set)
         l_pk = session.pk
         return redirect('learn-part', l_pk=l_pk)
 
@@ -194,27 +178,14 @@ def search_for_flashcards(request, pk):
     set = get_object_or_404(Set, pk=pk, owner=request.user)
     flashcards = Flashcard.objects.filter(set=set).order_by('added')
     query = request.GET.get('search')
-    context = {"set": set}
-    if is_valid_query(query):
+    context = {'set': set}
+    if query:
         flashcards = flashcards.filter(
             Q(front__icontains=query) |
             Q(back__icontains=query)).distinct()
         context['flashcards'] = flashcards
     return render(request, 'flashcards/flashcards_search.html', context)
 
-
-def make_list_of_ids(pk):
-    """
-    pk: the primary key of a flashcard
-
-    returns: a list of ids of all flashcards that are in the same set as the flashcard with given id
-
-    Helps in finding next and previous flashcard to let the user easily browse flashcards from their set.
-    """
-    flashcard = Flashcard.objects.get(pk=pk)
-    set = flashcard.set
-    set_flashcards = Flashcard.objects.filter(set__id=set.id)
-    return [f.id for f in set_flashcards]
 
 
 def find_next_flashcard(pk):
@@ -250,12 +221,12 @@ def flashcard_detail(request, pk):
     next_id = find_next_flashcard(pk)
     previous_id = find_previous_flashcard(pk)
     context = {
-        "flashcard": flashcard
+        'flashcard': flashcard
     }
     if next_id:
-        context["next_id"] = next_id
+        context['next_id'] = next_id
     if previous_id:
-        context["previous_id"] = previous_id
+        context['previous_id'] = previous_id
     return render(request, 'flashcards/flashcard_detail.html', context)
 
 
@@ -263,16 +234,16 @@ class FlashcardAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Flashcard
     context_object_name = 'flashcard'
     fields = ['front', 'back']
-    template_name = "flashcards/flashcard_add.html"
+    template_name = 'flashcards/flashcard_add.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        pk = self.kwargs.get("pk", None)
+        pk = self.kwargs.get('pk', None)
         form.instance.set = get_object_or_404(Set, pk=pk)
         return super().form_valid(form)
 
     def test_func(self):
-        pk = self.kwargs.get("pk", None)
+        pk = self.kwargs.get('pk', None)
         set = get_object_or_404(Set, pk=pk)
         if self.request.user == set.owner:
             return True
@@ -283,11 +254,11 @@ class FlashcardUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Flashcard
     context_object_name = 'flashcard'
     fields = ['front', 'back']
-    template_name = "flashcards/flashcard_update.html"
+    template_name = 'flashcards/flashcard_update.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        pk = self.kwargs.get("pk", None)
+        pk = self.kwargs.get('pk', None)
         flashcard = get_object_or_404(Flashcard, pk=pk)
         form.instance.set = flashcard.set
         return super().form_valid(form)

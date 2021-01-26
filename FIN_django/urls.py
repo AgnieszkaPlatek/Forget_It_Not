@@ -33,7 +33,7 @@ from users import views as user_views
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
-    path('admin/', admin.site.urls),
+    path('fin-admin/', admin.site.urls),
 ]
 
 urlpatterns += i18n_patterns(
